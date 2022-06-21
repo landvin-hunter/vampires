@@ -1,0 +1,288 @@
+<?
+--_G.glv = 0
+local slk = require 'slk'
+local itemFile = {
+    [[Objects\InventoryItems\tomeBlue\tomeBlue.mdl]],
+    [[Objects\InventoryItems\tomeRed\tomeRed.mdl]],
+    [[Objects\InventoryItems\tomeGreen\tomeGreen.mdl]],
+    [[Objects\InventoryItems\tomeBrown\tomeBrown.mdl]],
+    [[Objects\InventoryItems\tome\tome.mdl]],
+}
+local itemEndId = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'}
+local itemList = {
+    {
+        Name = '魔法垂饰',
+        Tips = [[自动发射魔法弹道]],
+        Description = [[
+|cff22bb22范围：|r <A00K,Area*lv>
+|cffeeee55伤害：|r <A00K,DataA*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNPendantOfMana.blp]],
+        CD = [[return (2.5 - glv * 0.2)]],
+        CDMax = 0.1,
+    },
+    {
+        Name = '攻击之爪',
+        Tips = [[发射一圈刀刃]],
+        Description = [[
+|cff22bb22范围：|r <A006,Area*lv>
+|cffeeee55伤害：|r <A006,DataA*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNClawsOfAttack.blp]],
+        CD = [[return (3.2 - glv * 0.2)]],
+        CDMax = 0.5,
+    },
+    {
+        Name = '雷电花芯',
+        Tips = [[发射一道弹射闪电]],
+        TipsMax = [[发射一道弹射闪电，弹跳不会再伤害衰减]],
+        Description = [[
+|cff22bb22范围：|r <A008,Rng*lv>
+|cffeeee55伤害：|r <A008,DataA*lv>
+|cffeeee55弹跳：|r <A008,DataB*lv>次
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNManaFlareOff.blp]],
+        CD = [[return 1]],
+        CDMax = 1,
+    },
+    {
+        Name = '火焰风衣',
+        Tips = [[扔出火焰燃烧地面]],
+        Description = [[
+|cff22bb22范围：|r 400/<A00J,Area*lv>
+|cffeeee55伤害：|r <A00J,DataA*lv>/0.5秒
+|cffffcc00数量：|r *lv
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNCloakOfFlames.blp]],
+        CD = [[return 5]],
+        CDMax = 5,
+    },
+    {
+        Name = '天灾骨钟',
+        Tips = [[发射一道死亡虹电，还能治疗自己2点生命]],
+        TipsMax = [[发射两道死亡虹电，还能治疗自己2点生命]],
+        Description = [[
+|cff22bb22范围：|r <A00Q,Rng*lv>
+|cffeeee55伤害：|r <A00Q,DataC*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNBoneChimes.blp]],
+        CD = [[return (4.2 - glv * 0.2)]],
+        CDMax = 1,
+    },
+    {
+        Name = '酸性药剂',
+        Tips = [[投掷药剂对目标周围敌人持续伤害]],
+        Description = [[
+|cff22bb22范围：|r 700/<A00t,Area*lv>
+|cffeeee55伤害：|r <A00t,DataE*lv>/0.4秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNPotionOfOmniscience.blp]],
+        CD = [[return 4.5]],
+        CDMax = 4.5,
+    },
+    {
+        Name = '冰冻碎片',
+        Tips = [[向周围吹出寒气]],
+        Description = [[
+|cff22bb22范围：|r <A00O,DataC*lv>
+|cffeeee55伤害：|r <A00O,DataA*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNIceShard.blp]],
+        CD = [[return (2 - glv * 0.1)]],
+        CDMax = 0.5,
+    },
+    {
+        Name = '毁灭魔球',
+        Tips = [[召唤一颗陨石降落在附近]],
+        TipsMax = [[召唤数颗陨石降落在附近]],
+        Description = [[
+|cff22bb22范围：|r <A00r,Area*lv>
+|cffeeee55伤害：|r <A00r,DataB*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNInfernal.blp]],
+        CD = [[return 4]],
+        CDMax = 4,
+    },
+    {
+        Name = '死亡面罩',
+        Tips = [[朝着面朝方向发射蝙蝠群]],
+        Description = [[
+|cff22bb22范围：|r <A00I,DataC*lv>
+|cffeeee55伤害：|r <A00I,DataA*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNMaskOfDeath.blp]],
+        CD = [[return (1.5 - glv * 0.1)]],
+        CDMax = 0.2,
+    },
+    {
+        Name = '风暴战锤',
+        Tips = [[使得附近多个目标被雷柱打击]],
+        Description = [[
+|cff22bb22范围：|r <A00P,Area*lv>
+|cffeeee55伤害：|r <A00P,DataA*lv>
+|cffffcc00数量：|r <A00P,DataC*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNStormHammer.blp]],
+        CD = [[return (2.5 - glv * 0.1)]],
+        CDMax = 0.8,
+    },
+    {
+        Name = '鬼魂容器',
+        Tips = [[出现一个发射魔法弹的鬼魂]],
+        TipsMax = [[出现一个极快速发射魔法弹的鬼魂]],
+        Description = [[
+|cff22bb22范围：|r <A001,Area*lv>
+|cffeeee55伤害：|r <A001,DataA*lv>
+|cffffcc00持续：|r 5秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfCorruption.blp]],
+        CD = [[return 9]],
+        CDMax = 9,
+    },
+    {
+        Name = '恶魔手套',
+        Tips = [[呼唤大量的幽灵]],
+        TipsMax = [[呼唤极其大量的幽灵]],
+        Description = [[
+|cff22bb22范围：|r <A00S,Area*lv>
+|cffeeee55伤害：|r <A00S,DataC*lv>
+|cffffcc00持续：|r 4秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNSpellSteal.blp]],
+        CD = [[return 10]],
+        CDMax = 10,
+        abilList = 'A00L',
+    },
+    {
+        Name = '工匠地雷',
+        Tips = [[不断产生地雷]],
+        Description = [[
+|cff22bb22范围：|r <A00U,DataA*lv>
+|cffeeee55伤害：|r <A00U,DataB*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNGoblinLandMine.blp]],
+        CD = [[return 2]],
+        CDMax = 2,
+    },
+    {
+        Name = '屠夫锯刃',
+        Tips = [[向自身两侧抛出旋转锯刃切割路径上的敌人]],
+        Description = [[
+|cffeeee55伤害：|r <A002,DataA*lv>/0.2秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNGhoulFrenzy.blp]],
+        CD = [[return 5]],
+        CDMax = 5,
+    },
+    {
+        Name = '恶灵之书',
+        Tips = [[召唤数个骷髅环绕自身]],
+        Description = [[
+|cff22bb22范围：|r 300
+|cffeeee55伤害：|r <A003,DataA*lv>
+|cffffcc00数量：|r *slv/6秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNNecromancerMaster.blp]],
+        CD = [[return 10]],
+        CDMax = 10,
+    },
+}
+
+for num, tb in ipairs(itemList) do
+    for lv, vid in ipairs(itemEndId) do
+        local id = 'I'
+        local plus = ''
+        if num < 10 then
+            plus = '0' .. num .. vid
+        else
+            plus = num .. vid
+        end
+        id = id .. plus
+        local item = slk.item.rat9:new(id)
+
+        if lv == 11 then
+            item.Name = "|cffffff00" .. tb.Name .. '-LvMax|r'
+        else
+            item.Name = tb.Name .. '-Lv' .. lv
+        end
+
+        local originGescription = tb.Tips .. '|n|n' .. tb.Description
+        local description
+        if lv == 11 and tb.TipsMax then
+            originGescription = tb.TipsMax .. '|n|n' .. tb.Description
+            item.Description = tb.TipsMax
+        else
+            item.Description = tb.Tips
+        end
+        local cdfunc = tb.CD
+        local cd = tb.CDMax
+        if lv < 11 then
+            cd = (load(cdfunc, "", "t", {glv = lv}))()
+        end
+        description = originGescription:gsub('*lv', lv)
+        description = description:gsub('*slv', lv+1)
+        description = description:gsub('*cd', cd)
+        item.Ubertip = description
+        item.Art = tb.Art
+        item.Level = lv
+        if lv == 11 then
+            item.class = 'Artifact'
+        else
+            item.class = 'Permanent'
+        end
+        item.HP = cd*10
+        item.uses = cd*10
+        item.pawnable = 0   
+        item.file = itemFile[num%5+1]
+        item.abilList = tb.abilList or [[]]
+        --item:permanent()
+
+        if lv < 10 then
+            local id = 'p'
+            if num < 10 then
+                id = id .. '0' .. num .. vid
+            else
+                id = id .. num .. vid
+            end
+            local unit = slk.unit.ewsp:new(id)
+
+            local name = '将[' .. tb.Name .. '-Lv' .. (lv) .. ']升级'
+            if lv == 1 then
+                name = name .. '或获得[' .. tb.Name .. '-Lv' .. (lv) .. ']'
+            end
+            unit.Name = name
+            unit.Tip = name
+            
+            local description2 = originGescription:gsub('*lv', lv+1)
+            cd = (load(cdfunc, "", "t", {glv = lv+1}))()
+            description2 = description2:gsub('*cd', cd)
+            unit.Ubertip = string.format([[装备变化:|n%s|n--->>>|n%s]], description, description2)
+            unit.Hotkey = ''
+            unit.Buttonpos_1 = 0
+            unit.Buttonpos_2 = 0
+            unit.Art = tb.Art
+            unit.abilList = 'Aloc'
+            unit.type = ''
+            unit.fused = 0
+            unit.goldcost = 0
+            unit.stockRegen = 0
+            unit.race = 'orc'
+
+            --unit:permanent()
+        end
+
+        if tb.abi then
+            local data = tb.abi
+            local ability = slk.ability[data[id]]:new('A' .. plus)
+            
+            data[id] = nil
+            data.Name = 'item' .. plus .. item.Name
+            for k, v in pairs(data) do
+                ability[k] = v
+            end
+            item.Ubertip = description:gsub('*id', 'A' .. plus)
+        end
+    end
+end
+
+?>
