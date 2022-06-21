@@ -5,5 +5,6 @@ library item
     endglobals
 
     function itemCD takes unit hero returns nothing
+        
     endfunction
 endlibrary
