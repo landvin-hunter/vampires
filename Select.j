@@ -162,6 +162,15 @@ library select
             endif
             <? end ?>
         <? end ?>
+        if addabi == 'bk13' then //边锋上尉-血变
+            call UnitAddAbility(hero, 'Ad00')
+        endif
+        if addabi == 'bk32' then //烈阳祭司-窃取防护
+            call UnitAddAbility(hero, 'Ad02')
+        endif
+        if addabi == 'bk33' then //烈阳祭司-虚幻偶像
+            call UnitAddAbility(hero, 'Ad01')
+        endif
         if addabi == 'bk62' then //月光游侠-暗影
             call SetHeroAgi(hero, GetHeroAgi(hero, false)+60, false)
         endif

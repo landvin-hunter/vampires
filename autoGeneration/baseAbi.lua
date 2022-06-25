@@ -182,6 +182,52 @@ local baseSkill = {
         useUnit = 'urb9',
         useItem = 'IA09',
     },
+    ['Ad00'] = {
+        id = 'Aegr',
+        Name = [[ass-伤害变化,+100%]],
+        DataA = 1,
+        DataE = 2,
+        Buttonpos_1 = 0,
+        Buttonpos_2 = -11,
+        hero = 0,
+        race = 'undead',
+    },
+    ['Ad01'] = {
+        id = 'Aegr',
+        Name = [[ass-伤害变化,boss-30%]],
+        DataA = 1,
+        DataE = 0.7,
+        Buttonpos_1 = 0,
+        Buttonpos_2 = -11,
+        hero = 0,
+        race = 'undead',
+        targs = {"vulnerable,invulnerable,sapper"},
+    },
+    ['Ad02'] = {
+        id = 'Ansk',
+        Name = [[ass-伤害变化,-50]],
+        DataA = 100,
+        DataB = 1,
+        DataC = 50,
+        DataD = 1,
+        DataE = 1,
+        Buttonpos_1 = 0,
+        Buttonpos_2 = -11,
+        hero = 0,
+        race = 'undead',
+        CasterArt = [[Abilities\Spells\Human\ManaShield\ManaShieldCaster.mdl]],
+        Casterattachcount = 1,
+        Casterattach = [[origin]],
+    },
+    ['Ad03'] = {
+        id = 'AIsx',
+        Name = [[ass-速度变化,-40as/+40ms]],
+        DataA = -0.4,
+        Buttonpos_1 = 0,
+        Buttonpos_2 = -11,
+        hero = 0,
+        race = 'undead',
+    },
 }
 local noUse = {
     ['useUnit'] = true,
@@ -192,7 +238,7 @@ local noUse = {
 
 for id, tb in pairs(baseSkill) do
     local ability = slk.ability[tb.id]:new(id)
-    local lvs = tb.levels
+    local lvs = tb.levels or 1
     for key, data in pairs(tb) do
         if type(data) == 'table' then
             if type(data[1]) == 'string' then
@@ -215,33 +261,37 @@ for id, tb in pairs(baseSkill) do
             ability[key] = data
         end
     end
-    local unit = slk.unit.ewsp:new(tb.useUnit)
+    local name = (tb.Tip or ""):sub(1, 12)
+    if tb.useUnit then
+        local unit = slk.unit.ewsp:new(tb.useUnit)
 
-    local name = tb.Tip:sub(1, 12)
-    unit.Name = '固有能力升级-' .. name
-    unit.Tip = '升级或获得' .. name
+        unit.Name = '固有能力升级-' .. name
+        unit.Tip = '升级或获得' .. name
 
-    local des = tb.Ubertip:gsub('*id', id):gsub('*lv', 1)
-    local des2 = tb.Ubertip:gsub('*id', id):gsub('*lv', 10)
+        local des = tb.Ubertip:gsub('*id', id):gsub('*lv', 1)
+        local des2 = tb.Ubertip:gsub('*id', id):gsub('*lv', 10)
 
-    unit.Ubertip = string.format([[该能力1~10级的变化|n|n%s|n|n===========>>>>==========|n%s]], des, des2)
-    unit.Hotkey = ''
-    unit.Buttonpos_1 = 0
-    unit.Buttonpos_2 = 0
-    unit.Art = tb.ArtU or (tb.Art:gsub([[PassiveButtons\PAS]], [[CommandButtons\]]))
-    unit.abilList = 'Aloc'
-    unit.type = ''
-    unit.fused = 0
-    unit.goldcost = 0
-    unit.stockRegen = 0
-    unit.race = 'orc'
+        unit.Ubertip = string.format([[该能力1~10级的变化|n|n%s|n|n===========>>>>==========|n%s]], des, des2)
+        unit.Hotkey = ''
+        unit.Buttonpos_1 = 0
+        unit.Buttonpos_2 = 0
+        unit.Art = tb.ArtU or (tb.Art:gsub([[PassiveButtons\PAS]], [[CommandButtons\]]))
+        unit.abilList = 'Aloc'
+        unit.type = ''
+        unit.fused = 0
+        unit.goldcost = 0
+        unit.stockRegen = 0
+        unit.race = 'orc'
+    end
 
-    local item = slk.item.gold:new(tb.useItem)
+    if tb.useItem then
+        local item = slk.item.gold:new(tb.useItem)
 
-    item.Name = "[" .. name .. "]"
-    item.abilList = 'A000'
-    item.Description = "失去后可以获得或者升级该固有能力"
-    item.file = [[Units\Human\Phoenix\PhoenixEgg.mdl]]
+        item.Name = "[" .. name .. "]"
+        item.abilList = 'A000'
+        item.Description = "失去后可以获得或者升级该固有能力"
+        item.file = [[Units\Human\Phoenix\PhoenixEgg.mdl]]
+    end
 end
 
 ?>

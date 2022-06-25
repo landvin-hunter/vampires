@@ -282,7 +282,13 @@ function calculateLuck takes unit hero, real rate returns boolean
     local integer luck = GetHeroInt(hero, true)
     local real random = GetRandomReal(0, 100)
     
-    set random = random * ( 1 + 1.5 * luck / (luck + 80) )
+    if luck > 0 then
+        set random = random * ( 1 + 1.5 * luck / (luck + 80) )
+    endif
+
+    if bloodAbilities[(GetPlayerId(GetOwningPlayer(hero))+1)*100+22] then
+        set random = random * 1.3
+    endif
     
     return random <= rate
 endfunction
@@ -290,10 +296,28 @@ endfunction
 function damageCount takes unit hero, real dmg returns real
     local integer rateLv = GetUnitAbilityLevel(hero, 'AB06')
     local integer critLv = GetUnitAbilityLevel(hero, 'AB08')
+    local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
     local real add = 0
+    local integer gold
 
     if rateLv > 0 then
         set add = rateLv * 0.05
+    endif
+
+    if bloodAbilities[id+12] and GetUnitState(hero, UNIT_STATE_LIFE)/GetUnitState(hero, UNIT_STATE_MAX_LIFE) <= 0.3 then
+        set add = add + 0.25
+    endif
+
+    if bloodAbilities[id+13] then
+        set add = add + 0.2
+    endif
+
+    if bloodAbilities[id+61] then
+        set gold = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD)
+        if gold > 10 then
+            set add = add + 0.01 * gold/200
+            call SetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD, gold-10)
+        endif
     endif
 
     if critLv > 0 then

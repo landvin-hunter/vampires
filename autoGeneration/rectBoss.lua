@@ -162,24 +162,24 @@ local bloodList = {
         hero = 0,
     },
     ['AR41'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNAnimateDead.blp]],
-        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff漩涡]],
-        Ubertip = [[每10秒会在面前产生一个漩涡将敌人牵引到附近
+        Art = [[ReplaceableTextures\CommandButtons\BTNHowlOfTerror.blp]],
+        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff嘶吼]],
+        Ubertip = [[通过伤害击退那些靠近的敌人
 
-|cff22bb22持续：|r 3秒
-|cffeeee55范围：|r 800
+|cff22bb22范围：|r 400
+|cffeeee55击退：|r 200
     
-|cff59d8f4猛兽靠着寒气形成的凌冽漩涡，藏匿自身|r]],
+|cff59d8f4警觉，怒吼|r]],
         Requires = [[]],
         hero = 0,
     },
     ['AR42'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNHowlOfTerror.blp]],
-        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff嘶吼]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNAnimateDead.blp]],
+        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff漩涡]],
         Ubertip = [[击杀引发漩涡，将周围所有敌人吸引到一起
 
-|cff22bb22概率：|r 25%|cffffcc00(享受幸运加成)|r
-|cffeeee55范围：|r 400
+|cff22bb22冷却：|r 3秒
+|cffeeee55范围：|r 800
     
 |cff59d8f4猛兽靠着寒气形成的凌冽漩涡，藏匿自身|r]],
         Requires = [[]],
@@ -190,8 +190,8 @@ local bloodList = {
         Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff惧喝]],
         Ubertip = [[追踪你的敌人移动速度提高，但攻击速度降低
 
-|cff22bb22攻速：|r -40%
-|cffeeee55移速：|r +20%
+|cff22bb22攻速：|r -40
+|cffeeee55移速：|r +40
     
 |cff59d8f4冰冷刺骨，侵略内心|r]],
         Requires = [[]],
@@ -258,7 +258,7 @@ local bloodList = {
     ['AR63'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff灵魂契约]],
-        Ubertip = [[受到伤害时，向受伤害方向释放数个灵魂鸟
+        Ubertip = [[受到伤害时，在伤害来源附近释放数个灵魂鸟
 
 |cff22bb22伤害：|r 80+血质阶层*20/1个
     
