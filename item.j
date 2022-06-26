@@ -13,7 +13,7 @@ library item
         endif
 
         if bloodAbilities[id + 53] then
-            set ps = ps + GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER) * 0.03
+            set ps = ps + GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER) * 0.02
         endif
 
         return ps
@@ -24,7 +24,7 @@ library item
         local integer id = (GetPlayerId(GetOwningPlayer(hero)) + 1) * 100
         
         if bloodAbilities[id + 52] then
-            set cd = cd + 0.2
+            set cd = cd + 0.15
         endif
 
         return cd
