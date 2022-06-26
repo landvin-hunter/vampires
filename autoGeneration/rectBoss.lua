@@ -60,7 +60,8 @@ local bloodList = {
     ['AR11'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNSoulBurn.blp]],
         Tip = [[|cff00ff00血腥猎手的能力|r :  |cff6699ff血爆]],
-        Ubertip = [[击杀会引发爆炸，造成范围伤害
+        Ubertip = [[
+击杀会引发爆炸，造成范围伤害
 
 |cff22bb22概率：|r 25%|cffffcc00(享受幸运加成)|r
 |cffeeee55伤害：|r 200+血质阶层×10
@@ -72,7 +73,8 @@ local bloodList = {
     ['AR12'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNMarkOfFire.blp]],
         Tip = [[|cff00ff00血腥猎手的能力|r :  |cff6699ff沸腾]],
-        Ubertip = [[生命降低一定比例后，获得伤害加成
+        Ubertip = [[
+生命降低一定比例后，获得伤害加成
 
 |cff22bb22比例：|r 30%
 |cffeeee55伤害：|r 25%
@@ -84,7 +86,8 @@ local bloodList = {
     ['AR13'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNDeathPact.blp]],
         Tip = [[|cff00ff00血腥猎手的能力|r :  |cff6699ff血变]],
-        Ubertip = [[自身受到的伤害以及造成的伤害都得到提升
+        Ubertip = [[
+自身受到的伤害以及造成的伤害都得到提升
 
 |cff22bb22承受伤害：|r 100%
 |cffeeee55造成伤害：|r 20%
@@ -96,7 +99,8 @@ local bloodList = {
     ['AR21'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNMantleOfIntelligence.blp]],
         Tip = [[|cff00ff00边锋上尉的能力|r :  |cff6699ff智慧]],
-        Ubertip = [[击杀可能额外掉落1个经验球
+        Ubertip = [[
+击杀可能额外掉落1个经验球
 
 |cff22bb22概率：|r 10%|cffffcc00(享受幸运加成)|r
                 
@@ -107,7 +111,8 @@ local bloodList = {
     ['AR22'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNWandOfManaSteal.blp]],
         Tip = [[|cff00ff00边锋上尉的能力|r :  |cff6699ff探寻者]],
-        Ubertip = [[每过一段时间便吸取大范围内所有经验球和治疗球
+        Ubertip = [[
+每过一段时间便吸取大范围内所有经验球和治疗球
 
 |cff22bb22范围：|r 8000
 |cffeeee55间隔：|r 30秒
@@ -119,7 +124,8 @@ local bloodList = {
     ['AR23'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNAnkh.blp]],
         Tip = [[|cff00ff00边锋上尉的能力|r :  |cff6699ff祝福十字]],
-        Ubertip = [[所有概率效果提高
+        Ubertip = [[
+所有概率效果提高
 
 |cffeeee55倍数：|r 0.3倍（例10%->13%）
         
@@ -130,7 +136,8 @@ local bloodList = {
     ['AR31'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNResurrection.blp]],
         Tip = [[|cff00ff00烈阳祭司的能力|r :  |cff6699ff伪装神圣]],
-        Ubertip = [[受到伤害后无敌
+        Ubertip = [[
+受到伤害后无敌
 
 |cffeeee55持续：|r 3秒
         
@@ -141,7 +148,8 @@ local bloodList = {
     ['AR32'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNHolyBolt.blp]],
         Tip = [[|cff00ff00烈阳祭司的能力|r :  |cff6699ff窃取防护]],
-        Ubertip = [[获得一个护盾抵挡伤害，破碎后60秒回复
+        Ubertip = [[
+获得一个护盾抵挡伤害，破碎后60秒回复
 
 |cff22bb22减伤：|r 50
 |cffeeee55抵挡次数：|r 4
@@ -153,7 +161,8 @@ local bloodList = {
     ['AR33'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNBearBlink.blp]],
         Tip = [[|cff00ff00烈阳祭司的能力|r :  |cff6699ff虚幻偶像]],
-        Ubertip = [[减少来自精英，猎人的伤害
+        Ubertip = [[
+减少来自精英，猎人的伤害
 
 |cffeeee55比例：|r 30%
     
@@ -162,9 +171,10 @@ local bloodList = {
         hero = 0,
     },
     ['AR41'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNHowlOfTerror.blp]],
-        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff嘶吼]],
-        Ubertip = [[通过伤害击退那些靠近的敌人
+        Art = [[ReplaceableTextures\CommandButtons\BTNAnimateDead.blp]],
+        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff漩涡]],
+        Ubertip = [[
+通过伤害击退那些靠近的敌人
 
 |cff22bb22判定范围：|r 800
 |cffeeee55最大击退：|r 200(根据距离)
@@ -174,9 +184,10 @@ local bloodList = {
         hero = 0,
     },
     ['AR42'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNAnimateDead.blp]],
-        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff漩涡]],
-        Ubertip = [[击杀引发漩涡，将周围所有敌人吸引到一起
+        Art = [[ReplaceableTextures\CommandButtons\BTNHowlOfTerror.blp]],
+        Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff嘶吼]],
+        Ubertip = [[
+击杀引发漩涡，将周围所有敌人吸引到一起
 
 |cff22bb22冷却：|r 3秒
 |cffeeee55范围：|r 800
@@ -188,7 +199,8 @@ local bloodList = {
     ['AR43'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNCripple.blp]],
         Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff惧喝]],
-        Ubertip = [[追踪你的敌人移动速度提高，但攻击速度降低
+        Ubertip = [[
+追踪你的敌人移动速度提高，但攻击速度降低
 
 |cff22bb22攻速：|r -40
 |cffeeee55移速：|r +80
@@ -200,7 +212,8 @@ local bloodList = {
     ['AR51'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNHumanBuild.blp]],
         Tip = [[|cff00ff00矮人冠军的能力|r :  |cff6699ff铁匠技艺]],
-        Ubertip = [[击杀使得对应装备的当前触发间隔减少
+        Ubertip = [[
+击杀使得对应装备的当前触发间隔减少
 
 |cff22bb22概率：|r 25%|cffffcc00(享受幸运加成)|r
 |cffeeee55减少：|r 30%
@@ -212,7 +225,8 @@ local bloodList = {
     ['AR52'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNDivineShieldOff.blp]],
         Tip = [[|cff00ff00矮人冠军的能力|r :  |cff6699ff精工宝具]],
-        Ubertip = [[减少所有装备的触发间隔
+        Ubertip = [[
+减少所有装备的触发间隔
 
 |cff22bb22减少：|r 15%
     
@@ -223,7 +237,8 @@ local bloodList = {
     ['AR53'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNPillage.blp]],
         Tip = [[|cff00ff00矮人冠军的能力|r :  |cff6699ff传说之锤]],
-        Ubertip = [[尊贵之血可以加速装备触发
+        Ubertip = [[
+尊贵之血可以加速装备触发
 
 |cff22bb22加速：|r 2%/1点
     
@@ -234,7 +249,8 @@ local bloodList = {
     ['AR61'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNTranquility.blp]],
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff远古祭祀]],
-        Ubertip = [[金币的存量可以提升伤害，但会消耗金币
+        Ubertip = [[
+金币的存量可以提升伤害，但会消耗金币
 
 |cff22bb22加伤：|r 1%/200金币
 |cffeeee55消耗：|r 1/次
@@ -246,7 +262,8 @@ local bloodList = {
     ['AR62'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNAmbush.blp]],
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff暗影]],
-        Ubertip = [[自身移速加快，每移动500距离都能立刻减少随机1件装备的当前触发间隔
+        Ubertip = [[
+自身移速加快，每移动500距离都能立刻减少随机1件装备的当前触发间隔
 
 |cff22bb22移动速度：|r +60
 |cffeeee55减少：|r 60%
@@ -258,7 +275,8 @@ local bloodList = {
     ['AR63'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff灵魂契约]],
-        Ubertip = [[受到伤害时，在伤害来源附近释放数个灵魂鸟
+        Ubertip = [[
+受到伤害时，在伤害来源附近释放数个灵魂鸟
 
 |cff22bb22伤害：|r 80+血质阶层*20(每次只会被击中1次)
     
