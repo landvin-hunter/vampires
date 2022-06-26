@@ -49,16 +49,4 @@ function itemLevelUp takes unit hero,item tarItem returns nothing
     set udg_item = tarItem
     //call TriggerExecute(gg_trg_ItemSpell)
 endfunction
-
-function smartChange takes unit hero, item target returns nothing
-    if GetItemType(target) == ITEM_TYPE_PERMANENT and checkFullPackage(hero) then
-        call itemLevelUp(hero, target) 
-        call Debug("smartItem|TRUE="+(GetItemName(target)))
-    else
-        call SetPlayerAbilityAvailable(GetOwningPlayer(hero), 'A00V', false)
-        call IssueTargetOrder(hero, "smart", target)
-        call SetPlayerAbilityAvailable(GetOwningPlayer(hero), 'A00V', true)
-        call Debug("smartItem|FLASE="+(GetItemName(target)))
-    endif
-endfunction
 endlibrary

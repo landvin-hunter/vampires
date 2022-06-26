@@ -102,3 +102,5 @@ function sortScoreBoard takes nothing returns nothing
                 set udg_damageSave_value[n+1] = udg_damageSave_value[a]
     endloop
 endfunction
+
+WaygateActivateBJ

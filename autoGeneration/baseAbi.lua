@@ -215,7 +215,7 @@ local baseSkill = {
         Buttonpos_2 = -11,
         hero = 0,
         race = 'undead',
-        CasterArt = [[Abilities\Spells\Human\ManaShield\ManaShieldCaster.mdl]],
+        CasterArt = [[Abilities\Spells\Items\SpellShieldAmulet\SpellShieldCaster.mdl]],
         Casterattachcount = 1,
         Casterattach = [[origin]],
     },

@@ -29,9 +29,6 @@ library select
         local integer baseAbiNum = ABI_ENDID - ABI_FRISTID
 
         call Debug("剩余技能点:"+I2S(udg_Heros_abiCount[pid]))
-        if GetHeroLevel(hero) >= 120 then
-            return
-        endif
         //选装备升级，没得升就升固有能力，还没得升就治疗
             set pickId = 0
             set has = 0
@@ -148,9 +145,11 @@ library select
         local integer pid = GetPlayerId(GetOwningPlayer(hero))+1
         local integer addabi = id - 'uk00' + 'bk00'
         local integer remabi = GetUnitUserData(udg_hero) + 'bke0'
+        local integer mark = 0
 
         call UnitAddAbility(hero, addabi)
         call UnitRemoveAbility(hero, remabi)
+        call SetUnitUserData(hero, 0)
 
         <?for a = 1, 6 do?>
             <?for b = 1, 3 do
@@ -158,12 +157,16 @@ library select
                 local abi = 'bk' .. id
             ?>
             if '<?=abi?>' == addabi then
+                set mark = pid * 100 + <?=id?>
                 set bloodAbilities[pid * 100 + <?=id?>] = true
             endif
             <? end ?>
         <? end ?>
-        if addabi == 'bk13' then //边锋上尉-血变
+        if addabi == 'bk13' then //血腥猎手-血变
             call UnitAddAbility(hero, 'Ad00')
+        endif
+        if addabi == 'bk22' then //边锋上尉-探寻者
+            call YDUserDataSet(unit, hero, "bk22-time", real, 30.01)
         endif
         if addabi == 'bk32' then //烈阳祭司-窃取防护
             call UnitAddAbility(hero, 'Ad02')
@@ -173,7 +176,10 @@ library select
         endif
         if addabi == 'bk62' then //月光游侠-暗影
             call SetHeroAgi(hero, GetHeroAgi(hero, false)+60, false)
+            call YDUserDataSet(unit, hero, "bk62-pass", real, 0)
+            call YDUserDataSet(unit, hero, "bk62-last", location, GetUnitLoc(hero))
+            call YDUserDataSet(unit, hero, "bk62-next", location, GetUnitLoc(hero))
         endif
-        call Debug("addBlood || hero="+U2S(udg_hero)+" || add="+YDWEId2S(addabi)+" || rem="+YDWEId2S(remabi))
-    endfunction
+        call Debug("addBlood || hero="+U2S(udg_hero)+" || add="+YDWEId2S(addabi)+" || rem="+YDWEId2S(remabi)+"|| mark="+I2S(mark))
+    endfunction    
 endlibrary

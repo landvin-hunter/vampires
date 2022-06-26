@@ -29,10 +29,16 @@ library baseSystem initializer init
     endfunction
 
     function U2S takes unit u returns string
+        if u == null then
+            return "<NULL|UNIT>"
+        endif
         return "<" + GetUnitName(u) + "|" + I2S(GetHandleId(u)) + ">"
     endfunction
 
     function T2S takes item t returns string
+        if t == null then
+            return "<NULL|ITEM>"
+        endif
         return "<" + GetItemName(t) + "|" + I2S(GetHandleId(t)) + ">"
     endfunction
 
@@ -96,6 +102,17 @@ library baseSystem initializer init
     function itemCanSpell takes integer tarItem, integer listItem returns boolean
         //call Debug(YDWEId2S(tarItem)+" = | = "+YDWEId2S(listItem+11)+" = | = "+B2S(tarItem <= listItem and tarItem < (listItem+11)))
         return tarItem >= listItem and tarItem < (listItem+11)
+    endfunction
+
+    function itemTrgSpell takes integer tarItem returns integer
+        local integer limit = 0
+        local integer id = 0
+        if tarItem >= 'I10A' then
+            set limit = R2I((tarItem-'I00A')/('I100'-'I000'))
+        endif
+        set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * ('I100' - 'I000')) / DETAL_TENID) + limit * 10
+        call Debug("itemTrgSpell|item="+YDWEId2S(tarItem)+"|id="+I2S(id))
+        return id
     endfunction
 
     function Loading takes nothing returns nothing
@@ -314,9 +331,9 @@ function damageCount takes unit hero, real dmg returns real
 
     if bloodAbilities[id+61] then
         set gold = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD)
-        if gold > 10 then
+        if gold > 200 then
             set add = add + 0.01 * gold/200
-            call SetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD, gold-10)
+            call SetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD, gold-1)
         endif
     endif
 
@@ -430,3 +447,35 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
     endif
 endfunction
 
+function smartChange takes unit hero, item target returns nothing
+    if GetItemType(target) == ITEM_TYPE_PERMANENT and checkFullPackage(hero) then
+        call itemLevelUp(hero, target) 
+        call Debug("smartItem|TRUE="+(GetItemName(target)))
+    else
+        call SetPlayerAbilityAvailable(GetOwningPlayer(hero), 'A00V', false)
+        call IssueTargetOrder(hero, "smart", target)
+        call SetPlayerAbilityAvailable(GetOwningPlayer(hero), 'A00V', true)
+        call Debug("smartItem|FLASE="+(GetItemName(target)))
+    endif
+endfunction
+
+function smartUnit takes unit hero, unit target returns nothing
+    local real x = 0
+    local real y = 0
+
+    call Debug("smartUnit|ACTIVE="+B2S(WaygateIsActive(target)))
+    if WaygateIsActive(target) then
+        set x = WaygateGetDestinationX(target)
+        set y = WaygateGetDestinationY(target)
+        call SetUnitX(hero, x)
+        call SetUnitY(hero, y)
+        call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl", x, y))
+    endif
+    if IsUnitType(target, UNIT_TYPE_HERO) then
+        if hero == target then
+            call IssuePointOrder(hero, "move", GetUnitX(target), GetUnitY(target))
+        else
+            call IssueTargetOrder(hero, "move", target)
+        endif
+    endif
+endfunction

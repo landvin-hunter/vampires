@@ -63,7 +63,7 @@ local bloodList = {
         Ubertip = [[击杀会引发爆炸，造成范围伤害
 
 |cff22bb22概率：|r 25%|cffffcc00(享受幸运加成)|r
-|cffeeee55伤害：|r 100+血质阶层×10
+|cffeeee55伤害：|r 200+血质阶层×10
         
 |cffc12ae0据说那可怕的血液污染将毁灭一切|r]],
         Requires = [[]],
@@ -109,10 +109,10 @@ local bloodList = {
         Tip = [[|cff00ff00边锋上尉的能力|r :  |cff6699ff探寻者]],
         Ubertip = [[每过一段时间便吸取大范围内所有经验球和治疗球
 
-|cff22bb22范围：|r 5000
+|cff22bb22范围：|r 8000
 |cffeeee55间隔：|r 30秒
         
-|cffc12ae0杰佛里努力吸纳百家的知识，融会贯通，将其归己所用|r]],
+|cff18dbe1杰佛里努力吸纳百家的知识，融会贯通，将其归己所用|r]],
         Requires = [[]],
         hero = 0,
     },
@@ -123,7 +123,7 @@ local bloodList = {
 
 |cffeeee55倍数：|r 0.3倍（例10%->13%）
         
-|cffc12ae0精巧的策略与计谋|r]],
+|cff18dbe1精巧的策略与计谋|r]],
         Requires = [[]],
         hero = 0,
     },
@@ -166,8 +166,8 @@ local bloodList = {
         Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff嘶吼]],
         Ubertip = [[通过伤害击退那些靠近的敌人
 
-|cff22bb22范围：|r 400
-|cffeeee55击退：|r 200
+|cff22bb22判定范围：|r 800
+|cffeeee55最大击退：|r 200(根据距离)
     
 |cff59d8f4警觉，怒吼|r]],
         Requires = [[]],
@@ -191,7 +191,7 @@ local bloodList = {
         Ubertip = [[追踪你的敌人移动速度提高，但攻击速度降低
 
 |cff22bb22攻速：|r -40
-|cffeeee55移速：|r +40
+|cffeeee55移速：|r +80
     
 |cff59d8f4冰冷刺骨，侵略内心|r]],
         Requires = [[]],
@@ -221,11 +221,11 @@ local bloodList = {
         hero = 0,
     },
     ['AR53'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNRepairOn.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNPillage.blp]],
         Tip = [[|cff00ff00矮人冠军的能力|r :  |cff6699ff传说之锤]],
         Ubertip = [[尊贵之血可以加速装备触发
 
-|cff22bb22加速：|r 3%/1点
+|cff22bb22加速：|r 2%/1点
     
 |cffa4ef0d只有尊贵的血液才能发挥最大的威力|r]],
         Requires = [[]],
@@ -237,7 +237,7 @@ local bloodList = {
         Ubertip = [[金币的存量可以提升伤害，但会消耗金币
 
 |cff22bb22加伤：|r 1%/200金币
-|cffeeee55消耗：|r 10/次
+|cffeeee55消耗：|r 1/次
     
 |cffa4ef0d对于高贵的精灵而言，这些金属不过是祭天的道具而已|r]],
         Requires = [[]],
@@ -246,10 +246,10 @@ local bloodList = {
     ['AR62'] = {
         Art = [[ReplaceableTextures\CommandButtons\BTNAmbush.blp]],
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff暗影]],
-        Ubertip = [[自身移速加快，每移动500距离都能立刻减少随机3件装备的当前触发间隔
+        Ubertip = [[自身移速加快，每移动500距离都能立刻减少随机1件装备的当前触发间隔
 
 |cff22bb22移动速度：|r +60
-|cffeeee55减少：|r 50%
+|cffeeee55减少：|r 60%
     
 |cffa4ef0d灵巧与速度是游侠纵横丛林的秘籍|r]],
         Requires = [[]],
@@ -260,7 +260,7 @@ local bloodList = {
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff灵魂契约]],
         Ubertip = [[受到伤害时，在伤害来源附近释放数个灵魂鸟
 
-|cff22bb22伤害：|r 80+血质阶层*20/1个
+|cff22bb22伤害：|r 80+血质阶层*20(每次只会被击中1次)
     
 |cffa4ef0d月光下的生灵啊，庇佑我们的孩子吧|r]],
         Requires = [[]],

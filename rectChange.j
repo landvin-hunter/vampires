@@ -1,3 +1,4 @@
+
 library rectChange initializer init
 
     <? for i , v in ipairs({'|cff8dd10f瘟疫森林','|cffbd852b边界狭间','|cffffde05日出村落','|cff68b9e4雪山','|cff4141d8月光岭','|cff32ec32月光森林'}) do ?>
@@ -38,4 +39,5 @@ library rectChange initializer init
         set area = null
     endfunction
 endlibrary
+
 
