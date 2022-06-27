@@ -5,12 +5,21 @@ globals
     item itemTemp = null
     integer intMapSeed = 0
     location randomSeed
+
+    //首个装备ID，对应升级马甲
     constant integer ITEM_FRISTID = 'I01A'
-    constant integer ABI_FRISTID = 'AB00'
-    constant integer ABI_ENDID = 'AB09'
     constant integer ITEMUNIT_FRISTID = 'p01A'
-    constant integer ABIUNIT_FRISTID = 'urb0'
+
+    //首尾固有能力ID，对应升级马甲和升级物品
+    constant integer ABI_FRISTID = 'AB0A'
+    constant integer ABI_ENDID = 'AB0J'
+    constant integer ABIUNIT_FRISTID = 'urbA'
+    constant integer ABIITEM_FRISTID = 'IA0A'
+
     constant integer DETAL_TENID = 'I010' - 'I000'
+    constant integer DETAL_HUNID = 'I100' - 'I000'
+
+    //首个血液能力ID
     constant integer BLOOD_FRISTID = 'AR00'
 endglobals
 
@@ -101,7 +110,7 @@ library baseSystem initializer init
     endfunction
     
     function addExp takes unit target, real value returns nothing
-        local real expUp = value * (1 + GetUnitAbilityLevel(target, 'AB03') * 0.04)
+        local real expUp = value * (1 + GetUnitAbilityLevel(target, 'AB0D') * 0.04)
         call AddHeroXP(target, R2I(expUp), true)
     endfunction
     
@@ -124,6 +133,7 @@ library baseSystem initializer init
     function Loading takes nothing returns nothing
         local unit dummy = CreateUnit(Player(15), 'U000', 8888, 8888, 0)
         local integer n = 0
+        local integer m = 0
 
         loop
             call UnitAddAbility(dummy, 'A000' + n)
@@ -134,6 +144,17 @@ library baseSystem initializer init
         loop
             call UnitAddAbility(dummy, ABI_FRISTID + n)
             exitwhen n <= (ABI_ENDID - ABI_FRISTID)
+            set n = n + 1
+        endloop
+        set n = 1
+        loop
+            set m = 1
+            loop
+                call UnitAddAbility(dummy, 'bk00' + n * DETAL_TENID + m)
+                exitwhen m <= 3
+                set m = m + 1
+            endloop
+            exitwhen n <= 4
             set n = n + 1
         endloop
         call RemoveUnit(dummy)
@@ -251,8 +272,8 @@ function calculateLuck takes unit hero, real rate returns boolean
 endfunction
 
 function damageCount takes unit hero, real dmg returns real
-    local integer rateLv = GetUnitAbilityLevel(hero, 'AB06')
-    local integer critLv = GetUnitAbilityLevel(hero, 'AB08')
+    local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
+    local integer critLv = GetUnitAbilityLevel(hero, 'AB0I')
     local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
     local real add = 0
     local integer gold
@@ -353,7 +374,7 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
             if max < 6 then
                 set pickId = udg_itemList[GetRandomInt(0, 3)*100]
             else
-                set pickId = 'IA00' + GetRandomInt(0, ABI_ENDID-ABI_FRISTID)
+                set pickId = ABIITEM_FRISTID + GetRandomInt(0, ABI_ENDID-ABI_FRISTID)
             endif
         else
             set pickId = GetItemTypeId(pickItem[GetRandomInt(1, pick)])
@@ -373,9 +394,9 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
         endloop
 
         if pick == 0 then
-            set pickId = 'IA00' + GetRandomInt(0, ABI_ENDID-ABI_FRISTID)
+            set pickId = ABIITEM_FRISTID + GetRandomInt(0, ABI_ENDID-ABI_FRISTID)
         else
-            set pickId = 'IA00' + pickAbility[GetRandomInt(1, pick)] - ABI_FRISTID
+            set pickId = ABIITEM_FRISTID + pickAbility[GetRandomInt(1, pick)] - ABI_FRISTID
         endif
     elseif rarity == "1" then
         set pickId = GetRandomInt('It00', 'It02')

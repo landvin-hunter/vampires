@@ -283,7 +283,7 @@ local armyList = {
         HP = 150000,
         spd = 360,
         type = 'sapper',
-        level = 5,
+        level = 10,
         id = 'hfoo',
     },
     ['ur02'] = {
@@ -297,7 +297,7 @@ local armyList = {
         HP = 50000,
         spd = 360,
         type = 'sapper',
-        level = 5,
+        level = 10,
         id = 'hfoo',
     },
     ['ur03'] = {
@@ -311,7 +311,7 @@ local armyList = {
         HP = 150000,
         spd = 360,
         type = 'sapper',
-        level = 5,
+        level = 10,
         id = 'hfoo',
     },
     ['ur04'] = {
@@ -325,7 +325,7 @@ local armyList = {
         HP = 150000,
         spd = 360,
         type = 'sapper',
-        level = 5,
+        level = 10,
         id = 'hfoo',
     },
     ['ur05'] = {
@@ -339,7 +339,7 @@ local armyList = {
         HP = 150000,
         spd = 360,
         type = 'sapper',
-        level = 5,
+        level = 10,
         id = 'hfoo',
     },
     ['ur06'] = {
@@ -353,7 +353,7 @@ local armyList = {
         HP = 150000,
         spd = 360,
         type = 'sapper',
-        level = 5,
+        level = 10,
         id = 'hfoo',
     },
 }

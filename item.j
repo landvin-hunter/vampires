@@ -8,8 +8,8 @@ library item
         local real ps = 0
         local integer id = (GetPlayerId(GetOwningPlayer(hero)) + 1) * 100
         
-        if GetUnitAbilityLevel(hero, 'AB04') > 0 then
-            set ps = ps + 0.18 + 0.08 * GetUnitAbilityLevel(hero, 'AB04')
+        if GetUnitAbilityLevel(hero, 'AB0E') > 0 then
+            set ps = ps + 0.18 + 0.08 * GetUnitAbilityLevel(hero, 'AB0E')
         endif
 
         if bloodAbilities[id + 53] then
@@ -35,8 +35,7 @@ library item
         local real ps = 1
         local real tick = 0
         local real nowcd = 0
-        local real nowtrg = 0
-        local boolean pause = false
+        local real pause = 0
         local integer times = 0
         local integer nloop = 0
 
@@ -49,24 +48,21 @@ library item
 
         loop
             set udg_item = UnitItemInSlot(hero, nloop)
-            set pause = YDUserDataGet(item, udg_item, "pause", boolean)
-            if not pause then
-                set nowtrg = YDUserDataGet(item, udg_item, "nowtrg", real)
-                if nowtrg > 0 then
-                    set nowtrg = nowtrg - 0.1
-                else
-                    set nowcd = YDUserDataGet(item, udg_item, "nowcd", real)
-                    if ((udg_item != null) and (GetWidgetLife(udg_item) < 999.00)) then
-                        if nowcd > 0 then
-                            set nowcd = nowcd - 0.1 * ps
-                        else
-                            set nowcd = GetWidgetLife(udg_item) * cd
-                            set udg_player = GetOwningPlayer(udg_hero)
-                            call TriggerExecute(gg_trg_ItemSpell)
-                        endif
-                        call YDUserDataSet(item, udg_item, "nowcd", real, nowcd)
-                        call SetItemCharges(udg_item, R2I(nowcd))
+            set pause = YDUserDataGet(item, udg_item, "pause", real) - 0.01
+            if pause > 0 then
+                call YDUserDataSet(item, udg_item, "pause", real, pause)
+            else
+                set nowcd = YDUserDataGet(item, udg_item, "nowcd", real)
+                if ((udg_item != null) and (GetWidgetLife(udg_item) < 999.00)) then
+                    if nowcd > 0 then
+                        set nowcd = nowcd - 0.1 * ps
+                    else
+                        set nowcd = GetWidgetLife(udg_item) * cd
+                        set udg_player = GetOwningPlayer(udg_hero)
+                        call TriggerExecute(gg_trg_ItemSpell)
                     endif
+                    call YDUserDataSet(item, udg_item, "nowcd", real, nowcd)
+                    call SetItemCharges(udg_item, R2I(nowcd))
                 endif
             endif
             exitwhen nloop >= 5
@@ -80,6 +76,7 @@ library item
         set nowcd = nowcd * (1 - rate)
 
         call YDUserDataSet(item, udg_item, "nowcd", real, nowcd)
+        call SetItemCharges(udg_item, R2I(nowcd))
         
         call Debug("setCD-"+GetItemName(it)+"|cd-"+R2S(rate))
     endfunction

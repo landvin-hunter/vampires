@@ -139,7 +139,7 @@ local bloodList = {
         Ubertip = [[
 受到伤害后无敌
 
-|cffeeee55持续：|r 3秒
+|cffeeee55持续：|r 1.5秒
         
 |cffeee686即使是伪装的神圣，也可以抵御伤害|r]],
         Requires = [[]],
@@ -164,7 +164,7 @@ local bloodList = {
         Ubertip = [[
 减少来自精英，猎人的伤害
 
-|cffeeee55比例：|r 30%
+|cffeeee55比例：|r 40%
     
 |cffeee686重要的情报|r]],
         Requires = [[]],

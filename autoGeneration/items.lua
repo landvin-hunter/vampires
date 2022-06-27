@@ -18,8 +18,8 @@ local itemList = {
 |cffeeee55伤害：|r <A00K,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNPendantOfMana.blp]],
-        CD = [[return (2.5 - glv * 0.2)]],
-        CDMax = 0.1,
+        CD = [[return 2.5]],
+        CDMax = 1,
     },
     {
         Name = '攻击之爪',
@@ -29,8 +29,8 @@ local itemList = {
 |cffeeee55伤害：|r <A006,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNClawsOfAttack.blp]],
-        CD = [[return (3.2 - glv * 0.2)]],
-        CDMax = 0.5,
+        CD = [[return (3.1 - glv * 0.1)]],
+        CDMax = 1,
     },
     {
         Name = '雷电花芯',
@@ -51,11 +51,11 @@ local itemList = {
         Description = [[
 |cff22bb22范围：|r 400/<A00J,Area*lv>
 |cffeeee55伤害：|r <A00J,DataA*lv>/0.5秒
-|cffffcc00数量：|r *lv
+|cffffcc00数量：|r *lv/4秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNCloakOfFlames.blp]],
-        CD = [[return 5]],
-        CDMax = 5,
+        CD = [[return 3]],
+        CDMax = 3,
     },
     {
         Name = '天灾骨钟',
@@ -88,8 +88,8 @@ local itemList = {
 |cffeeee55伤害：|r <A00O,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNIceShard.blp]],
-        CD = [[return (2 - glv * 0.1)]],
-        CDMax = 0.5,
+        CD = [[return (3.1 - glv * 0.1)]],
+        CDMax = 1,
     },
     {
         Name = '毁灭魔球',
@@ -111,8 +111,8 @@ local itemList = {
 |cffeeee55伤害：|r <A00I,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNMaskOfDeath.blp]],
-        CD = [[return (1.5 - glv * 0.1)]],
-        CDMax = 0.2,
+        CD = [[return (3.1 - glv * 0.1)]],
+        CDMax = 1,
     },
     {
         Name = '风暴战锤',
@@ -123,8 +123,8 @@ local itemList = {
 |cffffcc00数量：|r <A00P,DataC*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNStormHammer.blp]],
-        CD = [[return (2.5 - glv * 0.1)]],
-        CDMax = 0.8,
+        CD = [[return (2.7 - glv * 0.1)]],
+        CDMax = 1,
     },
     {
         Name = '鬼魂容器',
@@ -136,8 +136,8 @@ local itemList = {
 |cffffcc00持续：|r 5秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfCorruption.blp]],
-        CD = [[return 9]],
-        CDMax = 9,
+        CD = [[return 4]],
+        CDMax = 4,
     },
     {
         Name = '恶魔手套',
@@ -149,8 +149,8 @@ local itemList = {
 |cffffcc00持续：|r 4秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNSpellSteal.blp]],
-        CD = [[return 10]],
-        CDMax = 10,
+        CD = [[return 6]],
+        CDMax = 6,
         abilList = 'A00L',
     },
     {
@@ -183,8 +183,8 @@ local itemList = {
 |cffffcc00数量：|r *slv/6秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNNecromancerMaster.blp]],
-        CD = [[return 10]],
-        CDMax = 10,
+        CD = [[return 4]],
+        CDMax = 4,
     },
 }
 

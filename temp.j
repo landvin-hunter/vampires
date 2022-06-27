@@ -58,7 +58,7 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
         <? end ?>
     elseif rarity == "2" then
         loop
-            set abilityId = 'AB00' + n
+            set abilityId = ABI_FRISTID + n
             if GetUnitAbilityLevel(hero, abilityId) > 0 and GetUnitAbilityLevel(hero, abilityId) < 10 then
                 set pickAbility[pick] = abilityId
                 set pick = pick + 1
@@ -67,7 +67,7 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
             set n = n + 1
         endloop
 
-        set pickId = 'IA00' + pickAbility[GetRandomInt(1, pick)] - 'AB00'
+        set pickId = ABIITEM_FRISTID + pickAbility[GetRandomInt(1, pick)] - ABI_FRISTID
     elseif rarity == "1" then
         set pickId = 'It00' + GetRandomInt(0, 2)
     endif
@@ -82,7 +82,7 @@ library library_name initializer init_function requires require_libs
     endfunction
 endlibrary
 
-set int = udg_itemType - 'IA00' + 'AB00'
+set int = udg_itemType - ABIITEM_FRISTID + ABI_FRISTID
 if GetUnitAbilityLevel(udg_hero, udg_int) > 0 and GetUnitAbilityLevel(udg_hero, udg_int) < 10 then
     call SetUnitAbilityLevel(udg_hero, udg_int, GetUnitAbilityLevel(udg_hero, udg_int)+1)
 endif

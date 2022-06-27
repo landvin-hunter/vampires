@@ -1,7 +1,7 @@
 <?
 local slk = require 'slk'
 local baseSkill = {
-    ['AB00'] = {
+    ['AB0A'] = {
         id = 'ACac',
         Name = [[base-拾取]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNUnholyAura.blp]],
@@ -15,10 +15,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb0',
-        useItem = 'IA00',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB01'] = {
+    ['AB0B'] = {
         id = 'Aamk',
         Name = [[base-移速]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNPlagueCloud.blp]],
@@ -34,10 +34,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb1',
-        useItem = 'IA01',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB02'] = {
+    ['AB0C'] = {
         id = 'Aamk',
         Name = [[base-幸运]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNBrilliance.blp]],
@@ -53,10 +53,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb2',
-        useItem = 'IA02',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB03'] = {
+    ['AB0D'] = {
         id = 'ACac',
         Name = [[base-经验]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNVampiricAura.blp]],
@@ -70,10 +70,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb3',
-        useItem = 'IA03',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB04'] = {
+    ['AB0E'] = {
         id = 'ACac',
         Name = [[base-冷却]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNElunesBlessing.blp]],
@@ -87,10 +87,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb4',
-        useItem = 'IA04',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB05'] = {
+    ['AB0F'] = {
         id = 'Ansk',
         Name = [[base-减伤]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNImmolation.blp]],
@@ -109,10 +109,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb5',
-        useItem = 'IA05',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB06'] = {
+    ['AB0G'] = {
         id = 'ACac',
         Name = [[base-伤害]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNEnvenomedSpear.blp]],
@@ -126,10 +126,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb6',
-        useItem = 'IA06',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB07'] = {
+    ['AB0H'] = {
         id = 'Aamk',
         Name = [[base-生命]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNReincarnation.blp]],
@@ -145,10 +145,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb7',
-        useItem = 'IA07',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB08'] = {
+    ['AB0I'] = {
         id = 'ACac',
         Name = [[base-暴击]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNCriticalStrike.blp]],
@@ -162,10 +162,10 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb8',
-        useItem = 'IA08',
+        useUnit = true,
+        useItem = true,
     },
-    ['AB09'] = {
+    ['AB0J'] = {
         id = 'ACac',
         Name = [[base-治疗]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNIncinerate.blp]],
@@ -179,8 +179,8 @@ local baseSkill = {
         targetArt = [[]],
         hero = 0,
         race = 'creeps',
-        useUnit = 'urb9',
-        useItem = 'IA09',
+        useUnit = true,
+        useItem = true,
     },
     ['Ad00'] = {
         id = 'Aegr',
@@ -194,9 +194,9 @@ local baseSkill = {
     },
     ['Ad01'] = {
         id = 'Aegr',
-        Name = [[ass-伤害变化,boss-30%]],
+        Name = [[ass-伤害变化,boss-40%]],
         DataA = 1,
-        DataE = 0.7,
+        DataE = 0.6,
         Buttonpos_1 = 0,
         Buttonpos_2 = -11,
         hero = 0,
@@ -263,7 +263,8 @@ for id, tb in pairs(baseSkill) do
     end
     local name = (tb.Tip or ""):sub(1, 12)
     if tb.useUnit then
-        local unit = slk.unit.ewsp:new(tb.useUnit)
+        local nid = id:sub(4,4)
+        local unit = slk.unit.ewsp:new('urb' .. nid)
 
         unit.Name = '固有能力升级-' .. name
         unit.Tip = '升级或获得' .. name
@@ -285,11 +286,12 @@ for id, tb in pairs(baseSkill) do
     end
 
     if tb.useItem then
-        local item = slk.item.gold:new(tb.useItem)
+        local nid = id:sub(3,4)
+        local item = slk.item.gold:new('IA' .. nid)
 
         item.Name = "[" .. name .. "]"
         item.abilList = 'A000'
-        item.Description = "失去后可以获得或者升级该固有能力"
+        item.Description = "拾取后可以获得或者升级该固有能力"
         item.file = [[Units\Human\Phoenix\PhoenixEgg.mdl]]
     end
 end

@@ -74,12 +74,13 @@ library Shock initializer init requires baseSystem
         private real array top
         private real array pulse
         private real array pass
+        private real array face
         private real array ang
         private real array time
     endglobals
 
     private function action takes integer id returns nothing
-        local real an = AngleUtoU(mover[id], origin[id]) + ang[id]
+        local real an = face[id] + ang[id]
         local real t = time[id] - 0.02
         local real pl = pass[id] + pulse[id]
         local real s = top[id] * Sin(pl)
@@ -92,15 +93,17 @@ library Shock initializer init requires baseSystem
             call SetUnitFacing(mover[id], an*bj_RADTODEG)
             set pass[id] = pl
             set time[id] = t
+            set face[id] = an
         else
             set mover[id]   = mover[max]
             set origin[id]  = origin[max]
             set top[id]     = top[max]
             set pulse[id]   = pulse[max]
             set pass[id]    = pass[max]
+            set face[id]    = face[max]
             set ang[id]     = ang[max]
             set time[id]    = time[max]
-            set max = max - 1
+            set max         = max - 1
         endif
     endfunction
     private function timed takes nothing returns nothing
@@ -118,8 +121,8 @@ library Shock initializer init requires baseSystem
         //call PauseTimer(mtimer)
     endfunction
 
-    //call AroundUwithU(unit,centerunit,race,rollspeed,time)
-    function AroundUwithU takes unit Cmover,unit Corigin,real Ctop,real Cpulse,real Cang,real Ctime returns nothing
+    //call ShockUwithU(mover,origin,top,pulse,ang,time)
+    function ShockUwithU takes unit Cmover,unit Corigin,real Ctop,real Cpulse,real Cang,real Ctime returns nothing
         set max         = max + 1
         set mover[max]  = Cmover
         set origin[max] = Corigin
@@ -128,5 +131,6 @@ library Shock initializer init requires baseSystem
         set ang[max]    = Cang * bj_DEGTORAD / 50
         set pass[max]   = 0
         set time[max]   = Ctime
+        set face[max]   = AngleUtoU(Cmover, Corigin)
     endfunction
 endlibrary
