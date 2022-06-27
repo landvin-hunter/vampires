@@ -36,6 +36,7 @@ library item
         local real tick = 0
         local real nowcd = 0
         local real nowtrg = 0
+        local boolean pause = false
         local integer times = 0
         local integer nloop = 0
 
@@ -48,21 +49,24 @@ library item
 
         loop
             set udg_item = UnitItemInSlot(hero, nloop)
-            set nowtrg = YDUserDataGet(item, udg_item, "nowtrg", real)
-            if nowtrg > 0 then
-                set nowtrg = nowtrg - 0.1
-            else
-                set nowcd = YDUserDataGet(item, udg_item, "nowcd", real)
-                if ((udg_item != null) and (GetWidgetLife(udg_item) < 999.00)) then
-                    if nowcd > 0 then
-                        set nowcd = nowcd - 0.1 * ps
-                    else
-                        set nowcd = GetWidgetLife(udg_item) * cd
-                        set udg_player = GetOwningPlayer(udg_hero)
-                        call TriggerExecute(gg_trg_ItemSpell)
+            set pause = YDUserDataGet(item, udg_item, "pause", boolean)
+            if not pause then
+                set nowtrg = YDUserDataGet(item, udg_item, "nowtrg", real)
+                if nowtrg > 0 then
+                    set nowtrg = nowtrg - 0.1
+                else
+                    set nowcd = YDUserDataGet(item, udg_item, "nowcd", real)
+                    if ((udg_item != null) and (GetWidgetLife(udg_item) < 999.00)) then
+                        if nowcd > 0 then
+                            set nowcd = nowcd - 0.1 * ps
+                        else
+                            set nowcd = GetWidgetLife(udg_item) * cd
+                            set udg_player = GetOwningPlayer(udg_hero)
+                            call TriggerExecute(gg_trg_ItemSpell)
+                        endif
+                        call YDUserDataSet(item, udg_item, "nowcd", real, nowcd)
+                        call SetItemCharges(udg_item, R2I(nowcd))
                     endif
-                    call YDUserDataSet(item, udg_item, "nowcd", real, nowcd)
-                    call SetItemCharges(udg_item, R2I(nowcd))
                 endif
             endif
             exitwhen nloop >= 5
