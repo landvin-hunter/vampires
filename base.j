@@ -76,6 +76,12 @@ library baseSystem initializer init
         endif
         return Atan2(ya - yb,xa - xb) //返回弧度,unit to location
     endfunction
+    //--单位到单位距离
+    function DistanceUtoU takes unit a, unit b returns real
+        local real dx = GetUnitX(a) - GetUnitX(b)
+        local real dy = GetUnitY(a) - GetUnitY(b)
+        return SquareRoot(dx * dx + dy * dy)
+    endfunction
 
     function addHeal takes unit target, real value returns nothing
         local integer id = GetPlayerId(GetOwningPlayer(target))
@@ -227,72 +233,6 @@ library initData
         
         set udg_ht = InitHashtable()
     endfunction
-endlibrary
-
-library Around initializer init requires baseSystem
-    //--环绕特效
-    globals
-        private hashtable ht
-        private timer mtimer = CreateTimer()
-        private integer max = 0
-        private unit array dummy
-        private unit array origin
-        private real array rad
-        private real array rspeed
-        private real array rangle
-        private real array time
-    endglobals
-
-    private function action takes integer id returns nothing
-        local real an = rangle[id]+rspeed[id]
-        local real t = time[id]-0.02
-        local real x = GetUnitX(origin[id])+rad[id]*Cos(an)
-        local real y = GetUnitY(origin[id])+rad[id]*Sin(an)
-
-        if t>0 and GetUnitState(origin[id],UNIT_STATE_LIFE)>0 and GetUnitState(dummy[id],UNIT_STATE_LIFE)>0 then
-            call SetUnitX(dummy[id],x)
-            call SetUnitY(dummy[id],y)
-            call SetUnitFacing(dummy[id], an+3.14/2)
-            set rangle[id] = an
-            set time[id] = t
-        else
-            set dummy[id] = dummy[max]
-            set origin[id] = origin[max]
-            set rad[id] = rad[max]
-            set rspeed[id] = rspeed[max]
-            set rangle[id] = rangle[max]
-            set time[id] = time[max]
-            set max = max - 1
-        endif
-    endfunction
-    private function timed takes nothing returns nothing
-        local integer n = 1
-        if max > 0 then
-            loop
-                call action(n)
-                exitwhen n >= max
-                set n = n + 1
-            endloop
-        endif
-    endfunction
-    private function init takes nothing returns nothing
-        call TimerStart(mtimer, 0.02, true, function timed)
-        //call PauseTimer(mtimer)
-    endfunction
-
-    //call AroundUwithU(unit,centerunit,race,rollspeed,time)
-    function AroundUwithU takes unit u,unit g,real r,real rs,real t  returns nothing
-        local real an = AngleUtoU(u,g)
-
-        set max = max + 1
-        set dummy[max] = u
-        set origin[max] = g
-        set rad[max] = r
-        set rspeed[max] = rs * bj_DEGTORAD / 50
-        set rangle[max] = an
-        set time[max] = t
-    endfunction
-    //call AroundUwithU(udg_dummy,udg_hero,500,360,5)
 endlibrary
 
 function calculateLuck takes unit hero, real rate returns boolean

@@ -40,7 +40,7 @@ library item
         local integer times = 0
         local integer nloop = 0
 
-        if GetUnitState(hero, UNIT_STATE_LIFE) < 0 then
+        if GetUnitState(hero, UNIT_STATE_LIFE) <= 0 or IsUnitPaused(hero) then
             return
         endif
 
