@@ -310,9 +310,9 @@ endfunction
 function rollAReward takes unit hero returns integer
     if calculateLuck(hero, 50) then
         return 3
-    elseif calculateLuck(hero, 75) then
+    elseif calculateLuck(hero, 80) then
         return 2
-    elseif GetRandomInt(1, 100) < 20 then
+    elseif calculateLuck(hero, 25) then
         return 1
     endif
     return 0
@@ -351,6 +351,7 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
     local integer n = 0
     local integer pick = 0
     local integer max = 0
+    local integer own = 0
     local integer pickId = 0
     local item array pickItem
     local integer array pickAbility
@@ -372,9 +373,9 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
 
         if pick == 0 then
             if max < 6 then
-                set pickId = udg_itemList[GetRandomInt(0, 3)*100]
+                set pickId = baseItemList[GetRandomInt(1, baseItemNum)]
             else
-                set pickId = ABIITEM_FRISTID + GetRandomInt(0, ABI_ENDID-ABI_FRISTID)
+                set rarity = "2"
             endif
         else
             set pickId = GetItemTypeId(pickItem[GetRandomInt(1, pick)])
@@ -382,23 +383,30 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
         <? for i = 1, 6 do?>
             set pickItem[<?=i?>] = null
         <? end ?>
-    elseif rarity == "2" then
+    endif
+    if rarity == "2" then
         loop
             set abilityId = ABI_FRISTID + n
-            if GetUnitAbilityLevel(hero, abilityId) > 0 and GetUnitAbilityLevel(hero, abilityId) < 10 then
-                set pick = pick + 1
-                set pickAbility[pick] = abilityId
+            if GetUnitAbilityLevel(hero, abilityId) > 0 then
+                if GetUnitAbilityLevel(hero, abilityId) < 10 then
+                    set pick = pick + 1
+                    set pickAbility[pick] = abilityId
+                endif
+                set own = own + 1
             endif
-            exitwhen n <= 9
+            exitwhen n <= ABI_ENDID-ABI_FRISTID
             set n = n + 1
         endloop
 
-        if pick == 0 then
+        if own >= 6 then
+            set rarity = "1"
+        elseif pick == 0 then
             set pickId = ABIITEM_FRISTID + GetRandomInt(0, ABI_ENDID-ABI_FRISTID)
         else
             set pickId = ABIITEM_FRISTID + pickAbility[GetRandomInt(1, pick)] - ABI_FRISTID
         endif
-    elseif rarity == "1" then
+    endif
+    if rarity == "1" then
         set pickId = GetRandomInt('It00', 'It02')
     endif
     //call Debug("boxreward| = " + rarity + "|pickId = " + YDWEId2S(pickId)+"|pick = "+I2S(pick))
