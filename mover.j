@@ -22,16 +22,16 @@ library Around initializer init requires baseSystem
             call SetUnitX(dummy[id],x)
             call SetUnitY(dummy[id],y)
             call SetUnitFacing(dummy[id], an*bj_RADTODEG+90)
-            set rangle[id] = an
-            set time[id] = t
+            set rangle[id]  = an
+            set time[id]    = t
         else
-            set dummy[id] = dummy[max]
-            set origin[id] = origin[max]
-            set rad[id] = rad[max]
-            set rspeed[id] = rspeed[max]
-            set rangle[id] = rangle[max]
-            set time[id] = time[max]
-            set max = max - 1
+            set dummy[id]   = dummy[max]
+            set origin[id]  = origin[max]
+            set rad[id]     = rad[max]
+            set rspeed[id]  = rspeed[max]
+            set rangle[id]  = rangle[max]
+            set time[id]    = time[max]
+            set max         = max - 1
         endif
     endfunction
     private function timed takes nothing returns nothing
@@ -53,13 +53,13 @@ library Around initializer init requires baseSystem
     function AroundUwithU takes unit u,unit g,real r,real rs,real t  returns nothing
         local real an = AngleUtoU(u,g)
 
-        set max = max + 1
-        set dummy[max] = u
+        set max         = max + 1
+        set dummy[max]  = u
         set origin[max] = g
-        set rad[max] = r
+        set rad[max]    = r
         set rspeed[max] = rs * bj_DEGTORAD / 50
         set rangle[max] = an
-        set time[max] = t
+        set time[max]   = t
     endfunction
 endlibrary
 
