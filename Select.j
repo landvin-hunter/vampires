@@ -10,7 +10,7 @@ library select
     private function insert takes integer target returns nothing
         set pickId = pickId + 1
         set pickList[pickId] = target
-        call Debug("add|"+I2S(pickId)+"|="+YDWEId2S(target))
+        //call Debug("add|"+I2S(pickId)+"|="+YDWEId2S(target))
     endfunction
 
     function oneAbilitySelect takes unit hero, boolean skip returns nothing
@@ -45,7 +45,7 @@ library select
             <? end ?>
 
             //已拥有6件装备则不需要加额外的装备进入池子
-            call Debug("Check-has="+I2S(has))
+            //call Debug("Check-has="+I2S(has))
             //装备未满，则按照常规列表将所有装备加入池子
             if has < 6 then
                 set pickId = 0
@@ -71,7 +71,7 @@ library select
                     endif
                 endloop
             endif
-            call Debug("Check-pickId="+I2S(pickId)+"||loop="+I2S(n))
+            //call Debug("Check-pickId="+I2S(pickId)+"||loop="+I2S(n))
             //将固有能力升级加入池子
             if skip == false then
                 set has = 0
@@ -99,7 +99,7 @@ library select
                         set n = n + 1
                     endloop
                 endif
-                call Debug("Check-base="+I2S(has)+"|pickId="+I2S(pickId))
+                //call Debug("Check-base="+I2S(has)+"|pickId="+I2S(pickId))
             endif
         
         <? for i = 1, 4 do ?> // 'rise'+id保存添加的购买马甲

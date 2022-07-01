@@ -52,6 +52,9 @@ library baseSystem initializer init
     endfunction
 
     function P2S takes location p returns string
+        if p == null then
+            return "<NULL|LOC>"
+        endif
         return "<x=" + R2S(GetLocationX(p)) + "|y=" + R2S(GetLocationY(p)) + ">"
     endfunction
 
@@ -113,22 +116,6 @@ library baseSystem initializer init
         local real expUp = value * (1 + GetUnitAbilityLevel(target, 'AB0D') * 0.04)
         call AddHeroXP(target, R2I(expUp), true)
     endfunction
-    
-    function itemCanSpell takes integer tarItem, integer listItem returns boolean
-        //call Debug(YDWEId2S(tarItem)+" = | = "+YDWEId2S(listItem+11)+" = | = "+B2S(tarItem <= listItem and tarItem < (listItem+11)))
-        return tarItem >= listItem and tarItem < (listItem+11)
-    endfunction
-
-    function itemTrgSpell takes integer tarItem returns integer
-        local integer limit = 0
-        local integer id = 0
-        if tarItem >= 'I10A' then
-            set limit = R2I((tarItem-'I00A')/('I100'-'I000'))
-        endif
-        set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * ('I100' - 'I000')) / DETAL_TENID) + limit * 10
-        call Debug("itemTrgSpell|item="+YDWEId2S(tarItem)+"|id="+I2S(id))
-        return id
-    endfunction
 
     function Loading takes nothing returns nothing
         local unit dummy = CreateUnit(Player(15), 'U000', 8888, 8888, 0)
@@ -137,13 +124,13 @@ library baseSystem initializer init
 
         loop
             call UnitAddAbility(dummy, 'A000' + n)
-            exitwhen n <= ('A00z' - 'A000')
+            exitwhen n >= ('A00z' - 'A000')
             set n = n + 1
         endloop
         set n = 0
         loop
             call UnitAddAbility(dummy, ABI_FRISTID + n)
-            exitwhen n <= (ABI_ENDID - ABI_FRISTID)
+            exitwhen n >= (ABI_ENDID - ABI_FRISTID)
             set n = n + 1
         endloop
         set n = 1
@@ -151,10 +138,10 @@ library baseSystem initializer init
             set m = 1
             loop
                 call UnitAddAbility(dummy, 'bk00' + n * DETAL_TENID + m)
-                exitwhen m <= 3
+                exitwhen m >= 3
                 set m = m + 1
             endloop
-            exitwhen n <= 4
+            exitwhen n >= 4
             set n = n + 1
         endloop
         call RemoveUnit(dummy)
@@ -163,7 +150,7 @@ library baseSystem initializer init
         loop
             set dummy = CreateUnit(Player(15), 'e000' + n, 8888, 8888, 0)
             call KillUnit(dummy)
-            exitwhen n <= ('e000' - 'e00z')
+            exitwhen n >= ('e000' - 'e00z')
             set n = n + 1
         endloop
 
@@ -324,7 +311,7 @@ function getBoxReward takes unit hero returns string
     local integer rarity
     local string result = ""
     
-    if calculateLuck(hero, 25) then
+    if calculateLuck(hero, 15) then
         set reward = 3
     elseif calculateLuck(hero, 50) then
         set reward = 2
@@ -341,7 +328,7 @@ function getBoxReward takes unit hero returns string
             endif
         endif
         set result = result + I2S(rarity)
-        exitwhen n <= 3
+        exitwhen n >= 3
     endloop
     call Debug("GetBoxReward = " + result)
     return result
@@ -367,7 +354,8 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
                     set max = max + 1
                 endif
             endif
-            exitwhen n <= 5
+            //call Debug("pickItem|item="+T2S(pickItem[pick])+"|pick="+I2S(pick))
+            exitwhen n >= 5
             set n = n + 1
         endloop
 
@@ -394,7 +382,7 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
                 endif
                 set own = own + 1
             endif
-            exitwhen n <= ABI_ENDID-ABI_FRISTID
+            exitwhen n >= ABI_ENDID-ABI_FRISTID
             set n = n + 1
         endloop
 
@@ -409,10 +397,10 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
     if rarity == "1" then
         set pickId = GetRandomInt('It00', 'It02')
     endif
-    //call Debug("boxreward| = " + rarity + "|pickId = " + YDWEId2S(pickId)+"|pick = "+I2S(pick))
+    call Debug("boxreward| = " + rarity + "|pickId = " + YDWEId2S(pickId)+"|pick = "+I2S(pick))
     if pickId > 0 then
         set udg_item = CreateItem(pickId, GetLocationX(target), GetLocationY(target))
-        //call Debug("createReward| = "+GetItemName(udg_item))
+        call Debug("createReward| = "+GetItemName(udg_item))
     endif
 endfunction
 

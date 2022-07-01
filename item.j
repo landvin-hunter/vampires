@@ -1,8 +1,24 @@
-library item
+library item initializer init
     globals
         private location point
         private unit dummy
     endglobals
+    
+    function itemCanSpell takes integer tarItem, integer listItem returns boolean
+        //call Debug(YDWEId2S(tarItem)+" = | = "+YDWEId2S(listItem+11)+" = | = "+B2S(tarItem <= listItem and tarItem < (listItem+11)))
+        return tarItem >= listItem and tarItem < (listItem+11)
+    endfunction
+
+    function itemTrgSpell takes integer tarItem returns integer
+        local integer limit = 0
+        local integer id = 0
+        if tarItem >= 'I10A' then
+            set limit = R2I((tarItem-'I00A')/('I100'-'I000'))
+        endif
+        set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * ('I100' - 'I000')) / DETAL_TENID) + limit * 10
+        //call Debug("itemTrgSpell|item="+YDWEId2S(tarItem)+"|id="+I2S(id))
+        return id
+    endfunction
 
     private function psCount takes unit hero returns real
         local real ps = 0
@@ -28,6 +44,22 @@ library item
         endif
 
         return cd
+    endfunction
+
+    private function spell takes nothing returns nothing
+        set triType = GetItemTypeId(udg_item)
+        set udg_point2 = null
+        set udg_int = GetConvertedPlayerId(udg_player)
+        set udg_hero = udg_Heros[udg_int]
+        set udg_point = GetUnitLoc(udg_hero)
+        set udg_int2 = itemTrgSpell(triType)
+        if ((udg_int2 > 0)) then
+            set udg_itemType = udg_itemList[(udg_int2 * 100 + 1)]
+            set udg_itemSpellLevel = (triType-udg_itemType+1)
+            call TriggerExecute(udg_triggerItemSpell[udg_int2])
+            //call Debug("itemSpell|trigger-"+I2S(udg_int2)+"|item="+YDWEId2S(udg_itemType))
+        endif
+        call RemoveLocation(udg_point)
     endfunction
 
     function itemCD takes unit hero returns nothing
@@ -59,7 +91,7 @@ library item
                     else
                         set nowcd = GetWidgetLife(udg_item) * cd
                         set udg_player = GetOwningPlayer(udg_hero)
-                        call TriggerExecute(gg_trg_ItemSpell)
+                        call spell()
                     endif
                     call YDUserDataSet(item, udg_item, "nowcd", real, nowcd)
                     call SetItemCharges(udg_item, R2I(nowcd))
@@ -79,5 +111,8 @@ library item
         call SetItemCharges(udg_item, R2I(nowcd))
         
         call Debug("setCD-"+GetItemName(it)+"|cd-"+R2S(rate))
+    endfunction
+
+    private function init takes nothing returns nothing
     endfunction
 endlibrary

@@ -42,7 +42,7 @@ function itemLevelUp takes unit hero,item tarItem returns nothing
                 set n = n + 1
             endloop
         endif   
-        exitwhen x == 5
+        exitwhen x >= 5
         set x = x + 1
     endloop
     
