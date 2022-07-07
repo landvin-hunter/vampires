@@ -12,10 +12,10 @@ library item initializer init
     function itemTrgSpell takes integer tarItem returns integer
         local integer limit = 0
         local integer id = 0
-        if tarItem >= 'I10A' then
-            set limit = R2I((tarItem-'I00A')/('I100'-'I000'))
+        if tarItem >= ITEM_FRISTID then
+            set limit = R2I((tarItem-'I00A')/DETAL_HUNID)
         endif
-        set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * ('I100' - 'I000')) / DETAL_TENID) + limit * 10
+        set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * DETAL_HUNID) / DETAL_TENID) + limit * 10
         //call Debug("itemTrgSpell|item="+YDWEId2S(tarItem)+"|id="+I2S(id))
         return id
     endfunction

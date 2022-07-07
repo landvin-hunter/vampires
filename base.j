@@ -207,7 +207,7 @@ library initData
     <?
     _G.idList = {}
 
-        for i = 1, 22 do
+        for i = 1, 40 do
             if i < 10 then
                 idList[i] = "0" .. i
             else
