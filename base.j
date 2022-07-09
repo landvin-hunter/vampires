@@ -123,13 +123,19 @@ library baseSystem initializer init
         local integer m = 0
 
         loop
+            //call Debug("Loading|dummyAbi|"+YDWEId2S('A000' + n))
             call UnitAddAbility(dummy, 'A000' + n)
+            call UnitRemoveAbility(dummy, 'A000' + n)
+            //call TriggerSleepAction(0.1)
             exitwhen n >= ('A00z' - 'A000')
             set n = n + 1
         endloop
         set n = 0
         loop
+            //call Debug("Loading|baseAbi|"+YDWEId2S(ABI_FRISTID + n))
             call UnitAddAbility(dummy, ABI_FRISTID + n)
+            call UnitRemoveAbility(dummy, ABI_FRISTID + n)
+            //call TriggerSleepAction(0.1)
             exitwhen n >= (ABI_ENDID - ABI_FRISTID)
             set n = n + 1
         endloop
@@ -137,19 +143,24 @@ library baseSystem initializer init
         loop
             set m = 1
             loop
+                //call Debug("Loading|bloodAbi|"+YDWEId2S('bk00' + n * DETAL_TENID + m))
                 call UnitAddAbility(dummy, 'bk00' + n * DETAL_TENID + m)
+                call UnitRemoveAbility(dummy, 'bk00' + n * DETAL_TENID + m)
+                //call TriggerSleepAction(0.1)
                 exitwhen m >= 3
                 set m = m + 1
             endloop
-            exitwhen n >= 4
+            exitwhen n >= 6
             set n = n + 1
         endloop
         call RemoveUnit(dummy)
 
         set n = 0
         loop
+            //call Debug("Loading|dummy|"+YDWEId2S('e000' + n))
             set dummy = CreateUnit(Player(15), 'e000' + n, 8888, 8888, 0)
             call KillUnit(dummy)
+            //call TriggerSleepAction(0.1)
             exitwhen n >= ('e000' - 'e00z')
             set n = n + 1
         endloop
@@ -201,13 +212,13 @@ endlibrary
 
 library initData
     globals
-        integer baseItemNum = 0
+        integer baseItemNum = <?=ITEMNUM?>
         integer array baseItemList
     endglobals
     <?
     _G.idList = {}
 
-        for i = 1, 40 do
+        for i = 1, ITEMNUM do
             if i < 10 then
                 idList[i] = "0" .. i
             else
@@ -230,8 +241,8 @@ library initData
                     set udg_itemListNum = udg_itemListNum + 1
                     call Debug("LoadItem[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
                     if <?=k?> == 1 then
-                        set baseItemNum = baseItemNum + 1
-                        set baseItemList[baseItemNum] = 'I<?=i?>A'
+                        //set baseItemNum = baseItemNum + 1
+                        set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
                     endif
                     call RemoveItem(udg_item)
                     //call Debug(YDWEId2S(udg_itemList[<?=i?>*100+<?=k?>]))

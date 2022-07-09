@@ -2,6 +2,7 @@ library item initializer init
     globals
         private location point
         private unit dummy
+        private trigger array spellTrigger
     endglobals
     
     function itemCanSpell takes integer tarItem, integer listItem returns boolean
@@ -15,8 +16,12 @@ library item initializer init
         if tarItem >= ITEM_FRISTID then
             set limit = R2I((tarItem-'I00A')/DETAL_HUNID)
         endif
-        set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * DETAL_HUNID) / DETAL_TENID) + limit * 10
-        //call Debug("itemTrgSpell|item="+YDWEId2S(tarItem)+"|id="+I2S(id))
+        if tarItem > 'I10A' and tarItem < 'I11A' then
+            set id = 10 //不知道为什么大于'I10B'的算出来的id都是11
+        else
+            set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * DETAL_HUNID) / DETAL_TENID) + limit * 10
+        endif
+        call Debug("itemTrgSpell|item="+YDWEId2S(tarItem)+"|id="+I2S(id)+"|limit="+I2S(limit))
         return id
     endfunction
 
@@ -56,8 +61,8 @@ library item initializer init
         if ((udg_int2 > 0)) then
             set udg_itemType = udg_itemList[(udg_int2 * 100 + 1)]
             set udg_itemSpellLevel = (triType-udg_itemType+1)
-            call TriggerExecute(udg_triggerItemSpell[udg_int2])
-            //call Debug("itemSpell|trigger-"+I2S(udg_int2)+"|item="+YDWEId2S(udg_itemType))
+            call Debug("itemSpell| trigger-["+I2S(GetHandleId(spellTrigger[udg_int2]))+"]"+I2S(udg_int2)+"| item="+T2S(udg_item))
+            call TriggerExecute(spellTrigger[udg_int2])
         endif
         call RemoveLocation(udg_point)
     endfunction
@@ -113,6 +118,17 @@ library item initializer init
         call Debug("setCD-"+GetItemName(it)+"|cd-"+R2S(rate))
     endfunction
 
+    private function initTimed takes nothing returns nothing
+        call DestroyTimer(GetExpiredTimer())
+        <?for i = 1, ITEMNUM do?>
+            set spellTrigger[<?=i?>] = gg_trg_ItemSpell_<?=i?>
+            call Debug("initSpellTrigger-[<?=i?>]-id="+I2S(GetHandleId(spellTrigger[<?=i?>])))
+        <? end ?>
+    endfunction
+
     private function init takes nothing returns nothing
+        local timer t = CreateTimer()
+        call TimerStart(t, 1, false, function initTimed)
+        set t = null
     endfunction
 endlibrary

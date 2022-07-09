@@ -1,5 +1,5 @@
 <?
---_G.glv = 0
+_G.ITEMNUM = 0
 local slk = require 'slk'
 local itemFile = {
     [[Objects\InventoryItems\tomeBlue\tomeBlue.mdl]],
@@ -186,7 +186,34 @@ local itemList = {
         CD = [[return 4]],
         CDMax = 4,
     },
+    {
+        Name = '双子雷鸣',
+        Tips = [[召唤两个闪电精灵护卫自身]],
+        TipsMax = [[召唤四个闪电精灵护卫自身]],
+        Description = [[
+|cff22bb22范围：|r 450
+|cffeeee55伤害：|r <A005,DataA*lv>
+|cffffcc00维持：|r 12秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfLightning.blp]],
+        CD = [[return 3]],
+        CDMax = 3,
+    },
+    {
+        Name = '深海意志',
+        Tips = [[出来吧，触须！]],
+        TipsMax = [[出来吧，大触须！]],
+        Description = [[
+|cff22bb22范围：|r 400~600
+|cffeeee55伤害：|r <A00W,DataA*lv>
+|cffffcc00存活：|r 20秒/至多6个
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNRevenant.blp]],
+        CD = [[return 5]],
+        CDMax = 5,
+    },
 }
+ITEMNUM = #itemList
 
 for num, tb in ipairs(itemList) do
     for lv, vid in ipairs(itemEndId) do
