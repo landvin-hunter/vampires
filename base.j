@@ -245,7 +245,7 @@ endlibrary
 
 function calculateLuck takes unit hero, real rate returns boolean
     local integer luck = GetHeroInt(hero, true)
-    local real random = GetRandomReal(0, 100)
+    local real random = GetRandomReal(0, 1000)
     
     if luck > 0 then
         set random = random * ( 1 + 1.5 * luck / (luck + 80) )
@@ -255,7 +255,8 @@ function calculateLuck takes unit hero, real rate returns boolean
         set random = random * 1.3
     endif
     
-    return random <= rate
+    call Debug("calculateLuck| ran="+R2S(random)+"| rate="+R2S(rate*10))
+    return random <= rate*10
 endfunction
 
 function damageCount takes unit hero, real dmg returns real
@@ -326,6 +327,8 @@ function getBoxReward takes unit hero returns string
             else
                 set rarity = rollAReward(hero)
             endif
+        else
+            set rarity = 0
         endif
         set result = result + I2S(rarity)
         exitwhen n >= 3

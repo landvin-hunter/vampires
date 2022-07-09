@@ -119,7 +119,7 @@ local baseSkill = {
         levels = 10,
         DataA = {5, 50},
         Tip = [=[染血之毒 - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[使得造成的伤害提高|n|n提高伤害：|cff89D5FF<*id,DataA*lv>%|r]],
+        Ubertip = [[提高造成的伤害|n|n提高伤害：|cff89D5FF<*id,DataA*lv>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
