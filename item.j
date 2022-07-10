@@ -1,4 +1,64 @@
-library item initializer init
+
+
+library initData 
+    globals
+        integer baseItemNum = <?=ITEMNUM?>
+        integer array baseItemList
+        private hashtable ht
+        private integer key_itemClass = StringHash("itemClass")
+    endglobals
+    <?
+    _G.idList = {}
+
+    for i = 1, ITEMNUM do
+        if i < 10 then
+            idList[i] = "0" .. i
+        else
+            idList[i] = tostring(i)
+        end
+    end
+        
+    ?>
+    function initItemId takes nothing returns nothing
+        local integer max = 0
+        local integer n = 0
+        local integer id = 0
+ 
+        <? for k, v in ipairs{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'} do ?>
+            <? for _, i in ipairs(idList) do ?>
+                set udg_item = CreateItem('I<?=i?><?=v?>', 8888, 8888)
+                if udg_item != null then
+                    set id = S2I("<?=i?>")
+                    set udg_itemList[id*100+<?=k?>] = 'I<?=i?><?=v?>'
+                    set udg_itemListNum = udg_itemListNum + 1
+                    call Debug("iniItemId[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
+                    if <?=k?> == 1 then
+                        //set baseItemNum = baseItemNum + 1
+                        set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
+                    endif
+                    call RemoveItem(udg_item)
+                    //call Debug(YDWEId2S(udg_itemList[<?=i?>*100+<?=k?>]))
+                endif
+            <? end ?>
+        <? end ?>
+        
+        set udg_ht = InitHashtable()
+    endfunction
+
+    function initItemClass takes nothing returns nothing
+        <? for k, v in pairs(ITEMCLASSLIST) do ?>
+            call SaveStr(ht, key_itemClass, '<?=k?>', "<?=v?>")
+            call Debug("initItemClass| id=<?=k?>| class=<?=v?>")
+        <? end ?>
+    endfunction
+
+    function getItemClass takes integer id returns string
+        return LoadStr(ht, key_itemClass, id)
+    endfunction
+endlibrary
+
+
+library item initializer init requires baseSystem
     globals
         private location point
         private unit dummy
@@ -51,7 +111,21 @@ library item initializer init
         return cd
     endfunction
 
-    private function spell takes nothing returns nothing
+    private function abiCount takes unit hero,real cd returns real
+        local integer tid = GetItemTypeId(udg_item)
+        local integer lv = GetUnitAbilityLevel(hero, 'AB0L')
+
+        if lv > 0 then
+            if getItemClass(tid) == "发射类" and calculateLuck(hero, lv * 2 + 8) then
+                call DestroyEffect(AddSpecialEffectTarget("Abilities\\Spells\\Items\\AIil\\AIilTarget.mdl", hero, "overhead"))
+                return 0
+            endif
+        endif
+        return cd
+    endfunction
+
+    private function spell takes real cd returns nothing
+        local trigger func
         set triType = GetItemTypeId(udg_item)
         set udg_point2 = null
         set udg_int = GetConvertedPlayerId(udg_player)
@@ -61,10 +135,12 @@ library item initializer init
         if ((udg_int2 > 0)) then
             set udg_itemType = udg_itemList[(udg_int2 * 100 + 1)]
             set udg_itemSpellLevel = (triType-udg_itemType+1)
-            call Debug("itemSpell| trigger-["+I2S(GetHandleId(spellTrigger[udg_int2]))+"]"+I2S(udg_int2)+"| item="+T2S(udg_item))
-            call TriggerExecute(spellTrigger[udg_int2])
+            call Debug("itemSpell| trigger-["+I2S(GetHandleId(spellTrigger[udg_int2]))+"]"+I2S(udg_int2)+"| item="+T2S(udg_item)+"| cd="+R2S(cd))
+            set func = spellTrigger[udg_int2]
+            call TriggerExecute(func)
         endif
         call RemoveLocation(udg_point)
+        set func = null
     endfunction
 
     function itemCD takes unit hero returns nothing
@@ -94,9 +170,9 @@ library item initializer init
                     if nowcd > 0 then
                         set nowcd = nowcd - 0.1 * ps
                     else
-                        set nowcd = GetWidgetLife(udg_item) * cd
-                        set udg_player = GetOwningPlayer(udg_hero)
-                        call spell()
+                        set nowcd = abiCount(hero, GetWidgetLife(udg_item) * cd)
+                        set udg_player = GetOwningPlayer(hero)
+                        call spell(nowcd)
                     endif
                     call YDUserDataSet(item, udg_item, "nowcd", real, nowcd)
                     call SetItemCharges(udg_item, R2I(nowcd))

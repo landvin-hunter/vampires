@@ -12,7 +12,7 @@ globals
 
     //首尾固有能力ID，对应升级马甲和升级物品
     constant integer ABI_FRISTID = 'AB0A'
-    constant integer ABI_ENDID = 'AB0J'
+    integer ABI_ENDID = ABI_FRISTID
     constant integer ABIUNIT_FRISTID = 'urbA'
     constant integer ABIITEM_FRISTID = 'IA0A'
 
@@ -32,9 +32,9 @@ library baseSystem initializer init
     
     function B2S takes boolean flag returns string
         if flag then
-            return "true"
+            return "<true>"
         endif
-        return "false"
+        return "<false>"
     endfunction
 
     function U2S takes unit u returns string
@@ -94,6 +94,24 @@ library baseSystem initializer init
         local real dy = GetUnitY(a) - GetUnitY(b)
         return SquareRoot(dx * dx + dy * dy)
     endfunction
+    //--自定义单体伤害 call UDT(souce,target,damage,type,IsNomAttack)
+    function UDT takes unit u,unit t,real da,integer ty,boolean b returns nothing
+        if ty=='fsmf' then //法术魔法
+            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_NORMAL,DAMAGE_TYPE_MAGIC,WEAPON_TYPE_WHOKNOWS)
+        elseif ty=='yxpt' then//英雄普通
+            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_NORMAL,WEAPON_TYPE_WHOKNOWS)
+        elseif ty=='yxmf' then//英雄魔法
+            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_MAGIC,WEAPON_TYPE_WHOKNOWS)
+        elseif ty=='hlqh' then//混乱强化
+            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_ENHANCED,WEAPON_TYPE_WHOKNOWS)
+        elseif ty=='hlty' then //混乱通用
+            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_UNIVERSAL,WEAPON_TYPE_WHOKNOWS)
+        elseif ty=='yxqh' then //英雄强化
+            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_ENHANCED,WEAPON_TYPE_WHOKNOWS)
+        elseif ty=='jnpt' then //英雄普通
+            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_NORMAL,WEAPON_TYPE_WHOKNOWS)
+        endif
+    endfunction
 
     function addHeal takes unit target, real value returns nothing
         local integer id = GetPlayerId(GetOwningPlayer(target))
@@ -133,12 +151,14 @@ library baseSystem initializer init
         set n = 0
         loop
             //call Debug("Loading|baseAbi|"+YDWEId2S(ABI_FRISTID + n))
-            call UnitAddAbility(dummy, ABI_FRISTID + n)
-            call UnitRemoveAbility(dummy, ABI_FRISTID + n)
+            set ABI_ENDID = ABI_FRISTID + n
+            call UnitAddAbility(dummy, ABI_ENDID)
             //call TriggerSleepAction(0.1)
-            exitwhen n >= (ABI_ENDID - ABI_FRISTID)
+            exitwhen n >= 99 or GetUnitAbilityLevel(dummy, ABI_ENDID) == 0
+            call UnitRemoveAbility(dummy, ABI_FRISTID + n)
             set n = n + 1
         endloop
+        call Debug("Loading|baseAbi|"+YDWEId2S(ABI_ENDID))
         set n = 1
         loop
             set m = 1
@@ -204,71 +224,27 @@ library baseSystem initializer init
         return n
     endfunction
 
+    function calculateLuck takes unit hero, real rate returns boolean
+        local integer luck = GetHeroInt(hero, true)
+        local real random = GetRandomReal(0, 1000)
+        
+        if luck > 0 then
+            set rate = rate * ( 1 + 1.5 * luck / (luck + 80) )
+        endif
+    
+        if bloodAbilities[(GetPlayerId(GetOwningPlayer(hero))+1)*100+22] then
+            set rate = rate * 1.3
+        endif
+        
+        call Debug("calculateLuck| ran="+R2S(random)+"| rate="+R2S(rate*10))
+        return random <= rate*10
+    endfunction
+
     private function init takes nothing returns nothing
         set intMapSeed = mathRandom(1, 100)
         call SetRandomSeed(intMapSeed)
     endfunction
 endlibrary
-
-library initData
-    globals
-        integer baseItemNum = <?=ITEMNUM?>
-        integer array baseItemList
-    endglobals
-    <?
-    _G.idList = {}
-
-        for i = 1, ITEMNUM do
-            if i < 10 then
-                idList[i] = "0" .. i
-            else
-                idList[i] = tostring(i)
-            end
-        end
-        
-    ?>
-    function initData takes nothing returns nothing
-        local integer max = 0
-        local integer n = 0
-        local integer id = 0
- 
-        <? for k, v in ipairs{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'} do ?>
-            <? for _, i in ipairs(idList) do ?>
-                set udg_item = CreateItem('I<?=i?><?=v?>', 8888, 8888)
-                if udg_item != null then
-                    set id = S2I("<?=i?>")
-                    set udg_itemList[id*100+<?=k?>] = 'I<?=i?><?=v?>'
-                    set udg_itemListNum = udg_itemListNum + 1
-                    call Debug("LoadItem[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
-                    if <?=k?> == 1 then
-                        //set baseItemNum = baseItemNum + 1
-                        set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
-                    endif
-                    call RemoveItem(udg_item)
-                    //call Debug(YDWEId2S(udg_itemList[<?=i?>*100+<?=k?>]))
-                endif
-            <? end ?>
-        <? end ?>
-        
-        set udg_ht = InitHashtable()
-    endfunction
-endlibrary
-
-function calculateLuck takes unit hero, real rate returns boolean
-    local integer luck = GetHeroInt(hero, true)
-    local real random = GetRandomReal(0, 1000)
-    
-    if luck > 0 then
-        set random = random * ( 1 + 1.5 * luck / (luck + 80) )
-    endif
-
-    if bloodAbilities[(GetPlayerId(GetOwningPlayer(hero))+1)*100+22] then
-        set random = random * 1.3
-    endif
-    
-    call Debug("calculateLuck| ran="+R2S(random)+"| rate="+R2S(rate*10))
-    return random <= rate*10
-endfunction
 
 function damageCount takes unit hero, real dmg returns real
     local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
@@ -304,6 +280,17 @@ function damageCount takes unit hero, real dmg returns real
         endif
     endif
     return dmg * add
+endfunction
+
+function lifeCount takes unit hero, real time returns real
+    local real add = 1
+    local integer abiLv = GetUnitAbilityLevel(hero, 'AB0K')
+
+    if abiLv > 0 then
+        set add = add + (0.2 + abiLv * 0.05)
+    endif
+
+    return time * add
 endfunction
 
 function rollAReward takes unit hero returns integer

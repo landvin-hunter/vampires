@@ -13,6 +13,7 @@ local itemList = {
     {
         Name = '魔法垂饰',
         Tips = [[自动发射魔法弹道]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A00K,Area*lv>
 |cffeeee55伤害：|r <A00K,DataA*lv>
@@ -22,7 +23,7 @@ local itemList = {
         CDMax = 1,
     },
     {
-        Name = '攻击之爪',
+        Name = '三相血刃',
         Tips = [[发射一圈刀刃]],
         Description = [[
 |cff22bb22范围：|r <A006,Area*lv>
@@ -36,6 +37,7 @@ local itemList = {
         Name = '雷电花芯',
         Tips = [[发射一道弹射闪电]],
         TipsMax = [[发射一道弹射闪电，弹跳不会再伤害衰减]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A008,Rng*lv>
 |cffeeee55伤害：|r <A008,DataA*lv>
@@ -48,6 +50,7 @@ local itemList = {
     {
         Name = '火焰风衣',
         Tips = [[扔出火焰燃烧地面]],
+        EditorSuffix = [[场地类]],
         Description = [[
 |cff22bb22范围：|r 400/<A00J,Area*lv>
 |cffeeee55伤害：|r <A00J,DataA*lv>/0.5秒
@@ -61,6 +64,7 @@ local itemList = {
         Name = '天灾骨钟',
         Tips = [[发射一道死亡虹电，还能治疗自己2点生命]],
         TipsMax = [[发射两道死亡虹电，还能治疗自己2点生命]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A00Q,Rng*lv>
 |cffeeee55伤害：|r <A00Q,DataC*lv>
@@ -72,6 +76,7 @@ local itemList = {
     {
         Name = '酸性药剂',
         Tips = [[投掷药剂对目标周围敌人持续伤害]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r 700/<A00t,Area*lv>
 |cffeeee55伤害：|r <A00t,DataE*lv>/0.4秒
@@ -83,6 +88,7 @@ local itemList = {
     {
         Name = '冰冻碎片',
         Tips = [[向周围吹出寒气]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A00O,DataC*lv>
 |cffeeee55伤害：|r <A00O,DataA*lv>
@@ -95,6 +101,7 @@ local itemList = {
         Name = '毁灭魔球',
         Tips = [[召唤一颗陨石降落在附近]],
         TipsMax = [[召唤数颗陨石降落在附近]],
+        EditorSuffix = [[场地类]],
         Description = [[
 |cff22bb22范围：|r <A00r,Area*lv>
 |cffeeee55伤害：|r <A00r,DataB*lv>
@@ -106,6 +113,7 @@ local itemList = {
     {
         Name = '死亡面罩',
         Tips = [[朝着面朝方向发射蝙蝠群]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A00I,DataC*lv>
 |cffeeee55伤害：|r <A00I,DataA*lv>
@@ -130,6 +138,7 @@ local itemList = {
         Name = '鬼魂容器',
         Tips = [[出现一个发射魔法弹的鬼魂]],
         TipsMax = [[出现一个极快速发射魔法弹的鬼魂]],
+        EditorSuffix = [[召唤类]],
         Description = [[
 |cff22bb22范围：|r <A001,Area*lv>
 |cffeeee55伤害：|r <A001,DataA*lv>
@@ -143,6 +152,7 @@ local itemList = {
         Name = '恶魔手套',
         Tips = [[呼唤大量的幽灵]],
         TipsMax = [[呼唤极其大量的幽灵]],
+        EditorSuffix = [[召唤类]],
         Description = [[
 |cff22bb22范围：|r <A00S,Area*lv>
 |cffeeee55伤害：|r <A00S,DataC*lv>
@@ -156,6 +166,7 @@ local itemList = {
     {
         Name = '工匠地雷',
         Tips = [[不断产生地雷]],
+        EditorSuffix = [[召唤类]],
         Description = [[
 |cff22bb22范围：|r <A00U,DataA*lv>
 |cffeeee55伤害：|r <A00U,DataB*lv>
@@ -167,6 +178,7 @@ local itemList = {
     {
         Name = '屠夫锯刃',
         Tips = [[向自身两侧抛出旋转锯刃切割路径上的敌人]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cffeeee55伤害：|r <A002,DataA*lv>/0.2秒
 |cff3399ff间隔：|r *cd秒]],
@@ -177,6 +189,7 @@ local itemList = {
     {
         Name = '恶灵之书',
         Tips = [[召唤数个骷髅环绕自身]],
+        EditorSuffix = [[召唤类]],
         Description = [[
 |cff22bb22范围：|r 300
 |cffeeee55伤害：|r <A003,DataA*lv>
@@ -190,6 +203,7 @@ local itemList = {
         Name = '双子雷鸣',
         Tips = [[召唤两个闪电精灵护卫自身]],
         TipsMax = [[召唤四个闪电精灵护卫自身]],
+        EditorSuffix = [[召唤类]],
         Description = [[
 |cff22bb22范围：|r 450
 |cffeeee55伤害：|r <A005,DataA*lv>
@@ -203,6 +217,7 @@ local itemList = {
         Name = '深海意志',
         Tips = [[出来吧，触须！]],
         TipsMax = [[出来吧，大触须！]],
+        EditorSuffix = [[召唤类]],
         Description = [[
 |cff22bb22范围：|r 400~600
 |cffeeee55伤害：|r <A00W,DataA*lv>
@@ -212,8 +227,35 @@ local itemList = {
         CD = [[return 5]],
         CDMax = 5,
     },
+    {
+        Name = '灰烬利爪',
+        Tips = [[这将是，火焰的仪式]],
+        TipsMax = [[全力喷发吧，地狱的火焰！]],
+        EditorSuffix = [[场地类]],
+        Description = [[
+|cff22bb22范围：|r <A00X,DataA>
+|cffeeee55伤害：|r <A00X,DataB*lv>
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNAdvancedUnholyStrength.blp]],
+        CD = [[return 2.5]],
+        CDMax = 1,
+    },
+    {
+        Name = '月光大弓',
+        Tips = [[向身后蓄力发射一道箭矢，只要能杀死击中的敌人便能持续穿透]],
+        TipsMax = [[向身后蓄力发射一道强力箭矢，只要能杀死击中的敌人便能持续穿透并提高15%的伤害]],
+        EditorSuffix = [[发射类]],
+        Description = [[
+|cff22bb22范围：|r 1250/125
+|cffeeee55伤害：|r 100 + 血质阶层×*sslv
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNImprovedBows.blp]],
+        CD = [[return 2.5]],
+        CDMax = 2.5,
+    },
 }
 ITEMNUM = #itemList
+_G.ITEMCLASSLIST = {}
 
 for num, tb in ipairs(itemList) do
     for lv, vid in ipairs(itemEndId) do
@@ -241,6 +283,10 @@ for num, tb in ipairs(itemList) do
         else
             item.Description = tb.Tips
         end
+        if tb.EditorSuffix then
+            originGescription = '[|cff13d0dd' .. tb.EditorSuffix  .. '|r]' .. originGescription
+            ITEMCLASSLIST[id] = tb.EditorSuffix
+        end
         local cdfunc = tb.CD
         local cd = tb.CDMax
         if lv < 11 then
@@ -248,6 +294,7 @@ for num, tb in ipairs(itemList) do
         end
         description = originGescription:gsub('*lv', lv)
         description = description:gsub('*slv', lv+1)
+        description = description:gsub('*sslv', lv*2+8)
         description = description:gsub('*cd', cd)
         item.Ubertip = description
         item.Art = tb.Art
@@ -281,6 +328,8 @@ for num, tb in ipairs(itemList) do
             unit.Tip = name
             
             local description2 = originGescription:gsub('*lv', lv+1)
+            description = description:gsub('*slv', lv+2)
+            description = description:gsub('*sslv', (lv+1)*2+8)
             cd = (load(cdfunc, "", "t", {glv = lv+1}))()
             description2 = description2:gsub('*cd', cd)
             unit.Ubertip = string.format([[装备变化:|n%s|n--->>>|n%s]], description, description2)
