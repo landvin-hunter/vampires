@@ -25,6 +25,7 @@ local itemList = {
     {
         Name = '三相血刃',
         Tips = [[发射一圈刀刃]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A006,Area*lv>
 |cffeeee55伤害：|r <A006,DataA*lv>
@@ -36,7 +37,7 @@ local itemList = {
     {
         Name = '雷电花芯',
         Tips = [[发射一道弹射闪电]],
-        TipsMax = [[发射一道弹射闪电，弹跳不会再伤害衰减]],
+        TipsMax = [[发射一道弹射闪电，弹跳次数更多且不会再伤害衰减]],
         EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A008,Rng*lv>
@@ -125,6 +126,7 @@ local itemList = {
     {
         Name = '风暴战锤',
         Tips = [[使得附近多个目标被雷柱打击]],
+        EditorSuffix = [[发射类]],
         Description = [[
 |cff22bb22范围：|r <A00P,Area*lv>
 |cffeeee55伤害：|r <A00P,DataA*lv>
