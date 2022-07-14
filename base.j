@@ -246,6 +246,34 @@ library baseSystem initializer init
     endfunction
 endlibrary
 
+library Tips initializer init
+    globals
+        private timer mtimer = CreateTimer()
+        private integer num = 0
+        private string array tips
+    endglobals
+
+    private function roll takes nothing returns nothing
+        call DisplayTimedTextFromPlayer(GetLocalPlayer(), 0, 0, 15, tips[GetRandomInt(1, num)])
+    endfunction
+
+    private function insert takes string s returns nothing
+        set num = num + 1
+        set tips[num] = s
+    endfunction
+
+    private function init takes nothing returns nothing
+        call TimerStart(mtimer, 20, true, function roll)
+        call insert("初始坟墓的红色引导线将指引你猎杀领域Boss")
+        call insert("每4分钟会出现精英敌人，猎杀他们掉落一个宝箱")
+        call insert("装备通过等级提升最多升到10级，只有宝箱才能帮助你将装备升到Max")
+        call insert("一部分带有持续时间的装备在生效期间会暂停CD")
+        call insert("计分板上的日出倒计时结束后，吸血鬼们将会死于太阳的炙烤，尽快在吸血鬼猎人到来后将其猎杀")
+        call insert("冷知识：实际上你可以用键盘方向键移动")
+        call insert("点击角色身上的血液容器，可以查看已经获得的血液能力，也能查看其他领域Boss")
+    endfunction
+endlibrary
+
 function damageCount takes unit hero, real dmg returns real
     local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
     local integer critLv = GetUnitAbilityLevel(hero, 'AB0I')
