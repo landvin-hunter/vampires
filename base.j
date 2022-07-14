@@ -151,13 +151,13 @@ library baseSystem initializer init
         set n = 0
         loop
             //call Debug("Loading|baseAbi|"+YDWEId2S(ABI_FRISTID + n))
-            set ABI_ENDID = ABI_FRISTID + n
-            call UnitAddAbility(dummy, ABI_ENDID)
+            call UnitAddAbility(dummy, ABI_FRISTID + n)
             //call TriggerSleepAction(0.1)
-            exitwhen n >= 99 or GetUnitAbilityLevel(dummy, ABI_ENDID) == 0
+            exitwhen n >= 99 or GetUnitAbilityLevel(dummy, ABI_FRISTID + n) == 0
             call UnitRemoveAbility(dummy, ABI_FRISTID + n)
             set n = n + 1
         endloop
+        set ABI_ENDID = ABI_FRISTID + n - 1
         call Debug("Loading|baseAbi|"+YDWEId2S(ABI_ENDID))
         set n = 1
         loop

@@ -4,7 +4,7 @@ library initData
     globals
         integer baseItemNum = <?=ITEMNUM?>
         integer array baseItemList
-        private hashtable ht
+        private hashtable ht = InitHashtable()
         private integer key_itemClass = StringHash("itemClass")
     endglobals
     <?
@@ -31,7 +31,7 @@ library initData
                     set id = S2I("<?=i?>")
                     set udg_itemList[id*100+<?=k?>] = 'I<?=i?><?=v?>'
                     set udg_itemListNum = udg_itemListNum + 1
-                    call Debug("iniItemId[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
+                    //call Debug("iniItemId[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
                     if <?=k?> == 1 then
                         //set baseItemNum = baseItemNum + 1
                         set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
@@ -47,8 +47,8 @@ library initData
 
     function initItemClass takes nothing returns nothing
         <? for k, v in pairs(ITEMCLASSLIST) do ?>
+            //call Debug("initItemClass| id=<?=k?>| class=<?=v?>")
             call SaveStr(ht, key_itemClass, '<?=k?>', "<?=v?>")
-            call Debug("initItemClass| id=<?=k?>| class=<?=v?>")
         <? end ?>
     endfunction
 
