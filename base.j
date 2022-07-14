@@ -271,6 +271,8 @@ library Tips initializer init
         call insert("计分板上的日出倒计时结束后，吸血鬼们将会死于太阳的炙烤，尽快在吸血鬼猎人到来后将其猎杀")
         call insert("冷知识：实际上你可以用键盘方向键移动")
         call insert("点击角色身上的血液容器，可以查看已经获得的血液能力，也能查看其他领域Boss")
+        call insert("领域Boss死亡后会出现一个传送门，传送回初始坟墓")
+        call insert("幸运值不仅能提高装备和能力的概率，还能提高抽奖获得更好物品的概率")
     endfunction
 endlibrary
 
