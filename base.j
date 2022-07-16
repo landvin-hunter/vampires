@@ -188,6 +188,44 @@ library baseSystem initializer init
         set dummy = null
     endfunction
 
+    function handBook takes nothing returns nothing
+        local quest qm
+        <?
+            for k, v in pairs(HANDBOOKITEM) do
+            local name = HANDBOOKNAME[k]
+            local icon = string.gsub(HANDBOOKICON[k], [[\]], [[\\]])
+        ?>
+            set qm = CreateQuest()
+            call QuestSetTitle(qm, "<?=name?>")
+            call QuestSetDescription(qm, "<?=v?>")
+            call QuestSetIconPath(qm, "<?=icon?>")
+        <?end?>
+        <?
+            for k, v in pairs(HANDBOOKABI) do
+            local name = HANDBOOKNAME[k]
+            local icon = string.gsub(HANDBOOKICON[k], [[\]], [[\\]])
+        ?>
+            set qm = CreateQuest()
+            call QuestSetTitle(qm, "<?=name?>")
+            call QuestSetRequired(qm, false)
+            call QuestSetDescription(qm, "<?=v?>")
+            call QuestSetIconPath(qm, "<?=icon?>")
+        <?end?>
+        <?
+            for k, v in pairs(HANDBOOKBLOOD) do
+            local name = HANDBOOKNAME[k]
+            local icon = string.gsub(HANDBOOKICON[k], [[\]], [[\\]])
+        ?>
+            set qm = CreateQuest()
+            call QuestSetTitle(qm, "<?=name?>")
+            call QuestSetRequired(qm, false)
+            call QuestSetDescription(qm, "<?=v?>")
+            call QuestSetIconPath(qm, "<?=icon?>")
+        <?end?>
+        call FlashQuestDialogButton()
+        set qm = null
+    endfunction
+
     function barAss takes nothing returns nothing        
         <? for i = 1, 6 do ?>
             call CreateUnit(Player(11), 'ushd', GetRectCenterX(gg_rct_Bar_<?=i?>), GetRectCenterY(gg_rct_Bar_<?=i?>), 0)
@@ -254,7 +292,7 @@ library Tips initializer init
     endglobals
 
     private function roll takes nothing returns nothing
-        call DisplayTimedTextFromPlayer(GetLocalPlayer(), 0, 0, 15, tips[GetRandomInt(1, num)])
+        call DisplayTimedTextFromPlayer(GetLocalPlayer(), 0, 0, 15, "|cff1cadebTips:|r|cffe5cd31"+tips[GetRandomInt(1, num)])
     endfunction
 
     private function insert takes string s returns nothing
@@ -273,6 +311,8 @@ library Tips initializer init
         call insert("点击角色身上的血液容器，可以查看已经获得的血液能力，也能查看其他领域Boss")
         call insert("领域Boss死亡后会出现一个传送门，传送回初始坟墓")
         call insert("幸运值不仅能提高装备和能力的概率，还能提高抽奖获得更好物品的概率")
+        call insert("输入-unlock可以解锁自己的视角")
+        call insert("左上角图鉴(F9)可以查看游戏内所有装备和能力的简略介绍")
     endfunction
 endlibrary
 

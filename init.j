@@ -8,3 +8,4 @@
 #include "E:\\Users\\Code\\vampire\\select.j"
 #include "E:\\Users\\Code\\vampire\\keyBoardMove.j"
 #include "E:\\Users\\Code\\vampire\\mover.j"
+#include "E:\\Users\\Code\\vampire\\board.j"

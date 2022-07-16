@@ -6,6 +6,7 @@ library initData
         integer array baseItemList
         private hashtable ht = InitHashtable()
         private integer key_itemClass = StringHash("itemClass")
+        private integer key_itemDamageType = StringHash("damageType")
     endglobals
     <?
     _G.idList = {}
@@ -46,14 +47,22 @@ library initData
     endfunction
 
     function initItemClass takes nothing returns nothing
-        <? for k, v in pairs(ITEMCLASSLIST) do ?>
+        <? for k, v in pairs(ITEMLIST) do 
+            local class = string.sub(v, 1, 9)
+            local dmgtp = string.sub(v, 10, 15)
+        ?>
             //call Debug("initItemClass| id=<?=k?>| class=<?=v?>")
-            call SaveStr(ht, key_itemClass, '<?=k?>', "<?=v?>")
+            call SaveStr(ht, key_itemClass, '<?=k?>', "<?=class?>")
+            call SaveStr(ht, key_itemDamageType, '<?=k?>', "<?=dmgtp?>")
         <? end ?>
     endfunction
 
     function getItemClass takes integer id returns string
         return LoadStr(ht, key_itemClass, id)
+    endfunction
+
+    function getItemDamageType takes integer id returns string
+        return LoadStr(ht, key_itemDamageType, id)
     endfunction
 endlibrary
 

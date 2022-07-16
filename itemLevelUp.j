@@ -35,6 +35,7 @@ function itemLevelUp takes unit hero,item tarItem returns nothing
                     if itemTemp != null then
                         call SetItemPlayer(itemTemp, GetOwningPlayer(hero), true)
                         call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl", GetUnitX(hero), GetUnitY(hero)))
+                        call DisplayTimedTextFromPlayer(GetOwningPlayer(hero), 0, 0, 10, "升级获得了[|cffffcc00" + GetItemName(itemTemp) + "|r]")
                     endif
                     return
                 endif

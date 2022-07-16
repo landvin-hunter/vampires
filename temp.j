@@ -104,3 +104,4 @@ function sortScoreBoard takes nothing returns nothing
 endfunction
 
 WaygateActivateBJ
+GetAbilityName()

@@ -102,8 +102,8 @@ library select
                 //call Debug("Check-base="+I2S(has)+"|pickId="+I2S(pickId))
             endif
         
-        <? for i = 1, 4 do ?> // 'rise'+id保存添加的购买马甲
-            if pickId > 0 then
+        if pickId > 0 then
+            <? for i = 1, 4 do ?> // 'rise'+id保存添加的购买马甲
                 set n = GetRandomInt(1, pickId)//mathRandom(1, pickId)
                 set result[<?=i?>] = pickList[n]
                 if result[<?=i?>] >= ABIUNIT_FRISTID and result[<?=i?>] < ABIUNIT_FRISTID+30 then
@@ -123,8 +123,10 @@ library select
                 call SaveInteger(udg_ht, GetHandleId(hero), 'rise'+<?=i?>, result[<?=i?>])
                 call AddUnitToStock(hero, result[<?=i?>], resultLevel[<?=i?>], resultLevel[<?=i?>])
                 call Debug("Pick || id="+YDWEId2S(result[<?=i?>])+" || lv="+I2S(resultLevel[<?=i?>])+"|| n="+I2S(n))
-            endif
-        <? end ?>
+            <? end ?>
+        else
+            call UnitModifySkillPoints(hero, -GetHeroSkillPoints(hero))
+        endif
 
         set itemTemp = null
     endfunction

@@ -24,6 +24,24 @@ library rectChange initializer init
         endfunction
     <? end ?>
 
+    globals
+        private timer mtimer = CreateTimer()
+    endglobals
+
+    private function rectFix takes nothing returns nothing
+        local integer n = 1
+        local integer pid = 1
+        loop
+            if udg_Heros[n] == null then
+                set pid = GetPlayerId(GetOwningPlayer(GroupPickRandomUnit(udg_groupHero)))+1
+                set udg_rectNowRefresh[n] = udg_rectNowRefresh[pid]
+                set udg_rectResetRefresh[n] = udg_rectResetRefresh[pid]
+            endif
+            exitwhen n >= 4
+            set n = n + 1
+        endloop
+    endfunction
+
     private function init takes nothing returns nothing
         local trigger new
         local region area
@@ -35,6 +53,7 @@ library rectChange initializer init
             call TriggerAddAction(new, function actions_<?=i?>)
             //call RemoveRegion(area)
         <? end ?>
+        call TimerStart(mtimer,1,true,function rectFix)
         set new = null
         set area = null
     endfunction

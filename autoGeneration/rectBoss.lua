@@ -329,6 +329,9 @@ for id, data in pairs(bloodList) do
     unit.goldcost = 0
     unit.stockRegen = 0
     unit.race = 'orc'
+    HANDBOOKBLOOD[id] = unit.Ubertip
+    HANDBOOKNAME[id] = name
+    HANDBOOKICON[id] = data.Art
 end
 local sbook = slk.ability['Aspb']:new('bk00')
 sbook.Name = 'book-血液容器'

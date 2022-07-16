@@ -216,6 +216,23 @@ local baseSkill = {
         useUnit = true,
         useItem = true,
     },
+    ['AB0M'] = {
+        id = 'ACac',
+        Name = [[base-减速]],
+        Art = [[ReplaceableTextures\PassiveButtons\PASBTNDevotion.blp]],
+        levels = 10,
+        DataA = {10, 28},
+        Tip = [=[纯白手套 - [|cffffcc00等级 *lv|r]]=],
+        Ubertip = [[场地类装备可以施加减速效果|n|n速度：|cff89D5FF<Ad05,DataA*lv>|r]],
+        targs = {"nonhero,self"},
+        Buttonpos_1 = 0,
+        Buttonpos_2 = 2,
+        targetArt = [[]],
+        hero = 0,
+        race = 'creeps',
+        useUnit = true,
+        useItem = true,
+    },
     ['Ad00'] = {
         id = 'Aegr',
         Name = [[ass-伤害变化,+100%]],
@@ -255,12 +272,28 @@ local baseSkill = {
     },
     ['Ad03'] = {
         id = 'AIsx',
-        Name = [[ass-速度变化,-40as/+40ms]],
+        Name = [[ass-速度变化,-40as]],
         DataA = -0.4,
-        Buttonpos_1 = 0,
-        Buttonpos_2 = -11,
         hero = 0,
         race = 'undead',
+    },
+    ['Ad04'] = {
+        id = 'AIms',
+        Name = [[ass-速度变化,+80ms]],
+        DataA = 80,
+        hero = 0,
+        race = 'undead',
+    },
+    ['Ad05'] = {
+        id = 'Aasl',
+        Name = [[ass-速度变化,-10~100ms]],
+        levels = 10,
+        DataA = {-0.1, -1},
+        hero = 0,
+        race = 'undead',
+        targs = {'self'},
+        BuffID = {'Bfro'},
+        Area = 1,
     },
 }
 local noUse = {
@@ -317,6 +350,9 @@ for id, tb in pairs(baseSkill) do
         unit.goldcost = 0
         unit.stockRegen = 0
         unit.race = 'orc'
+        HANDBOOKABI[id] = string.match(des, ".+|n")
+        HANDBOOKNAME[id] = unit.Tip
+        HANDBOOKICON[id] = unit.Art
     end
 
     if tb.useItem then
@@ -325,6 +361,7 @@ for id, tb in pairs(baseSkill) do
 
         item.Name = "[" .. name .. "]"
         item.abilList = 'A000'
+        item.scale = 1.3
         item.Description = "拾取后可以获得或者升级该固有能力"
         item.file = [[Units\Human\Phoenix\PhoenixEgg.mdl]]
     end

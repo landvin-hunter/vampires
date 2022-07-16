@@ -56,6 +56,8 @@ library Around initializer init requires baseSystem
             set rspeed[id]  = rspeed[max]
             set rangle[id]  = rangle[max]
             set time[id]    = time[max]
+            set radfunc[id] = radfunc[max]
+            set radBackAccel[id] = radBackAccel[max]
             set max         = max - 1
         endif
     endfunction
@@ -91,6 +93,9 @@ library Around initializer init requires baseSystem
         set rspeed[max] = rs * bj_DEGTORAD / 50
         set rangle[max] = an
         set time[max]   = t
+        set radfunc[max]= null
+        set radBackAccel[max] = 0
+        set radSinAccel[max] = 0
 
         return max
     endfunction
