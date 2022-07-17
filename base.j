@@ -14,7 +14,9 @@ globals
     constant integer ABI_FRISTID = 'AB0A'
     integer ABI_ENDID = ABI_FRISTID
     constant integer ABIUNIT_FRISTID = 'urbA'
+    integer ABIUNIT_ENDID = ABIUNIT_FRISTID
     constant integer ABIITEM_FRISTID = 'IA0A'
+    integer ABIITEM_ENDID = ABIITEM_FRISTID
 
     constant integer DETAL_TENID = 'I010' - 'I000'
     constant integer DETAL_HUNID = 'I100' - 'I000'
@@ -94,6 +96,16 @@ library baseSystem initializer init
         local real dy = GetUnitY(a) - GetUnitY(b)
         return SquareRoot(dx * dx + dy * dy)
     endfunction
+    function DistanceUtoL takes unit a, location b returns real
+        local real dx = GetUnitX(a) - GetLocationX(b)
+        local real dy = GetUnitY(a) - GetLocationY(b)
+        return SquareRoot(dx * dx + dy * dy)
+    endfunction
+    function DistanceLtoL takes location a, location b returns real
+        local real dx = GetLocationX(a) - GetLocationX(b)
+        local real dy = GetLocationY(a) - GetLocationY(b)
+        return SquareRoot(dx * dx + dy * dy)
+    endfunction
     //--自定义单体伤害 call UDT(souce,target,damage,type,IsNomAttack)
     function UDT takes unit u,unit t,real da,integer ty,boolean b returns nothing
         if ty=='fsmf' then //法术魔法
@@ -158,6 +170,8 @@ library baseSystem initializer init
             set n = n + 1
         endloop
         set ABI_ENDID = ABI_FRISTID + n - 1
+        set ABIUNIT_ENDID = ABIUNIT_FRISTID + n - 1
+        set ABIITEM_ENDID = ABIITEM_FRISTID + n - 1
         call Debug("Loading|baseAbi|"+YDWEId2S(ABI_ENDID))
         set n = 1
         loop
@@ -270,7 +284,7 @@ library baseSystem initializer init
             set rate = rate * ( 1 + 1.5 * luck / (luck + 80) )
         endif
     
-        if bloodAbilities[(GetPlayerId(GetOwningPlayer(hero))+1)*100+22] then
+        if bloodAbilities[(GetPlayerId(GetOwningPlayer(hero))+1)*100+23] then
             set rate = rate * 1.3
         endif
         
@@ -278,8 +292,24 @@ library baseSystem initializer init
         return random <= rate*10
     endfunction
 
+    function calculateLuckCount takes unit hero, real rate returns real
+        local integer luck = GetHeroInt(hero, true)
+        
+        if luck > 0 then
+            set rate = rate * ( 1 + 1.5 * luck / (luck + 80) )
+        endif
+    
+        if bloodAbilities[(GetPlayerId(GetOwningPlayer(hero))+1)*100+23] then
+            set rate = rate * 1.3
+        endif
+        
+        call Debug("calculateLuck| rate="+R2S(rate))
+        return rate
+    endfunction
+
     private function init takes nothing returns nothing
         set intMapSeed = mathRandom(1, 100)
+        set udg_ht = InitHashtable()
         call SetRandomSeed(intMapSeed)
     endfunction
 endlibrary
@@ -302,7 +332,7 @@ library Tips initializer init
 
     private function init takes nothing returns nothing
         call TimerStart(mtimer, 20, true, function roll)
-        call insert("初始坟墓的红色引导线将指引你猎杀领域Boss")
+        call insert("出生地墓穴可以选择你当前想要被指引猎杀的领域Boss")
         call insert("每4分钟会出现精英敌人，猎杀他们掉落一个宝箱")
         call insert("装备通过等级提升最多升到10级，只有宝箱才能帮助你将装备升到Max")
         call insert("一部分带有持续时间的装备在生效期间会暂停CD")
@@ -505,5 +535,9 @@ function smartUnit takes unit hero, unit target returns nothing
         else
             call IssueTargetOrder(hero, "move", target)
         endif
+    endif
+    if GetUnitTypeId(target) == 'nbse' and FirstOfGroup(udg_groupDeath) != null then
+        call SetUnitAnimationByIndex(target, 2)
+        call IssuePointOrder(hero, "earthquake", GetUnitX(target), GetUnitY(target))
     endif
 endfunction

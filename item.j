@@ -5,6 +5,7 @@ library initData
         integer baseItemNum = <?=ITEMNUM?>
         integer array baseItemList
         private hashtable ht = InitHashtable()
+        private integer key_itemId = StringHash("itemId")
         private integer key_itemClass = StringHash("itemClass")
         private integer key_itemDamageType = StringHash("damageType")
     endglobals
@@ -26,24 +27,26 @@ library initData
         local integer id = 0
  
         <? for k, v in ipairs{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'} do ?>
-            <? for _, i in ipairs(idList) do ?>
-                set udg_item = CreateItem('I<?=i?><?=v?>', 8888, 8888)
+            <? for _, i in ipairs(idList) do 
+                local id = 'I'.. i .. v
+                local slot = ITEMID[id]
+            ?>
+                set udg_item = CreateItem('<?=id?>', 8888, 8888)
                 if udg_item != null then
                     set id = S2I("<?=i?>")
-                    set udg_itemList[id*100+<?=k?>] = 'I<?=i?><?=v?>'
+                    set udg_itemList[id*100+<?=k?>] = '<?=id?>'
                     set udg_itemListNum = udg_itemListNum + 1
                     //call Debug("iniItemId[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
                     if <?=k?> == 1 then
                         //set baseItemNum = baseItemNum + 1
                         set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
                     endif
+                    call SaveInteger(ht, key_itemId, '<?=id?>', <?=slot?>)
                     call RemoveItem(udg_item)
                     //call Debug(YDWEId2S(udg_itemList[<?=i?>*100+<?=k?>]))
                 endif
             <? end ?>
         <? end ?>
-        
-        set udg_ht = InitHashtable()
     endfunction
 
     function initItemClass takes nothing returns nothing
@@ -55,6 +58,10 @@ library initData
             call SaveStr(ht, key_itemClass, '<?=k?>', "<?=class?>")
             call SaveStr(ht, key_itemDamageType, '<?=k?>', "<?=dmgtp?>")
         <? end ?>
+    endfunction
+
+    function getItemId takes integer id returns integer
+        return LoadInteger(ht, key_itemId, id)
     endfunction
 
     function getItemClass takes integer id returns string
@@ -80,17 +87,8 @@ library item initializer init requires baseSystem
     endfunction
 
     function itemTrgSpell takes integer tarItem returns integer
-        local integer limit = 0
-        local integer id = 0
-        if tarItem >= ITEM_FRISTID then
-            set limit = R2I((tarItem-'I00A')/DETAL_HUNID)
-        endif
-        if tarItem > 'I10A' and tarItem < 'I11A' then
-            set id = 10 //不知道为什么大于'I10B'的算出来的id都是11
-        else
-            set id = 1 + R2I((tarItem - ITEM_FRISTID - limit * DETAL_HUNID) / DETAL_TENID) + limit * 10
-        endif
-        call Debug("itemTrgSpell|item="+YDWEId2S(tarItem)+"|id="+I2S(id)+"|limit="+I2S(limit))
+        local integer id = getItemId(tarItem)
+        call Debug("itemTrgSpell| item="+YDWEId2S(tarItem)+"| id="+I2S(id))
         return id
     endfunction
 
