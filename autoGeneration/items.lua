@@ -283,9 +283,39 @@ local itemList = {
         CD = [[return 2.5]],
         CDMax = 2.5,
     },
+    {
+        Name = '火焰核心',
+        Tips = [[呼唤一道火焰龙卷风，伤害沿途所有敌人]],
+        TipsMax = [[呼唤两道火焰龙卷风，伤害沿途所有敌人]],
+        EditorSuffix = [[场地类]],
+        DamageType = [[火焰]],
+        Description = [[
+|cff22bb22范围：|r <A012,Area*lv>
+|cffeeee55伤害：|r <A012,DataA*lv>/秒
+|cffffcc00维持：|r 15秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfFire.blp]],
+        CD = [[return 7.5]],
+        CDMax = 7.5,
+    },
+    {
+        Name = '灵魂炸弹',
+        Tips = [[凝聚灵魂力量，在自身周围产生大爆炸]],
+        TipsMax = [[凝聚灵魂力量，在自身周围产生巨大范围和伤害的爆炸]],
+        EditorSuffix = [[场地类]],
+        DamageType = [[精神]],
+        Description = [[
+|cff22bb22范围：|r <A011,Area*lv>
+|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
+        CD = [[return 6]],
+        CDMax = 6,
+    },
 }
 _G.ITEMNUM = #itemList
 _G.ITEMLIST = {}
+_G.ITEMID = {}
 _G.HANDBOOKITEM = {}
 _G.HANDBOOKABI = {}
 _G.HANDBOOKBLOOD = {}
@@ -305,7 +335,7 @@ for num, tb in ipairs(itemList) do
         id = id .. plus
         local item = slk.item.rat9:new(id)
 
-        ITEMLIST[id] = {}
+        ITEMID[id] = num
         if lv == 11 then
             item.Name = "|cffffff00" .. tb.Name .. '-LvMax|r'
         else
