@@ -20,7 +20,7 @@ library Around initializer init requires baseSystem
     endfunction
 
     private function radFuncBack takes integer id, real rad returns real
-        return rad - radBackAccel[id]
+        return rad + radBackAccel[id]
     endfunction
 
     private function action takes integer id returns nothing
@@ -38,8 +38,10 @@ library Around initializer init requires baseSystem
             set rad[id] = ra
         endif
 
-        set x = x + ra * Cos(an)
-        set y = y + ra * Sin(an)
+        if ra > 0 then
+            set x = x + ra * Cos(an)
+            set y = y + ra * Sin(an)
+        endif
 
         if t>0 and GetUnitState(origin[id],UNIT_STATE_LIFE)>0 and GetUnitState(dummy[id],UNIT_STATE_LIFE)>0 then
             call SetUnitX(dummy[id],x)

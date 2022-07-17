@@ -300,6 +300,18 @@ for id, data in pairs(bossBlood) do
     book.Buttonpos_1 = 0
     book.Buttonpos_2 = -11
     book.DataA1 = id
+
+    local unit = slk.unit['nfbr']:new('ubi'..num)
+    unit.Name = '追踪' .. data.Tip
+    unit.Tip = '|cffbb5555追踪' .. data.Tip .. '|r'
+    unit.Ubertip = [[开始引导后，跟随从墓穴出发的血迹，来寻找持有尊贵之血的敌人]]
+    unit.Hotkey = ''
+    unit.Art = data.Art
+    unit.abilList = 'Aloc'
+    unit.goldcost = 0
+    unit.stockRegen = 5
+    unit.stockMax = 1
+    unit.type = 'ward'
 end
 for id, data in pairs(bloodList) do
     local ability = slk.ability['Amgl']:new(id)

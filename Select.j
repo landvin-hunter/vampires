@@ -1,16 +1,28 @@
 
-library select
+library select initializer init
     
     globals
         private integer array pickList
         private integer pickId = 0
         boolean array bloodAbilities
+        private integer array baseAbiListNum
+        integer array baseAbiList
     endglobals
 
     private function insert takes integer target returns nothing
         set pickId = pickId + 1
         set pickList[pickId] = target
         //call Debug("add|"+I2S(pickId)+"|="+YDWEId2S(target))
+    endfunction
+
+    private function init takes nothing returns nothing
+        <?
+        for a = 0, 3 do
+        ?>
+            set baseAbiListNum[<?=a?>] = 0
+        <?
+        end
+        ?>
     endfunction
 
     function oneAbilitySelect takes unit hero, boolean skip returns nothing
@@ -183,5 +195,51 @@ library select
             call YDUserDataSet(unit, hero, "bk62-next", location, GetUnitLoc(hero))
         endif
         call Debug("addBlood || hero="+U2S(udg_hero)+" || add="+YDWEId2S(addabi)+" || rem="+YDWEId2S(remabi)+"|| mark="+I2S(mark))
-    endfunction    
+    endfunction
+
+    function addBaseAbi takes unit hero, integer id returns nothing
+        local integer pid = GetPlayerId(GetOwningPlayer(hero))
+        local integer alv = GetUnitAbilityLevel(hero, id)
+
+        if alv == 0 then
+            call UnitAddAbility(hero, id)
+            set baseAbiListNum[pid] = baseAbiListNum[pid] + 1
+            set baseAbiList[pid*100+baseAbiListNum[pid]] = id
+        elseif alv < 10 then
+            call SetUnitAbilityLevel(hero, id, alv + 1)
+        endif
+        call Debug("addBaseAbi| pid="+I2S(pid)+"| slot="+I2S(pid*100+baseAbiListNum[pid])+"| id="+YDWEId2S(id))
+    endfunction
+    function removeBaseAbi takes unit hero, integer slot, integer id returns nothing
+        local integer pid = GetPlayerId(GetOwningPlayer(hero))
+
+        if slot != 0 and id == 0 then
+            set id = baseAbiList[pid*100+slot]
+        else
+            set slot = 1
+            loop
+                if id == baseAbiList[pid*100+slot] then
+                    exitwhen true
+                endif
+                exitwhen slot >= 6
+                set slot = slot + 1
+            endloop
+        endif
+
+        call UnitRemoveAbility(hero, id)
+        call Debug("removeBaseAbi| pid="+I2S(pid)+"| slot="+I2S(pid*100+slot)+"| id="+YDWEId2S(id))
+        set baseAbiList[pid*100+slot] = baseAbiList[pid*100+baseAbiListNum[pid]]
+        set baseAbiListNum[pid] = baseAbiListNum[pid] - 1
+    endfunction
+
+    function getBaseAbi takes unit hero, integer slot returns integer
+        local integer pid = GetPlayerId(GetOwningPlayer(hero))
+        local integer aid = 0
+
+        if slot <= baseAbiListNum[pid] then
+            set aid = baseAbiList[pid*100+slot]
+        endif
+        call Debug("getBaseAbi| slot = "+ I2S(slot) + "| result = "+YDWEId2S(aid))
+        return aid
+    endfunction
 endlibrary
