@@ -2,12 +2,13 @@
 library select initializer init
     
     globals
+        private hashtable ht = InitHashtable()
         private integer array pickList
         private integer pickId = 0
         private integer pickMax = 0
-        boolean array bloodAbilities
         private integer array baseAbiListNum
         integer array baseAbiList
+        boolean array bloodAbilities
     endglobals
 
     private function insert takes integer target returns nothing
@@ -29,14 +30,20 @@ library select initializer init
         ?>
     endfunction
 
-    function selectPickClear takes nothing returns nothing
+    function selectPickClear takes unit hero returns nothing
+        local integer uid
         local integer n = 1
         loop
-            set pickList[pickId] = 0
-            exitwhen n >= pickMax
+            exitwhen n > pickMax
+            set pickList[n] = 0
             set n = n + 1
         endloop
         set pickMax = 0
+        <?for i = 1, 4 do?>
+            set uid = LoadInteger(ht, GetHandleId(hero), 'oas0'+<?=i?>)
+            call RemoveUnitFromStock(hero, uid)
+            call Debug("Load || hero="+U2S(hero)+" || result="+YDWEId2S(uid))
+        <?end?>
     endfunction
 
     function oneAbilitySelect takes unit hero, boolean skip returns nothing
@@ -78,7 +85,7 @@ library select initializer init
                 set n = 0
                 loop
                     set n = n + 1
-                    exitwhen baseItemList[n] == 0 or n >= 99
+                    exitwhen baseItemList[n] == 0 or n >= baseItemNum
                     if has > 0 then
                         set m = 0
                         set check = false
@@ -129,7 +136,7 @@ library select initializer init
             endif
         
         if pickId > 0 then
-            <? for i = 1, 4 do ?> // 'rise'+id保存添加的购买马甲
+            <? for i = 1, 4 do ?> // 'oas0'+id保存添加的购买马甲
                 set n = GetRandomInt(1, pickId)//mathRandom(1, pickId)
                 set result[<?=i?>] = pickList[n]
                 if result[<?=i?>] >= ABIUNIT_FRISTID and result[<?=i?>] < ABIUNIT_ENDID then
@@ -146,7 +153,7 @@ library select initializer init
                 endif
                 set pickList[n] = pickList[pickId]
                 set pickId = pickId - 1
-                call SaveInteger(udg_ht, GetHandleId(hero), 'rise'+<?=i?>, result[<?=i?>])
+                call SaveInteger(ht, GetHandleId(hero), 'oas0'+<?=i?>, result[<?=i?>])
                 call AddUnitToStock(hero, result[<?=i?>], resultLevel[<?=i?>], resultLevel[<?=i?>])
                 call Debug("Pick || id="+YDWEId2S(result[<?=i?>])+" || lv="+I2S(resultLevel[<?=i?>])+"|| n="+I2S(n))
             <? end ?>
@@ -164,7 +171,7 @@ library select initializer init
 
         <? for i = 1, 3 do?>
             set result = 'uk00' + id * ('0010' - '0000') + <?=i?>
-            call SaveInteger(udg_ht, GetHandleId(hero), 'blod'+<?=i?>, result)
+            call SaveInteger(ht, GetHandleId(hero), 'oas0'+<?=i?>, result)
             call AddUnitToStock(hero, result, 1, 1)
         <? end ?>
     endfunction
@@ -224,6 +231,7 @@ library select initializer init
         endif
         call Debug("addBaseAbi| pid="+I2S(pid)+"| slot="+I2S(pid*100+baseAbiListNum[pid])+"| id="+YDWEId2S(id))
     endfunction
+
     function removeBaseAbi takes unit hero, integer slot, integer id returns nothing
         local integer pid = GetPlayerId(GetOwningPlayer(hero))
 
