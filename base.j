@@ -337,11 +337,10 @@ library Tips initializer init
         call insert("装备通过等级提升最多升到10级，只有宝箱才能帮助你将装备升到Max")
         call insert("一部分带有持续时间的装备在生效期间会暂停CD")
         call insert("计分板上的日出倒计时结束后，吸血鬼们将会死于太阳的炙烤，尽快在吸血鬼猎人到来后将其猎杀")
-        call insert("冷知识：实际上你可以用键盘方向键移动")
         call insert("点击角色身上的血液容器，可以查看已经获得的血液能力，也能查看其他领域Boss")
         call insert("领域Boss死亡后会出现一个传送门，传送回初始坟墓")
         call insert("幸运值不仅能提高装备和能力的概率，还能提高抽奖获得更好物品的概率")
-        call insert("输入-unlock可以解锁自己的视角")
+        call insert("在左上角英雄的第二个图标来进行一些游戏内设置！")
         call insert("左上角图鉴(F9)可以查看游戏内所有装备和能力的简略介绍")
     endfunction
 endlibrary

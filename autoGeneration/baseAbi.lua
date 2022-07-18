@@ -331,7 +331,7 @@ for id, tb in pairs(baseSkill) do
             ability[key] = data
         end
     end
-    local name = (tb.Tip or ""):sub(1, 12)
+    local name = tb.Name
     if tb.useUnit then
         local nid = id:sub(4,4)
         local unit = slk.unit.ewsp:new('urb' .. nid)

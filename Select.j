@@ -4,6 +4,7 @@ library select initializer init
     globals
         private integer array pickList
         private integer pickId = 0
+        private integer pickMax = 0
         boolean array bloodAbilities
         private integer array baseAbiListNum
         integer array baseAbiList
@@ -12,6 +13,9 @@ library select initializer init
     private function insert takes integer target returns nothing
         set pickId = pickId + 1
         set pickList[pickId] = target
+        if pickId > pickMax then
+            set pickMax = pickId
+        endif
         //call Debug("add|"+I2S(pickId)+"|="+YDWEId2S(target))
     endfunction
 
@@ -23,6 +27,16 @@ library select initializer init
         <?
         end
         ?>
+    endfunction
+
+    function selectPickClear takes nothing returns nothing
+        local integer n = 1
+        loop
+            set pickList[pickId] = 0
+            exitwhen n >= pickMax
+            set n = n + 1
+        endloop
+        set pickMax = 0
     endfunction
 
     function oneAbilitySelect takes unit hero, boolean skip returns nothing
@@ -118,7 +132,7 @@ library select initializer init
             <? for i = 1, 4 do ?> // 'rise'+id保存添加的购买马甲
                 set n = GetRandomInt(1, pickId)//mathRandom(1, pickId)
                 set result[<?=i?>] = pickList[n]
-                if result[<?=i?>] >= ABIUNIT_FRISTID and result[<?=i?>] < ABIUNIT_FRISTID+30 then
+                if result[<?=i?>] >= ABIUNIT_FRISTID and result[<?=i?>] < ABIUNIT_ENDID then
                     set resultLevel[<?=i?>] = GetUnitAbilityLevel(hero, result[<?=i?>] - ABIUNIT_FRISTID + ABI_FRISTID) + 1
                 else
                     <? for k, id in ipairs(_G.idList) do ?>

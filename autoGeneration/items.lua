@@ -161,7 +161,7 @@ local itemList = {
         Description = [[
 |cff22bb22范围：|r <A001,Area*lv>
 |cffeeee55伤害：|r <A001,DataA*lv>
-|cffffcc00持续：|r 5秒
+|cffffcc00持续：|r 8秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfCorruption.blp]],
         CD = [[return 4]],
@@ -284,7 +284,7 @@ local itemList = {
         CDMax = 2.5,
     },
     {
-        Name = '火焰核心',
+        Name = '血焰核心',
         Tips = [[呼唤一道火焰龙卷风，伤害沿途所有敌人]],
         TipsMax = [[呼唤两道火焰龙卷风，伤害沿途所有敌人]],
         EditorSuffix = [[场地类]],
