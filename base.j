@@ -466,7 +466,11 @@ function achieveBoxReward takes unit hero,location target,string rarity returns 
                 set rarity = "2"
             endif
         else
-            set pickId = GetItemTypeId(pickItem[GetRandomInt(1, pick)])
+            if max > 0 then
+                
+            else
+                set pickId = GetItemTypeId(pickItem[GetRandomInt(1, pick)])
+            endif
         endif
         <? for i = 1, 6 do?>
             set pickItem[<?=i?>] = null

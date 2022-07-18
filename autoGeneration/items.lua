@@ -301,7 +301,7 @@ local itemList = {
     {
         Name = '灵魂炸弹',
         Tips = [[凝聚灵魂力量，在自身周围产生大爆炸]],
-        TipsMax = [[凝聚灵魂力量，在自身周围产生巨大范围和伤害的爆炸]],
+        TipsMax = [[凝聚灵魂力量，在自身周围产生更大范围，更大伤害的爆炸]],
         EditorSuffix = [[场地类]],
         DamageType = [[精神]],
         Description = [[
@@ -311,6 +311,50 @@ local itemList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
         CD = [[return 6]],
         CDMax = 6,
+    },
+    {
+        Name = '墓穴枯骨',
+        Tips = [[构筑荒芜墓穴，使得进入的敌人不断流失生命]],
+        TipsMax = [[构筑荒芜墓穴，使得进入的敌人不断流失生命，当自身处于墓穴时，还能吸取这些生命]],
+        EditorSuffix = [[场地类]],
+        DamageType = [[精神]],
+        Description = [[
+|cff22bb22范围：|r <A011,Area*lv>
+|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cffffcc00维持：|r 45秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
+        CD = [[return 15]],
+        CDMax = 15,
+    },
+    {
+        Name = '血王权杖',
+        Tips = [[发射一枚魔法弹，可以穿透敌人]],
+        TipsMax = [[发射一枚伤害更高的魔法弹，可以穿透敌人然后变大！]],
+        EditorSuffix = [[发射类]],
+        DamageType = [[魔法]],
+        Description = [[
+|cff22bb22范围：|r <A011,Area*lv>
+|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cffffcc00穿透：|r *lv
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
+        CD = [[return 3]],
+        CDMax = 3,
+    },
+    {
+        Name = '月之弯刀',
+        Tips = [[发射一把回旋弯刀，切割最多4个敌人]],
+        TipsMax = [[发射一把回旋弯刀，切割路径上所有敌人]],
+        EditorSuffix = [[发射类]],
+        DamageType = [[切割]],
+        Description = [[
+|cff22bb22范围：|r <A011,Area*lv>
+|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
+        CD = [[return 3]],
+        CDMax = 3,
     },
 }
 _G.ITEMNUM = #itemList
