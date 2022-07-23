@@ -3,12 +3,10 @@ library reward requires baseSystem
     private function roll takes unit hero returns integer
         if calculateLuck(hero, 50) then
             return 3
-        elseif calculateLuck(hero, 80) then
+        elseif calculateLuck(hero, 75) then
             return 2
-        elseif calculateLuck(hero, 25) then
-            return 1
         endif
-        return 0
+        return 1
     endfunction
 
     function getBoxReward takes unit hero returns string
@@ -42,11 +40,28 @@ library reward requires baseSystem
         return result
     endfunction
 
-    function achieveBoxReward takes unit hero,location target,string rarity returns nothing
+    globals
+        private hashtable ht = InitHashtable()
+    endglobals
+
+    private function limit takes item it returns nothing
+        call SaveBoolean(ht, 'mark', GetHandleId(it), true)
+    endfunction
+
+    private function isLimit takes item it returns boolean
+        return LoadBoolean(ht, 'mark', GetHandleId(it))
+    endfunction
+    
+    function clearRewardLimit takes nothing returns nothing
+        call FlushChildHashtable(ht, 'mark')
+    endfunction
+
+    function achieveBoxReward takes unit hero,string rarity returns integer
         local integer n = 0
         local integer pick = 0
         local integer max = 0
         local integer own = 0
+        local integer canUP = 0
         local integer pickId = 0
         local item array pickItem
         local integer array pickAbility
@@ -55,36 +70,34 @@ library reward requires baseSystem
         if rarity == "3" then
             loop
                 set pickItem[pick+1] = UnitItemInSlot(hero, n)
-                if pickItem[pick+1] !=  null then //Max物品位于人造分类
-                    if GetItemType(pickItem[pick+1]) !=  ITEM_TYPE_ARTIFACT then
+                if pickItem[pick+1] != null and isLimit(pickItem[pick+1]) == false then //Max物品位于人造分类
+                    if GetItemType(pickItem[pick+1]) != ITEM_TYPE_ARTIFACT then
                         set pick = pick + 1
-                    else
-                        set max = max + 1
+                        if GetItemLevel(pickItem[pick]) == 10 then
+                            set canUP = pick
+                        endif
                     endif
                 endif
-                //call Debug("pickItem|item="+T2S(pickItem[pick])+"|pick="+I2S(pick))
+                call Debug("pickItem|item="+T2S(pickItem[pick])+"|lv="+I2S(GetItemLevel(pickItem[pick])))
                 exitwhen n >= 5
                 set n = n + 1
             endloop
 
-            if pick == 0 then
-                if max < 6 then
-                    set pickId = baseItemList[GetRandomInt(1, baseItemNum)]
-                else
-                    set rarity = "2"
-                endif
+            if canUP > 0 then
+                set pickId = baseItemList[getItemId(GetItemTypeId(pickItem[canUP]))]
+                call limit(pickItem[canUP])
+            elseif pick == 0 then
+                set rarity = "2"
             else
-                if max > 0 then
-                    set pickId = GetItemTypeId(pickItem[GetRandomInt(1, pick)])                    
-                else
-                    set pickId = GetItemTypeId(pickItem[GetRandomInt(1, pick)])
-                endif
+                set pickId = baseItemList[getItemId(GetItemTypeId(pickItem[canUP]))]
             endif
             <? for i = 1, 6 do?>
                 set pickItem[<?=i?>] = null
             <? end ?>
         endif
         if rarity == "2" then
+            set n = 0
+            set pick = 0
             loop
                 set abilityId = ABI_FRISTID + n
                 if GetUnitAbilityLevel(hero, abilityId) > 0 then
@@ -110,9 +123,6 @@ library reward requires baseSystem
             set pickId = GetRandomInt('It00', 'It02')
         endif
         call Debug("boxreward| = " + rarity + "|pickId = " + YDWEId2S(pickId)+"|pick = "+I2S(pick))
-        if pickId > 0 then
-            set udg_item = CreateItem(pickId, GetLocationX(target), GetLocationY(target))
-            call Debug("createReward| = "+GetItemName(udg_item))
-        endif
+        return pickId
     endfunction
 endlibrary
