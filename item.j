@@ -5,9 +5,11 @@ library initData
         integer baseItemNum = <?=ITEMNUM?>
         integer array baseItemList
         private hashtable ht = InitHashtable()
-        private integer key_itemId = StringHash("itemId")
-        private integer key_itemClass = StringHash("itemClass")
-        private integer key_itemDamageType = StringHash("damageType")
+        private key keyId
+        private key keyClass
+        private key keyDamageType
+        private key keyIcon
+        private key keyName
     endglobals
     <?
     _G.idList = {}
@@ -21,7 +23,7 @@ library initData
     end
         
     ?>
-    function initItemId takes nothing returns nothing
+    function initItem takes nothing returns nothing
         local integer max = 0
         local integer n = 0
         local integer id = 0
@@ -30,46 +32,84 @@ library initData
             <? for _, i in ipairs(idList) do 
                 local id = 'I'.. i .. v
                 local slot = ITEMID[id]
+                local class = ITEMLIST[id]:sub(1, 9)
+                local damagetype = ITEMLIST[id]:sub(10, 15)
+                local icon = string.gsub(HANDBOOKICON[id], [[\]], [[\\]])
+                local name = HANDBOOKNAME[id]
             ?>
-                set udg_item = CreateItem('<?=id?>', 8888, 8888)
-                if udg_item != null then
+                //set udg_item = CreateItem('<?=id?>', 8888, 8888)
+                //if udg_item != null then
                     set id = S2I("<?=i?>")
                     set udg_itemList[id*100+<?=k?>] = '<?=id?>'
                     set udg_itemListNum = udg_itemListNum + 1
                     //call Debug("iniItemId[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
-                    if <?=k?> == 1 then
-                        //set baseItemNum = baseItemNum + 1
+                    <?
+                        if k == 1 then
+                    ?>
                         set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
-                    endif
-                    call SaveInteger(ht, key_itemId, '<?=id?>', <?=slot?>)
-                    call RemoveItem(udg_item)
+                    <?
+                        end
+                    ?>
+                    call SaveInteger(ht, keyId, '<?=id?>', <?=slot?>)
+                    call SaveStr(ht, keyClass, '<?=id?>', "<?=class?>")
+                    call SaveStr(ht, keyDamageType, '<?=id?>', "<?=damagetype?>")
+                    call SaveStr(ht, keyIcon, '<?=id?>', "<?=icon?>")
+                    call SaveStr(ht, keyName, '<?=id?>', "<?=name?>")
+                    //call RemoveItem(udg_item)
                     //call Debug(YDWEId2S(udg_itemList[<?=i?>*100+<?=k?>]))
-                endif
+                //endif
             <? end ?>
         <? end ?>
     endfunction
 
-    function initItemClass takes nothing returns nothing
-        <? for k, v in pairs(ITEMLIST) do 
-            local class = string.sub(v, 1, 9)
-            local dmgtp = string.sub(v, 10, 15)
-        ?>
-            //call Debug("initItemClass| id=<?=k?>| class=<?=v?>")
-            call SaveStr(ht, key_itemClass, '<?=k?>', "<?=class?>")
-            call SaveStr(ht, key_itemDamageType, '<?=k?>', "<?=dmgtp?>")
-        <? end ?>
-    endfunction
-
     function getItemId takes integer id returns integer
-        return LoadInteger(ht, key_itemId, id)
+        return LoadInteger(ht, keyId, id)
     endfunction
 
     function getItemClass takes integer id returns string
-        return LoadStr(ht, key_itemClass, id)
+        return LoadStr(ht, keyClass, id)
     endfunction
 
     function getItemDamageType takes integer id returns string
-        return LoadStr(ht, key_itemDamageType, id)
+        return LoadStr(ht, keyDamageType, id)
+    endfunction
+
+    function getItemIcon takes integer id returns string
+        return LoadStr(ht, keyIcon, id)
+    endfunction
+
+    function getItemName takes integer id returns string
+        return LoadStr(ht, keyName, id)
+    endfunction
+
+    function getItemColor takes integer id returns string
+        local string dmgtype = getItemDamageType(id)
+        if dmgtype == "魔法" then
+            return "|cff1eb1cf"
+        elseif dmgtype == "切割" then
+            return "|cffc05353"
+        elseif dmgtype == "打击" then
+            return "|cff8c9d0c"
+        elseif dmgtype == "精神" then
+            return "|cff2cb03f"
+        elseif dmgtype == "火焰" then
+            return "|cffd4742a"
+        elseif dmgtype == "冰冻" then
+            return "|cff2043c3"
+        elseif dmgtype == "闪电" then
+            return "|cff859cf1"
+        elseif dmgtype == "毒素" then
+            return "|cea4be20f"
+        endif
+        return "|cffffffff"
+    endfunction
+
+    function createItemDummy takes integer uid,location point returns unit
+        local integer abi = 'AA00' + getItemId(GetItemTypeId(udg_item))
+        set udg_dummy = CreateUnit(udg_player, uid, GetLocationX(point), GetLocationY(point), 0)
+        call UnitAddAbility(udg_dummy, abi)
+        call SetUnitAbilityLevel(udg_dummy, abi, udg_itemSpellLevel)
+        return udg_dummy
     endfunction
 endlibrary
 
@@ -88,7 +128,7 @@ library item initializer init requires baseSystem
 
     function itemTrgSpell takes integer tarItem returns integer
         local integer id = getItemId(tarItem)
-        call Debug("itemTrgSpell| item="+YDWEId2S(tarItem)+"| id="+I2S(id))
+        //call Debug("itemTrgSpell| item="+YDWEId2S(tarItem)+"| id="+I2S(id))
         return id
     endfunction
 

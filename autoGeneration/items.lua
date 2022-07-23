@@ -16,12 +16,23 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[魔法]],
         Description = [[
-|cff22bb22范围：|r <A00K,Area*lv>
-|cffeeee55伤害：|r <A00K,DataA*lv>
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNPendantOfMana.blp]],
         CD = [[return 2.5]],
         CDMax = 1,
+        abi = {
+            oid = 'AEfk',
+            Missileart = [[Abilities\Spells\Undead\OrbOfDeath\AnnihilationMissile.mdl]],
+            Missilespeed = 700,
+            Missilearc = 0.2,
+            MissileHoming = 1,
+            DataA = {150, 750},
+            DataB = {150, 750},
+            DataC = {1},
+            Area = {950},
+        },
     },
     {
         Name = '三相血刃',
@@ -30,12 +41,22 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[切割]],
         Description = [[
-|cff22bb22范围：|r <A006,Area*lv>
-|cffeeee55伤害：|r <A006,DataA*lv>
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNClawsOfAttack.blp]],
         CD = [[return (3.1 - glv * 0.1)]],
         CDMax = 1,
+        abi = {
+            oid = 'AEfk',
+            Missilespeed = 1000,
+            Missilearc = 0.5,
+            MissileHoming = 1,
+            DataA = {150, 450},
+            DataB = {99999},
+            DataC = {0},
+            Area = {400},
+        },
     },
     {
         Name = '雷电花芯',
@@ -44,13 +65,21 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[闪电]],
         Description = [[
-|cff22bb22范围：|r <A008,Rng*lv>
-|cffeeee55伤害：|r <A008,DataA*lv>
-|cffeeee55弹跳：|r <A008,DataB*lv>次
+|cff22bb22范围：|r <*id,Rng*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
+|cffeeee55弹跳：|r <*id,DataB*lv>次
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNManaFlareOff.blp]],
         CD = [[return 1.5]],
         CDMax = 1.5,
+        abi = {
+            oid = 'ACcl',
+            DataA = {75, 825},
+            DataB = {5, 5, 8},
+            DataC = {1, 1},
+            Rng = {650},
+            Area = {500},
+        },
     },
     {
         Name = '火焰风衣',
@@ -59,13 +88,24 @@ local itemList = {
         EditorSuffix = [[场地类]],
         DamageType = [[火焰]],
         Description = [[
-|cff22bb22范围：|r 400/<A00J,Area*lv>
-|cffeeee55伤害：|r <A00J,DataA*lv>/0.5秒
+|cff22bb22范围：|r 400/<*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/0.5秒
 |cffffcc00数量：|r *lv/4秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNCloakOfFlames.blp]],
         CD = [[return 3]],
         CDMax = 3,
+        abi = {
+            oid = 'AHfs',
+            DataA = {100, 325, 650},
+            DataB = {0.5},
+            DataC = {0},
+            DataE = {0},
+            Cast = {0},
+            Dur = {4},
+            Rng = {999},
+            Area = {240},
+        },
     },
     {
         Name = '天灾骨钟',
@@ -74,12 +114,19 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[精神]],
         Description = [[
-|cff22bb22范围：|r <A00Q,Rng*lv>
-|cffeeee55伤害：|r <A00Q,DataC*lv>
+|cff22bb22范围：|r <*id,Rng*lv>
+|cffeeee55伤害：|r <*id,DataC*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNBoneChimes.blp]],
         CD = [[return (4.2 - glv * 0.2)]],
         CDMax = 1,
+        abi = {
+            oid = 'Afod',
+            DataA = {0.25},
+            DataB = {0.5},
+            DataC = {250, 1000},
+            Rng = {800},
+        },
     },
     {
         Name = '酸性药剂',
@@ -88,12 +135,22 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[毒素]],
         Description = [[
-|cff22bb22范围：|r 700/<A00t,Area*lv>
-|cffeeee55伤害：|r <A00t,DataE*lv>/0.4秒
+|cff22bb22范围：|r 700/<*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataE*lv>/0.4秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNPotionOfOmniscience.blp]],
         CD = [[return 4.5]],
         CDMax = 4.5,
+        abi = {
+            oid = 'ANab',
+            DataC = {0},
+            DataD = {15, 150, 300},
+            DataE = {15, 150, 300},
+            DataF = {0.4},
+            Dur = {3},
+            Rng = {800},
+            Area = {300},
+        },
     },
     {
         Name = '冰冻碎片',
@@ -102,12 +159,22 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[冰冻]],
         Description = [[
-|cff22bb22范围：|r <A00O,DataC*lv>
-|cffeeee55伤害：|r <A00O,DataA*lv>
+|cff22bb22范围：|r <*id,DataC*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNIceShard.blp]],
         CD = [[return (3.1 - glv * 0.1)]],
         CDMax = 1,
+        abi = {
+            oid = 'ACbf',
+            DataA = {120, 420},
+            DataB = {99999},
+            DataC = {600},
+            DataD = {175},
+            DataE = {0},
+            Rng = {9999},
+            Area = {100},
+        },
     },
     {
         Name = '毁灭魔球',
@@ -116,12 +183,21 @@ local itemList = {
         EditorSuffix = [[场地类]],
         DamageType = [[火焰]],
         Description = [[
-|cff22bb22范围：|r <A00r,Area*lv>
-|cffeeee55伤害：|r <A00r,DataB*lv>
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataB*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNInfernal.blp]],
         CD = [[return 4]],
         CDMax = 4,
+        abi = {
+            oid = 'ACbz',
+            DataA = {1},
+            DataB = {140, 1040},
+            DataC = {1, 1, 8},
+            EfctID = {'X000'},
+            Rng = {9999},
+            Area = {250, 250, 600},
+        },
     },
     {
         Name = '死亡面罩',
@@ -130,12 +206,21 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[毒素]],
         Description = [[
-|cff22bb22范围：|r <A00I,DataC*lv>
-|cffeeee55伤害：|r <A00I,DataA*lv>
+|cff22bb22范围：|r <*id,DataC*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNMaskOfDeath.blp]],
         CD = [[return (3.1 - glv * 0.1)]],
         CDMax = 1,
+        abi = {
+            oid = 'ACca',
+            DataA = {1},
+            DataB = {150, 900},
+            DataC = {1200},
+            DataD = {250},
+            Rng = {9999},
+            Area = {150},
+        },
     },
     {
         Name = '风暴战锤',
@@ -144,13 +229,23 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[闪电]],
         Description = [[
-|cff22bb22范围：|r <A00P,Area*lv>
-|cffeeee55伤害：|r <A00P,DataA*lv>
-|cffffcc00数量：|r <A00P,DataC*lv>
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
+|cffffcc00数量：|r <*id,DataC*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNStormHammer.blp]],
         CD = [[return 2]],
         CDMax = 1,
+        abi = {
+            oid = 'AEfk',
+            Missileart = [[Abilities\Spells\Other\Monsoon\MonsoonBoltTarget.mdl]],
+            Missilespeed = 9999,
+            EffectArt = [[Abilities\Weapons\Bolt\BoltImpact.mdl]],
+            DataA = {150, 850},
+            DataB = {450, 2700},
+            DataC = {3},
+            Area = {800},
+        },
     },
     {
         Name = '鬼魂容器',
@@ -159,13 +254,22 @@ local itemList = {
         EditorSuffix = [[召唤类]],
         DamageType = [[精神]],
         Description = [[
-|cff22bb22范围：|r <A001,Area*lv>
-|cffeeee55伤害：|r <A001,DataA*lv>
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cffffcc00持续：|r 8秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfCorruption.blp]],
         CD = [[return 4]],
         CDMax = 4,
+        abi = {
+            oid = 'Apxf',
+            Missileart = [[Abilities\Weapons\NecromancerMissile\NecromancerMissile.mdl]],
+            Missilespeed = 900,
+            DataA = {100, 700},
+            Cool = {0.3, 0.3, 0.1},
+            Dur = {0.01},
+            Area = {750},
+        },
     },
     {
         Name = '恶魔手套',
@@ -174,14 +278,26 @@ local itemList = {
         EditorSuffix = [[召唤类]],
         DamageType = [[精神]],
         Description = [[
-|cff22bb22范围：|r <A00S,Area*lv>
-|cffeeee55伤害：|r <A00S,DataC*lv>
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataC*lv>
 |cffffcc00持续：|r 4秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNSpellSteal.blp]],
         CD = [[return 6]],
         CDMax = 6,
         abilList = 'A00L',
+        abi = {
+            oid = 'ANst',
+            Missileart = [[Abilities\Spells\Undead\Possession\PossessionMissile.mdl]],
+            Missilespeed = 800,
+            DataA = {10, 10, 24},
+            DataB = {48},
+            DataC = {60, 360},
+            DataD = {80},
+            DataE = {0.1},
+            Dur = {99},
+            Rng = {1000},
+        },
     },
     {
         Name = '工匠地雷',
@@ -190,12 +306,23 @@ local itemList = {
         EditorSuffix = [[场地类]],
         DamageType = [[打击]],
         Description = [[
-|cff22bb22范围：|r <A00U,DataA*lv>
-|cffeeee55伤害：|r <A00U,DataB*lv>
+|cff22bb22范围：|r <*id,DataA*lv>
+|cffeeee55伤害：|r <*id,DataB*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNGoblinLandMine.blp]],
         CD = [[return 2]],
         CDMax = 2,
+        abi = {
+            oid = 'Amnx',
+            SpecialArt = [[Objects\Spawnmodels\Human\FragmentationShards\FragBoomSpawn.mdl]],
+            EffectArt = [[Objects\Spawnmodels\Human\FragmentationShards\FragBoomSpawn.mdl]],
+            CasterArt = [[Objects\Spawnmodels\Human\FragmentationShards\FragBoomSpawn.mdl]],
+            DataA = {200, 200, 300},
+            DataB = {100, 325, 650},
+            DataC = {0},
+            DataD = {0},
+            Dur = {0.1},
+        },
     },
     {
         Name = '屠夫锯刃',
@@ -204,11 +331,20 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[切割]],
         Description = [[
-|cffeeee55伤害：|r <A002,DataA*lv>/0.2秒
+|cffeeee55伤害：|r <*id,DataA*lv>/0.2秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNGhoulFrenzy.blp]],
         CD = [[return 5]],
         CDMax = 5,
+        abi = {
+            oid = 'Apxf',
+            Missileart = [[Abilities\Spells\Other\Stampede\StampedeMissileDeath.mdl]],
+            Missilespeed = 2000,
+            DataA = {60, 660},
+            Cool = {0.2},
+            Dur = {0.01},
+            Area = {150},
+        },
     },
     {
         Name = '恶灵之书',
@@ -218,12 +354,21 @@ local itemList = {
         DamageType = [[精神]],
         Description = [[
 |cff22bb22范围：|r 300
-|cffeeee55伤害：|r <A003,DataA*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cffffcc00数量：|r *slv/6秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNNecromancerMaster.blp]],
         CD = [[return 4]],
         CDMax = 4,
+        abi = {
+            oid = 'Apxf',
+            Missileart = [[Abilities\Spells\Undead\DeathCoil\DeathCoilSpecialArt.mdl]],
+            Missilespeed = 2000,
+            DataA = {60, 150, 300},
+            Cool = {0.1},
+            Dur = {0.01},
+            Area = {150},
+        },
     },
     {
         Name = '双子雷鸣',
@@ -233,12 +378,21 @@ local itemList = {
         DamageType = [[闪电]],
         Description = [[
 |cff22bb22范围：|r 450
-|cffeeee55伤害：|r <A005,DataA*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cffffcc00维持：|r 12秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfLightning.blp]],
         CD = [[return 3]],
         CDMax = 3,
+        abi = {
+            oid = 'Apxf',
+            Missileart = [[Abilities\Spells\Orc\LightningBolt\LightningBoltMissile.mdl]],
+            Missilespeed = 2000,
+            DataA = {60, 360},
+            Cool = {0.1},
+            Dur = {0.01},
+            Area = {150},
+        },
     },
     {
         Name = '深海意志',
@@ -248,12 +402,24 @@ local itemList = {
         DamageType = [[打击]],
         Description = [[
 |cff22bb22范围：|r 400~600
-|cffeeee55伤害：|r <A00W,DataA*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>
 |cffffcc00存活：|r 20秒/至多6个
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNRevenant.blp]],
         CD = [[return 5]],
         CDMax = 5,
+        abi = {
+            oid = 'ACca',
+            Missileart = [[Abilities\Spells\Undead\Impale\ImpaleMissTarget.mdl]],
+            TargetArt = [[Objects\Spawnmodels\Critters\Albatross\CritterBloodAlbatross.mdl]],
+            Animnames = [[attack]],
+            DataA = {75, 825},
+            DataB = {99999},
+            DataC = {175},
+            DataD = {150},
+            Rng = {9999},
+            Area = {150},
+        },
     },
     {
         Name = '灰烬利爪',
@@ -262,12 +428,23 @@ local itemList = {
         EditorSuffix = [[场地类]],
         DamageType = [[火焰]],
         Description = [[
-|cff22bb22范围：|r 700/<A00X,DataA*lv>
-|cffeeee55伤害：|r <A00X,DataB*lv>
+|cff22bb22范围：|r 700/<*id,DataA*lv>
+|cffeeee55伤害：|r <*id,DataB*lv>
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNAdvancedUnholyStrength.blp]],
         CD = [[return 2.5]],
         CDMax = 1,
+        abi = {
+            oid = 'Amnx',
+            SpecialArt = [[Abilities\Spells\Other\Doom\DoomDeath.mdl]],
+            EffectArt = [[Abilities\Spells\Other\Doom\DoomDeath.mdl]],
+            CasterArt = [[Abilities\Spells\Other\Doom\DoomDeath.mdl]],
+            DataA = {225},
+            DataB = {150, 600, 600},
+            DataC = {0},
+            DataD = {0},
+            Dur = {0.1},
+        },
     },
     {
         Name = '月光大弓',
@@ -290,13 +467,25 @@ local itemList = {
         EditorSuffix = [[场地类]],
         DamageType = [[火焰]],
         Description = [[
-|cff22bb22范围：|r <A012,Area*lv>
-|cffeeee55伤害：|r <A012,DataA*lv>/秒
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/秒
 |cffffcc00维持：|r 15秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNOrbOfFire.blp]],
         CD = [[return 7.5]],
         CDMax = 7.5,
+        abi = {
+            oid = 'Atdg',
+            Missileart = [[Abilities\Spells\Undead\Possession\PossessionMissile.mdl]],
+            Missilespeed = 800,
+            DataA = {80, 480},
+            DataB = {0},
+            DataC = {0},
+            DataD = {0},
+            DataE = {0},
+            BuffID = {"B000"},
+            Area = {320},
+        },
     },
     {
         Name = '灵魂炸弹',
@@ -305,27 +494,47 @@ local itemList = {
         EditorSuffix = [[场地类]],
         DamageType = [[精神]],
         Description = [[
-|cff22bb22范围：|r <A011,Area*lv>
-|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
         CD = [[return 6]],
         CDMax = 6,
+        abi = {
+            oid = 'AEfk',
+            Missileart = [[Abilities\Weapons\GreenDragonMissile\GreenDragonMissile.mdl]],
+            Missilespeed = 9999,
+            EffectArt = [[Call of Dread Green.mdx]],
+            DataA = {150, 825, 1500},
+            DataB = {99999},
+            DataC = {0},
+            Area = {400, 400, 800},
+        },
     },
     {
         Name = '墓穴枯骨',
         Tips = [[构筑荒芜墓穴，使得进入的敌人不断流失生命]],
-        TipsMax = [[构筑荒芜墓穴，使得进入的敌人不断流失生命，当自身处于墓穴时，还能吸取这些生命]],
+        TipsMax = [[构筑荒芜墓穴，使得进入的敌人不断流失生命，当自身处于墓穴时，还能不断恢复生命]],
         EditorSuffix = [[场地类]],
         DamageType = [[精神]],
         Description = [[
-|cff22bb22范围：|r <A011,Area*lv>
-|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/秒
 |cffffcc00维持：|r 45秒
 |cff3399ff间隔：|r *cd秒]],
-        Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNRodOfNecromancy.blp]],
         CD = [[return 15]],
         CDMax = 15,
+        abi = {
+            oid = 'Atdg',
+            DataA = {80, 680},
+            DataB = {0},
+            DataC = {0},
+            DataD = {0},
+            DataE = {0},
+            BuffID = {"Bcri"},
+            Area = {500},
+        },
     },
     {
         Name = '血王权杖',
@@ -334,11 +543,11 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[魔法]],
         Description = [[
-|cff22bb22范围：|r <A011,Area*lv>
-|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/秒
 |cffffcc00穿透：|r *lv
 |cff3399ff间隔：|r *cd秒]],
-        Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNStaffOfSanctuary.blp]],
         CD = [[return 3]],
         CDMax = 3,
     },
@@ -349,10 +558,10 @@ local itemList = {
         EditorSuffix = [[发射类]],
         DamageType = [[切割]],
         Description = [[
-|cff22bb22范围：|r <A011,Area*lv>
-|cffeeee55伤害：|r <A011,DataA*lv>/秒
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/秒
 |cff3399ff间隔：|r *cd秒]],
-        Art = [[ReplaceableTextures\CommandButtons\BTNHeartOfSearinox.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNAdvancedStrengthOfTheMoon.blp]],
         CD = [[return 3]],
         CDMax = 3,
     },
@@ -368,15 +577,15 @@ _G.HANDBOOKICON = {}
 
 for num, tb in ipairs(itemList) do
     local des1, des2 = nil, nil
+    local plus = ''
+    if num < 10 then
+        plus = '0' .. num
+    else
+        plus = num
+    end
     for lv, vid in ipairs(itemEndId) do
         local id = 'I'
-        local plus = ''
-        if num < 10 then
-            plus = '0' .. num .. vid
-        else
-            plus = num .. vid
-        end
-        id = id .. plus
+        id = id .. plus .. vid
         local item = slk.item.rat9:new(id)
 
         ITEMID[id] = num
@@ -411,7 +620,7 @@ for num, tb in ipairs(itemList) do
         description = description:gsub('*slv', lv+1)
         description = description:gsub('*sslv', lv*2+8)
         description = description:gsub('*cd', cd)
-        item.Ubertip = description
+        item.Ubertip = description:gsub('*id', 'AA' .. num)
         item.Art = tb.Art
         item.Level = lv
         if lv == 11 then
@@ -452,6 +661,7 @@ for num, tb in ipairs(itemList) do
             unit.Buttonpos_1 = 0
             unit.Buttonpos_2 = 0
             unit.Art = tb.Art
+            unit.modelScale = 1.3
             unit.abilList = 'Aloc'
             unit.type = ''
             unit.fused = 0
@@ -470,20 +680,53 @@ for num, tb in ipairs(itemList) do
         end
         if des1 ~= nil and des2 ~= nil then
             HANDBOOKITEM[id] = string.format([[装备变化:|n%s|n--->>>|n%s]], des1, des2)
-            HANDBOOKNAME[id] = tb.Name
-            HANDBOOKICON[id] = tb.Art
         end
+        HANDBOOKNAME[id] = tb.Name
+        HANDBOOKICON[id] = tb.Art
+    end
+    if tb.abi then
+        local data = tb.abi
+        local ability = slk.ability[data.oid]:new('AA' .. plus)
+        
+        data.oid = nil
+        data.Name = 'item' .. plus .. ' - ' .. tb.Name
+        data.targetArt = [[]]
+        data.hero = 0
+        data.item = 0
+        data.race = 'human'
+        data.levels = 11
+        data.Cool = data.Cool or {0}
+        data.Cost = {0}
+        if data.Dur then
+            data.HeroDur = data.Dur
+        end
+        data.targs = {"ground,enemies,air"}
 
-        if tb.abi then
-            local data = tb.abi
-            local ability = slk.ability[data[id]]:new('A' .. plus)
-            
-            data[id] = nil
-            data.Name = 'item' .. plus .. item.Name
-            for k, v in pairs(data) do
+        for k, v in pairs(data) do
+            if type(v) == 'table' then
+                if type(v[1]) == 'string' then
+                    for lv = 1, 11 do
+                        ability[k .. lv] = v[1]
+                    end
+                elseif type(v[1]) == 'number' then
+                    if #v == 3 then
+                        for lv = 1, 10 do
+                            ability[k .. lv] = v[1] + (lv - 1) * (v[2] - v[1]) / 9
+                        end
+                        ability[k .. '11'] = v[3]
+                    elseif #v == 2 then
+                        for lv = 1, 11 do
+                            ability[k .. lv] = v[1] + (lv - 1) * (v[2] - v[1]) / 10
+                        end
+                    elseif #v == 1 then
+                        for lv = 1, 11 do
+                            ability[k .. lv] = v[1]
+                        end
+                    end
+                end
+            else
                 ability[k] = v
             end
-            item.Ubertip = description:gsub('*id', 'A' .. plus)
         end
     end
 end

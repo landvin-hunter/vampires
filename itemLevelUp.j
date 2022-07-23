@@ -23,33 +23,29 @@ library itemSystem
             set ownid = GetItemTypeId(itemTemp)
             if itemTemp != null and itemTemp != tarItem then
                 call Debug("GetItem-|" + YDWEId2S(ownid) + "|" + YDWEId2S(tarid))
-                set n = 1
-                loop
-                    set fid = baseItemList[n]
-                    set eid = fid + 10
-                    if ownid >= fid and tarid >= fid and ownid < eid and tarid < eid then //每当拿到同类型的物品直接升级
-                        call RemoveItem(tarItem)
-                        call RemoveItem(itemTemp)
-                        set upid = IMaxBJ(ownid, tarid) + 1
-                        set itemTemp = UnitAddItemById(hero, IMaxBJ(upid, fid))
-                        if itemTemp != null then
-                            call SetItemPlayer(itemTemp, GetOwningPlayer(hero), true)
-                            call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl", GetUnitX(hero), GetUnitY(hero)))
-                            if upid < fid then
-                                call DisplayTimedTextFromPlayer(GetOwningPlayer(hero), 0, 0, 10, "升级获得了[|cffffcc00" + GetItemName(itemTemp) + "|r]")
-                            endif
+                set n = getItemId(ownid)
+                set fid = baseItemList[n]
+                set eid = fid + 10
+                if ownid >= fid and tarid >= fid and ownid < eid and tarid < eid then //每当拿到同类型的物品直接升级
+                    call RemoveItem(tarItem)
+                    call RemoveItem(itemTemp)
+                    set upid = IMaxBJ(ownid, tarid) + 1
+                    set itemTemp = UnitAddItemById(hero, IMaxBJ(upid, fid))
+                    if itemTemp != null then
+                        call SetItemPlayer(itemTemp, GetOwningPlayer(hero), true)
+                        call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl", GetUnitX(hero), GetUnitY(hero)))
+                        if upid < fid then
+                            call DisplayTimedTextFromPlayer(GetOwningPlayer(hero), 0, 0, 10, "升级获得了[|cffffcc00" + GetItemName(itemTemp) + "|r]")
                         endif
-                        return
                     endif
-                    exitwhen baseItemList[n] == 0
-                    set n = n + 1
-                endloop
+                    return
+                endif
             endif   
             exitwhen x >= 5
             set x = x + 1
         endloop
         
-        set udg_item = tarItem
+        //set udg_item = tarItem
         //call TriggerExecute(gg_trg_ItemSpell)
     endfunction
 endlibrary

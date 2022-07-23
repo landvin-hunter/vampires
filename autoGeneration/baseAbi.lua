@@ -221,9 +221,8 @@ local baseSkill = {
         Name = [[纯白手套]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNDevotion.blp]],
         levels = 10,
-        DataA = {10, 28},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[场地类装备可以施加减速效果|n|n速度：|cff89D5FF<Ad05,DataA*lv.%>%|r]],
+        Ubertip = [[场地类装备可以施加减速效果|n|移动速度：|cff89D5FF<Ad05, DataA*lv.%>%|r|n攻击速度：|cff89D5FF<Ad05, DataB*lv.%>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -286,9 +285,10 @@ local baseSkill = {
     },
     ['Ad05'] = {
         id = 'Aasl',
-        Name = [[ass-速度变化,-10~100ms]],
+        Name = [[ass-速度变化,-10~100as/ms]],
         levels = 10,
-        DataA = {-0.1, -1},
+        DataA = {-0.1, -0.5},
+        DataB = {-0.1, -0.25},
         hero = 0,
         race = 'undead',
         targs = {'self'},
@@ -348,6 +348,7 @@ for id, tb in pairs(baseSkill) do
         unit.Buttonpos_2 = 0
         unit.Art = tb.ArtU or (tb.Art:gsub([[PassiveButtons\PAS]], [[CommandButtons\]]))
         unit.abilList = 'Aloc'
+        unit.modelScale = 1.3
         unit.type = ''
         unit.fused = 0
         unit.goldcost = 0
