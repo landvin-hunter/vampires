@@ -125,10 +125,21 @@ library baseSystem initializer init
         endif
     endfunction
 
+    function rightXY takes real x, real y returns boolean
+        local real max_x = GetRectMaxX(bj_mapInitialPlayableArea)
+        local real max_y = GetRectMaxY(bj_mapInitialPlayableArea)
+        local real min_x = GetRectMinX(bj_mapInitialPlayableArea)
+        local real min_y = GetRectMinY(bj_mapInitialPlayableArea)
+        if x > max_x or x < min_x or y > max_y or y < min_y then
+            return false
+        endif
+        return true
+    endfunction
+
     function addHeal takes unit target, real value returns nothing
         local integer id = GetPlayerId(GetOwningPlayer(target))
         local real tvalue = RMinBJ(GetUnitState(target, UNIT_STATE_MAX_LIFE) - GetUnitState(target, UNIT_STATE_LIFE), value)
-        if tvalue > 0 then
+        if tvalue > 0 and udg_flagShow[id+1] == true then
             call SetUnitState(target, UNIT_STATE_LIFE, GetUnitState(target, UNIT_STATE_LIFE)+tvalue)
             set udg_Heros_healCount[id] = udg_Heros_healCount[id] + tvalue
             set udg_str = "|cff00ff00HP+" + I2S(R2I(tvalue)) + "|r"
@@ -147,6 +158,31 @@ library baseSystem initializer init
         call AddHeroXP(target, R2I(expUp), true)
     endfunction
 
+    function createEffect takes string modelName, real x, real y returns effect
+        local integer id = GetPlayerId(GetLocalPlayer())+1
+        if udg_flagShow[id] == false then
+            set modelName = ""
+        endif
+        return AddSpecialEffect(modelName, x, y)
+    endfunction
+    function createEffectLoc takes string modelName, location here returns effect
+        local integer id = GetPlayerId(GetLocalPlayer())+1
+        if udg_flagShow[id] == false then
+            set modelName = ""
+        endif
+        return AddSpecialEffectLoc(modelName, here)
+    endfunction
+    function createEffectTarget takes string modelName, widget who, string socket returns effect
+        local integer id = GetPlayerId(GetLocalPlayer())+1
+        if udg_flagShow[id] == false then
+            set modelName = ""
+        endif
+        return AddSpecialEffectTarget(modelName, who, socket)
+    endfunction
+    #define AddSpecialEffect createEffect
+    #define AddSpecialEffectLoc createEffectLoc
+    #define AddSpecialEffectTarget createEffectTarget
+
     function Loading takes nothing returns nothing
         local unit dummy = CreateUnit(Player(15), 'U000', 8888, 8888, 0)
         local integer n = 0
@@ -154,10 +190,10 @@ library baseSystem initializer init
 
         loop
             //call Debug("Loading|dummyAbi|"+YDWEId2S('A000' + n))
-            call UnitAddAbility(dummy, 'A000' + n)
-            call UnitRemoveAbility(dummy, 'A000' + n)
+            call UnitAddAbility(dummy, 'AA00' + n)
+            call UnitRemoveAbility(dummy, 'AA00' + n)
             //call TriggerSleepAction(0.1)
-            exitwhen n >= ('A00z' - 'A000')
+            exitwhen n >= baseItemNum
             set n = n + 1
         endloop
         set n = 0
@@ -342,6 +378,7 @@ library Tips initializer init
         call insert("幸运值不仅能提高装备和能力的概率，还能提高抽奖获得更好物品的概率")
         call insert("在左上角英雄的第二个图标来进行一些游戏内设置！")
         call insert("左上角图鉴(F9)可以查看游戏内所有装备和能力的简略介绍")
+        call insert("如果出现卡顿，可以输入-showoff来关闭一部分特效和跳字")
     endfunction
 endlibrary
 
@@ -350,7 +387,7 @@ function damageCount takes unit hero, real dmg returns real
     local integer critLv = GetUnitAbilityLevel(hero, 'AB0I')
     local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
     local real add = 0
-    local integer gold
+    local integer blood
 
     if rateLv > 0 then
         set add = rateLv * 0.05
@@ -365,10 +402,9 @@ function damageCount takes unit hero, real dmg returns real
     endif
 
     if bloodAbilities[id+61] then
-        set gold = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD)
-        if gold > 200 then
-            set add = add + 0.01 * gold/200
-            call SetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD, gold-1)
+        set blood = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER)
+        if blood > 0 then
+            set add = add + 0.01 * blood/3
         endif
     endif
 

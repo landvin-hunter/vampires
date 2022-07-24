@@ -28,6 +28,7 @@ local itemList = {
             Missilespeed = 700,
             Missilearc = 0.2,
             MissileHoming = 1,
+            EffectArt = [[]],
             DataA = {150, 750},
             DataB = {150, 750},
             DataC = {1},
@@ -52,6 +53,7 @@ local itemList = {
             Missilespeed = 1000,
             Missilearc = 0.5,
             MissileHoming = 1,
+            EffectArt = [[]],
             DataA = {150, 450},
             DataB = {99999},
             DataC = {0},
@@ -97,10 +99,12 @@ local itemList = {
         CDMax = 3,
         abi = {
             oid = 'AHfs',
+            EffectArt = [[]],
             DataA = {100, 325, 650},
             DataB = {0.5},
             DataC = {0},
             DataE = {0},
+            DataF = {99999},
             Cast = {0},
             Dur = {4},
             Rng = {999},
@@ -214,8 +218,8 @@ local itemList = {
         CDMax = 1,
         abi = {
             oid = 'ACca',
-            DataA = {1},
-            DataB = {150, 900},
+            DataA = {150, 900},
+            DataB = {99999},
             DataC = {1200},
             DataD = {250},
             Rng = {9999},
@@ -241,8 +245,8 @@ local itemList = {
             Missileart = [[Abilities\Spells\Other\Monsoon\MonsoonBoltTarget.mdl]],
             Missilespeed = 9999,
             EffectArt = [[Abilities\Weapons\Bolt\BoltImpact.mdl]],
-            DataA = {150, 850},
-            DataB = {450, 2700},
+            DataA = {80, 880},
+            DataB = {240, 2640},
             DataC = {3},
             Area = {800},
         },
@@ -290,6 +294,7 @@ local itemList = {
             oid = 'ANst',
             Missileart = [[Abilities\Spells\Undead\Possession\PossessionMissile.mdl]],
             Missilespeed = 800,
+            SpecialArt = [[]],
             DataA = {10, 10, 24},
             DataB = {48},
             DataC = {60, 360},
@@ -464,7 +469,7 @@ local itemList = {
         Name = '血焰核心',
         Tips = [[呼唤一道火焰龙卷风，伤害沿途所有敌人]],
         TipsMax = [[呼唤两道火焰龙卷风，伤害沿途所有敌人]],
-        EditorSuffix = [[场地类]],
+        EditorSuffix = [[召唤类]],
         DamageType = [[火焰]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
@@ -483,6 +488,9 @@ local itemList = {
             DataC = {0},
             DataD = {0},
             DataE = {0},
+            TargetArt = [[Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl]],
+            Targetattachcount = 1,
+            Targetattach = 'head',
             BuffID = {"B000"},
             Area = {320},
         },
@@ -523,8 +531,8 @@ local itemList = {
 |cffffcc00维持：|r 45秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNRodOfNecromancy.blp]],
-        CD = [[return 15]],
-        CDMax = 15,
+        CD = [[return 10]],
+        CDMax = 10,
         abi = {
             oid = 'Atdg',
             DataA = {80, 680},
@@ -532,43 +540,62 @@ local itemList = {
             DataC = {0},
             DataD = {0},
             DataE = {0},
+            TargetArt = [[Abilities\Spells\Undead\DeathandDecay\DeathandDecayDamage.mdl]],
+            Targetattachcount = 1,
+            Targetattach = 'head',
             BuffID = {"Bcri"},
             Area = {500},
         },
     },
     {
-        Name = '血王权杖',
-        Tips = [[发射一枚魔法弹，可以穿透敌人]],
-        TipsMax = [[发射一枚伤害更高的魔法弹，可以穿透敌人然后变大！]],
-        EditorSuffix = [[发射类]],
+        Name = '旧日灵壶',
+        Tips = [[孕育一个旧神之卵，不断抽取敌人的血液]],
+        TipsMax = [[旧神现世！]],
+        EditorSuffix = [[召唤类]],
         DamageType = [[魔法]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
-|cffeeee55伤害：|r <*id,DataA*lv>/秒
-|cffffcc00穿透：|r *lv
+|cffeeee55伤害：|r <*id,DataA*lv>/<*id,DataB*lv>秒
+|cffffcc00维持：|r 20秒
 |cff3399ff间隔：|r *cd秒]],
-        Art = [[ReplaceableTextures\CommandButtons\BTNStaffOfSanctuary.blp]],
-        CD = [[return 3]],
-        CDMax = 3,
+        Art = [[ReplaceableTextures\CommandButtons\BTNUrnOfKelThuzad.blp]],
+        CD = [[return 7]],
+        CDMax = 7,
+        abi = {
+            oid = 'AEsf',
+            DataA = {40, 220, 300},
+            DataB = {0.5, 0.5, 0.25},
+            Buttonpos_1 = 0,
+            Buttonpos_2 = -11,
+            Animnames = "attack,looping",
+            Dur = {99},
+            Area = {750},
+        },
     },
     {
         Name = '月之弯刀',
-        Tips = [[发射一把回旋弯刀，切割最多4个敌人]],
-        TipsMax = [[发射一把回旋弯刀，切割路径上所有敌人]],
-        EditorSuffix = [[发射类]],
+        Tips = [[在一段时间内不断产生回旋弯刀，切割最多3个敌人]],
+        TipsMax = [[在一段时间内不断产生回旋弯刀，切割路径上所有敌人]],
+        EditorSuffix = [[场地类]],
         DamageType = [[切割]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
 |cffeeee55伤害：|r <*id,DataA*lv>/秒
+|cffffcc00维持：|r 6秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNAdvancedStrengthOfTheMoon.blp]],
-        CD = [[return 3]],
-        CDMax = 3,
+        CD = [[return 5]],
+        CDMax = 5,
+        abi = {
+            oid = 'AItg',
+            DataA = {50, 300},
+        },
     },
 }
 _G.ITEMNUM = #itemList
 _G.ITEMLIST = {}
 _G.ITEMID = {}
+_G.ITEMABI = {}
 _G.HANDBOOKITEM = {}
 _G.HANDBOOKABI = {}
 _G.HANDBOOKBLOOD = {}
@@ -613,14 +640,15 @@ for num, tb in ipairs(itemList) do
         end
         local cdfunc = tb.CD
         local cd = tb.CDMax
-        if lv < 11 then
-            cd = (load(cdfunc, "", "t", {glv = lv}))()
-        end
         description = originGescription:gsub('*lv', lv)
         description = description:gsub('*slv', lv+1)
         description = description:gsub('*sslv', lv*2+8)
+        description = description:gsub('*id', 'AA' .. plus)
+        if lv < 11 then
+            cd = (load(cdfunc, "", "t", {glv = lv}))()
+        end
         description = description:gsub('*cd', cd)
-        item.Ubertip = description:gsub('*id', 'AA' .. num)
+        item.Ubertip = description
         item.Art = tb.Art
         item.Level = lv
         if lv == 11 then
@@ -652,8 +680,9 @@ for num, tb in ipairs(itemList) do
             unit.Tip = name
             
             local description2 = originGescription:gsub('*lv', lv+1)
-            description = description:gsub('*slv', lv+2)
-            description = description:gsub('*sslv', (lv+1)*2+8)
+            description2 = description2:gsub('*slv', lv+2)
+            description2 = description2:gsub('*sslv', (lv+1)*2+8)
+            description2 = description2:gsub('*id', 'AA' .. plus)
             cd = (load(cdfunc, "", "t", {glv = lv+1}))()
             description2 = description2:gsub('*cd', cd)
             unit.Ubertip = string.format([[装备变化:|n%s|n--->>>|n%s]], description, description2)
@@ -687,10 +716,10 @@ for num, tb in ipairs(itemList) do
     if tb.abi then
         local data = tb.abi
         local ability = slk.ability[data.oid]:new('AA' .. plus)
+        ITEMABI[num] = 'AA' .. plus
         
         data.oid = nil
         data.Name = 'item' .. plus .. ' - ' .. tb.Name
-        data.targetArt = [[]]
         data.hero = 0
         data.item = 0
         data.race = 'human'

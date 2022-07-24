@@ -105,3 +105,4 @@ endfunction
 
 WaygateActivateBJ
 GetAbilityName()
+GetKillingUnit

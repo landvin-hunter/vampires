@@ -1,9 +1,10 @@
 
 
-library initData 
+library initData
     globals
         integer baseItemNum = <?=ITEMNUM?>
         integer array baseItemList
+        integer array itemAbiList
         private hashtable ht = InitHashtable()
         private key keyId
         private key keyClass
@@ -36,6 +37,7 @@ library initData
                 local damagetype = ITEMLIST[id]:sub(10, 15)
                 local icon = string.gsub(HANDBOOKICON[id], [[\]], [[\\]])
                 local name = HANDBOOKNAME[id]
+                local itabi = ITEMABI[slot] or '0000'
             ?>
                 //set udg_item = CreateItem('<?=id?>', 8888, 8888)
                 //if udg_item != null then
@@ -47,6 +49,7 @@ library initData
                         if k == 1 then
                     ?>
                         set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
+                        set itemAbiList[<?=slot?>] = '<?=itabi?>'
                     <?
                         end
                     ?>
@@ -60,6 +63,7 @@ library initData
                 //endif
             <? end ?>
         <? end ?>
+        set itemAbiList[0] = 0
     endfunction
 
     function getItemId takes integer id returns integer
@@ -78,8 +82,20 @@ library initData
         return LoadStr(ht, keyIcon, id)
     endfunction
 
+    function getItemAbi takes item it returns integer
+        local integer tid = getItemId(GetItemTypeId(it))
+        if tid > 0 then
+            return itemAbiList[tid]
+        endif
+        return 0 
+    endfunction
+
     function getItemName takes integer id returns string
-        return LoadStr(ht, keyName, id)
+        local string s = LoadStr(ht, keyName, id)
+        if s == LoadStr(ht, 'null', 'null') then
+            return ""
+        endif
+        return s
     endfunction
 
     function getItemColor takes integer id returns string
@@ -104,12 +120,20 @@ library initData
         return "|cffffffff"
     endfunction
 
+    globals
+        private unit dummy
+    endglobals
+
     function createItemDummy takes integer uid,location point returns unit
-        local integer abi = 'AA00' + getItemId(GetItemTypeId(udg_item))
-        set udg_dummy = CreateUnit(udg_player, uid, GetLocationX(point), GetLocationY(point), 0)
-        call UnitAddAbility(udg_dummy, abi)
-        call SetUnitAbilityLevel(udg_dummy, abi, udg_itemSpellLevel)
-        return udg_dummy
+        local integer abi = getItemAbi(udg_item)
+        set udg_player = GetOwningPlayer(udg_hero)
+        set dummy = CreateUnit(udg_player, uid, GetLocationX(point), GetLocationY(point), 0)
+        if abi > 0 then
+            call UnitAddAbility(dummy, abi)
+            call SetUnitAbilityLevel(dummy, abi, udg_itemSpellLevel)
+        endif
+        call Debug("cid| unit="+U2S(dummy)+"| abi="+YDWEId2S(abi)+"| lv="+I2S(GetUnitAbilityLevel(dummy, abi)))
+        return dummy
     endfunction
 endlibrary
 
@@ -141,7 +165,7 @@ library item initializer init requires baseSystem
         endif
 
         if bloodAbilities[id + 53] then
-            set ps = ps + GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER) * 0.02
+            set ps = ps + 0.01 * GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_GOLD) / 150
         endif
 
         return ps
@@ -182,7 +206,7 @@ library item initializer init requires baseSystem
         if ((udg_int2 > 0)) then
             set udg_itemType = udg_itemList[(udg_int2 * 100 + 1)]
             set udg_itemSpellLevel = (triType-udg_itemType+1)
-            call Debug("itemSpell| trigger-["+I2S(GetHandleId(spellTrigger[udg_int2]))+"]"+I2S(udg_int2)+"| item="+T2S(udg_item)+"| cd="+R2S(cd))
+            //call Debug("itemSpell| trigger-["+I2S(GetHandleId(spellTrigger[udg_int2]))+"]"+I2S(udg_int2)+"| item="+T2S(udg_item)+"| cd="+R2S(cd))
             set func = spellTrigger[udg_int2]
             call TriggerExecute(func)
         endif

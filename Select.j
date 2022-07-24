@@ -44,6 +44,8 @@ library select initializer init
             call RemoveUnitFromStock(hero, uid)
             call Debug("Load || hero="+U2S(hero)+" || result="+YDWEId2S(uid))
         <?end?>
+        call SetPlayerAbilityAvailable(GetOwningPlayer(hero), 'bk00', true)
+        call UnitRemoveAbility(hero, 'bkre')
     endfunction
 
     function oneAbilitySelect takes unit hero, boolean skip returns nothing
@@ -160,6 +162,9 @@ library select initializer init
         else
             call UnitModifySkillPoints(hero, -GetHeroSkillPoints(hero))
         endif
+
+        call SetPlayerAbilityAvailable(Player(pid), 'bk00', false)
+        call UnitAddAbility(hero, 'bkre')
 
         set itemTemp = null
     endfunction
