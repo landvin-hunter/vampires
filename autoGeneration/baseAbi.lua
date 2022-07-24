@@ -189,7 +189,7 @@ local baseSkill = {
         levels = 10,
         DataA = {15, 60},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[提高召唤类的持续时长,但相应地也会提高部分装备再次CD的时间|n|n比例：|cff89D5FF<*id,DataA*lv>%|r]],
+        Ubertip = [[提高|cff13d0dd[召唤类]|r装备的持续时长,但相应地也会提高部分装备再次CD的时间|n|n比例：|cff89D5FF<*id,DataA*lv>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -206,7 +206,7 @@ local baseSkill = {
         levels = 10,
         DataA = {10, 28},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[发射类装备有几率立刻再触发一次|n|n几率：|cff89D5FF<*id,DataA*lv>%|r]],
+        Ubertip = [[|cff13d0dd[发射类]|r装备有几率立刻再触发一次|n|n几率：|cff89D5FF<*id,DataA*lv>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -224,7 +224,7 @@ local baseSkill = {
         Cast = {10, 50},
         Cool = {10, 25},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[场地类装备可以施加减速效果|n|移动速度：|cff89D5FF<*id,Cast*lv>%|r|n攻击速度：|cff89D5FF<*id,Cool*lv>%|r]],
+        Ubertip = [[|cff13d0dd[场地类]|r装备可以施加减速效果|n|n移动速度：|cff89D5FF<*id,Cast*lv>%|r|n攻击速度：|cff89D5FF<*id,Cool*lv>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -237,11 +237,11 @@ local baseSkill = {
     ['AB0N'] = {
         id = 'ACac',
         Name = [[恶魔低语]],
-        Art = [[ReplaceableTextures\PassiveButtons\PASBTNMagicalSentry.blp]],
+        Art = [[ReplaceableTextures\PassiveButtons\PASBTNdemonwhisper.blp]],
         levels = 10,
         Cast = {15, 60},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[精神伤害有几率附加目标6.66%当前生命的额外伤害|n|几率：|cff89D5FF<*id,Cast*lv>%|r]],
+        Ubertip = [[|cffd725ee[精神]|r伤害有几率附加目标6.66%当前生命的额外伤害|n|n几率：|cff89D5FF<*id,Cast*lv>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -254,12 +254,12 @@ local baseSkill = {
     ['AB0O'] = {
         id = 'ACac',
         Name = [[低等蚕食]],
-        Art = [[ReplaceableTextures\PassiveButtons\PASBTNMagicalSentry.blp]],
+        Art = [[ReplaceableTextures\PassiveButtons\PASBTNCannibalize.blp]],
         levels = 10,
         Cast = {12, 12},
         Cool = {40, 340},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[拾取治疗，大金币，减速，宝箱等等物品时可以额外获得经验|n|经验值：|cff89D5FF<*id,Cool*lv>+血质阶层*<*id,Cast*lv>|r]],
+        Ubertip = [[拾取治疗，大金币，减速，宝箱等等物品时可以额外获得经验|n|n经验值：|cff89D5FF<*id,Cool*lv>+血质阶层*<*id,Cast*lv>|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -386,7 +386,7 @@ for id, tb in pairs(baseSkill) do
         unit.Hotkey = ''
         unit.Buttonpos_1 = 0
         unit.Buttonpos_2 = 0
-        unit.Art = tb.ArtU or (tb.Art:gsub([[PassiveButtons\PAS]], [[CommandButtons\]]))
+        unit.Art = tb.ArtU or (tb.Art:gsub([[PassiveButtons\PAS]], [[CommandButtons\]]))        
         unit.abilList = 'Aloc'
         unit.modelScale = 1.3
         unit.type = ''
@@ -406,7 +406,7 @@ for id, tb in pairs(baseSkill) do
 
         item.Name = "[" .. name .. "]"
         item.abilList = 'A000'
-        item.scale = 1.3
+        item.scale = 1.5
         item.Description = "拾取后可以获得或者升级该固有能力"
         item.file = [[Units\Human\Phoenix\PhoenixEgg.mdl]]
     end

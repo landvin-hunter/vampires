@@ -252,7 +252,7 @@ local bloodList = {
         Ubertip = [[
 尊贵血液越多，伤害越高
 
-|cff22bb22加伤：|r 1%/3点
+|cff22bb22加伤：|r 1%/2点
     
 |cffa4ef0d以血为餐，狩猎不止|r]],
         Requires = [[]],

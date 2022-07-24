@@ -105,4 +105,4 @@ endfunction
 
 WaygateActivateBJ
 GetAbilityName()
-GetKillingUnit
+|cffd725ee

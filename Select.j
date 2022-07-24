@@ -143,7 +143,7 @@ library select initializer init
             <? for i = 1, 4 do ?> // 'oas0'+id保存添加的购买马甲
                 set n = GetRandomInt(1, pickId)//mathRandom(1, pickId)
                 set result[<?=i?>] = pickList[n]
-                if result[<?=i?>] >= ABIUNIT_FRISTID and result[<?=i?>] < ABIUNIT_ENDID then
+                if result[<?=i?>] >= ABIUNIT_FRISTID and result[<?=i?>] <= ABIUNIT_ENDID then
                     set resultLevel[<?=i?>] = GetUnitAbilityLevel(hero, result[<?=i?>] - ABIUNIT_FRISTID + ABI_FRISTID) + 1
                 else
                     <? for k, id in ipairs(_G.idList) do ?>

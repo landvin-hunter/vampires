@@ -89,7 +89,7 @@ library reward requires baseSystem
             elseif pick == 0 then
                 set rarity = "2"
             else
-                set pickId = baseItemList[getItemId(GetItemTypeId(pickItem[canUP]))]
+                set pickId = baseItemList[getItemId(GetItemTypeId(pickItem[GetRandomInt(1, pick)]))]
             endif
             <? for i = 1, 6 do?>
                 set pickItem[<?=i?>] = null

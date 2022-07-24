@@ -635,7 +635,7 @@ for num, tb in ipairs(itemList) do
             ITEMLIST[id] = tb.EditorSuffix
         end
         if tb.DamageType then
-            originGescription = originGescription .. '|n|cf165d61f伤害类型：|cff9d5cbb' .. tb.DamageType
+            originGescription = originGescription .. '|n|cf165d61f伤害类型：|cffd725ee' .. tb.DamageType
             ITEMLIST[id] = ITEMLIST[id] .. tb.DamageType
         end
         local cdfunc = tb.CD
@@ -658,7 +658,8 @@ for num, tb in ipairs(itemList) do
         end
         item.HP = cd*10
         item.uses = cd*10
-        item.pawnable = 0   
+        item.pawnable = 0
+        item.scale = 1.3
         item.file = itemFile[num%5+1]
         item.abilList = tb.abilList or [[]]
         --item:permanent()

@@ -410,7 +410,7 @@ function damageCount takes unit hero, unit target, real dmg returns real
     if bloodAbilities[id+61] then
         set blood = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER)
         if blood > 0 then
-            set rate = rate + 0.01 * blood/3
+            set rate = rate + 0.01 * blood/2
         endif
     endif
 
