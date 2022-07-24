@@ -199,6 +199,7 @@ library Line initializer init requires baseSystem
         private string array hitType
         private integer array hitNum
         private string array break
+        private real array breakMark
         private real array delaySpeed
         private real array delayAccel
         private real array delayHit
@@ -227,6 +228,8 @@ library Line initializer init requires baseSystem
         set delayAccel[id] = delayAccel[max]
         set delayHit[id] = delayHit[max]
         set hitEff[id]     = hitEff[max]
+        set break[id]       = break[max]
+        set breakMark[id]     = breakMark[max]
 
         set hitArea[max] = 0
         set hitDmg[max]  = 0
@@ -273,6 +276,10 @@ library Line initializer init requires baseSystem
                     if break[id] == "穿透" and GetUnitState(u, UNIT_STATE_LIFE) > 0 then
                         set hitNum[id] = 0
                     endif
+                    if break[id] == "回旋" and ((spd[id]>0 and breakMark[id]<0)or(spd[id]<0 and breakMark[id]>0)) then
+                        call GroupClear(mark[id])
+                        set breakMark[id] = spd[id]
+                    endif
                     if hitNum[id] > 0 then
                         set hitNum[id] = hitNum[id] - 1
                     endif
@@ -291,8 +298,8 @@ library Line initializer init requires baseSystem
     private function action takes integer id returns nothing
         local real t = time[id] - 0.02
         local real sp = spd[id]
-        local real accel = acc[id]
-        local real face = GetUnitFacing(mover[id]) + roll[id]
+        local real accel = acc[id] * 0.02
+        local real face = GetUnitFacing(mover[id]) + roll[id] * 0.02
         local real an = ang[id]
         local real x = GetUnitX(mover[id])
         local real y = GetUnitY(mover[id])
@@ -303,20 +310,20 @@ library Line initializer init requires baseSystem
             set sp = sp + accel
         endif
 
-        call Debug("moveLine| ang="+R2S(an)+"| sp="+R2S(sp)+"| ac="+R2S(accel))
+        //call Debug("moveLine| ang="+R2S(an)+"| sp="+R2S(sp)+"| ac="+R2S(accel))
 
         if t>0 and GetUnitState(mover[id],UNIT_STATE_LIFE)>0 and dis[id] > pass[id] then
             if delaySpeed[id] > 0 then
                 set delaySpeed[id] = delaySpeed[id] - 0.02
             else
                 if sp > 0 or sp < 0 then
-                    set x = x + sp * CosBJ(an)
-                    set y = y + sp * SinBJ(an)
+                    set x = x + sp * 0.02 * CosBJ(an)
+                    set y = y + sp * 0.02 * SinBJ(an)
                     if rightXY(x, y) then
                         call SetUnitX(mover[id],x)
                         call SetUnitY(mover[id],y)
                     endif
-                    set pass[id] = pass[id] + sp
+                    set pass[id] = pass[id] + sp * 0.02
                 endif
                 if hitArea[id] > 0 then
                     call hitd(x, y, id)
@@ -352,8 +359,11 @@ library Line initializer init requires baseSystem
         //call PauseTimer(mtimer)
     endfunction
 
-    function moverLinePenetrate takes integer id returns nothing
-        set break[id] = "穿透"
+    function moverLineMode takes integer id, string mode returns nothing
+        set break[id] = mode
+        if mode == "回旋" then
+            set breakMark[id] = spd[id]
+        endif
     endfunction
 
     function moverLineHited takes integer id, real area,real dmg,string tp,integer nm returns nothing
@@ -377,11 +387,11 @@ library Line initializer init requires baseSystem
     endfunction
 
     function moverLineAccel takes integer id, real ac returns nothing
-        set acc[id] = ac * 0.02
+        set acc[id] = ac
     endfunction
 
     function moverLineRoll takes integer id, real ang returns nothing
-        set roll[id] = ang * 0.02
+        set roll[id] = ang
     endfunction
 
     function moverLineSelfDie takes integer id returns nothing
@@ -395,7 +405,7 @@ library Line initializer init requires baseSystem
         set selfDie[max] = false
         set dis[max]    = Cdis
         set pass[max]   = 0
-        set spd[max]    = Cspd * 0.02
+        set spd[max]    = Cspd
         set ang[max]    = Cang
         set roll[max]    = 0
         set acc[max]     = 0
@@ -409,6 +419,7 @@ library Line initializer init requires baseSystem
         set delayAccel[max] = 0
         set delayHit[max] = 0
         set break[max]      = null
+        set breakMark[max]  = 0
         set hitEff[max] = null
         return max
     endfunction

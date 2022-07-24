@@ -8,6 +8,7 @@ library itemSystem
         local integer ownid
         local integer tarid = GetItemTypeId(tarItem)
         local integer upid
+        local unit dummyTemp = null
         
         //call Debug(GetPlayerName(GetItemPlayer(tarItem)) + I2S(GetPlayerId(GetItemPlayer(tarItem))))
     
@@ -28,6 +29,9 @@ library itemSystem
                 set eid = fid + 10
                 if ownid >= fid and tarid >= fid and ownid < eid and tarid < eid then //每当拿到同类型的物品直接升级
                     call RemoveItem(tarItem)
+                    if YDUserDataGet(item, itemTemp, "dummyUnit", unit) != null then
+                        set dummyTemp = YDUserDataGet(item, itemTemp, "dummyUnit", unit)
+                    endif
                     call RemoveItem(itemTemp)
                     set upid = IMaxBJ(ownid, tarid) + 1
                     set itemTemp = UnitAddItemById(hero, IMaxBJ(upid, fid))
@@ -38,6 +42,10 @@ library itemSystem
                             call DisplayTimedTextFromPlayer(GetOwningPlayer(hero), 0, 0, 10, "升级获得了[|cffffcc00" + GetItemName(itemTemp) + "|r]")
                         endif
                     endif
+                    if dummyTemp != null then
+                        call bindingDummyItem(dummyTemp, itemTemp)
+                    endif
+                    set dummyTemp = null
                     return
                 endif
             endif   

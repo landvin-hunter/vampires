@@ -382,39 +382,45 @@ library Tips initializer init
     endfunction
 endlibrary
 
-function damageCount takes unit hero, real dmg returns real
+function damageCount takes unit hero, unit target, real dmg returns real
     local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
     local integer critLv = GetUnitAbilityLevel(hero, 'AB0I')
     local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
     local real add = 0
+    local real rate = 0
     local integer blood
 
     if rateLv > 0 then
-        set add = rateLv * 0.05
+        set rate = rateLv * 0.05
+    endif
+
+    set rateLv = GetUnitAbilityLevel(hero, 'AB0N')
+    if rateLv > 0 and calculateLuck(hero, 10 + 5 * rateLv) then
+        set add = add + GetUnitState(target, UNIT_STATE_LIFE) * 0.0666
     endif
 
     if bloodAbilities[id+12] and GetUnitState(hero, UNIT_STATE_LIFE)/GetUnitState(hero, UNIT_STATE_MAX_LIFE) <= 0.3 then
-        set add = add + 0.25
+        set rate = rate + 0.25
     endif
 
     if bloodAbilities[id+13] then
-        set add = add + 0.2
+        set rate = rate + 0.2
     endif
 
     if bloodAbilities[id+61] then
         set blood = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER)
         if blood > 0 then
-            set add = add + 0.01 * blood/3
+            set rate = rate + 0.01 * blood/3
         endif
     endif
 
     if critLv > 0 then
         if calculateLuck(hero, 25) then
-            set add = add + (0 + 0.2 * critLv)
+            set rate = rate + (0 + 0.2 * critLv)
             set udg_flagCrit = true
         endif
     endif
-    return dmg * add
+    return dmg * rate + add
 endfunction
 
 function lifeCount takes unit hero, real time returns real

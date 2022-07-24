@@ -41,7 +41,9 @@ library select initializer init
         set pickMax = 0
         <?for i = 1, 4 do?>
             set uid = LoadInteger(ht, GetHandleId(hero), 'oas0'+<?=i?>)
-            call RemoveUnitFromStock(hero, uid)
+            if uid > 0 then
+                call RemoveUnitFromStock(hero, uid)
+            endif
             call Debug("Load || hero="+U2S(hero)+" || result="+YDWEId2S(uid))
         <?end?>
         call SetPlayerAbilityAvailable(GetOwningPlayer(hero), 'bk00', true)

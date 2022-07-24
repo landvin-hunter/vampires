@@ -124,6 +124,11 @@ library initData
         private unit dummy
     endglobals
 
+    function bindingDummyItem takes unit dm, item it returns nothing
+        call YDUserDataSet(unit, dm, "triItem", item, it)
+        call YDUserDataSet(item, it, "dummyUnit", unit, dm)
+    endfunction
+
     function createItemDummy takes integer uid,location point returns unit
         local integer abi = getItemAbi(udg_item)
         set udg_player = GetOwningPlayer(udg_hero)
@@ -132,6 +137,7 @@ library initData
             call UnitAddAbility(dummy, abi)
             call SetUnitAbilityLevel(dummy, abi, udg_itemSpellLevel)
         endif
+        call bindingDummyItem(dummy, udg_item)
         call Debug("cid| unit="+U2S(dummy)+"| abi="+YDWEId2S(abi)+"| lv="+I2S(GetUnitAbilityLevel(dummy, abi)))
         return dummy
     endfunction
