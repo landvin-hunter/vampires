@@ -64,7 +64,7 @@ local bloodList = {
 击杀会引发爆炸，造成范围伤害
 
 |cff22bb22概率：|r 25%|cffffcc00(享受幸运加成)|r
-|cffeeee55伤害：|r 200+血质阶层×10
+|cffeeee55伤害：|r 150+血质阶层×8
         
 |cffc12ae0据说那可怕的血液污染将毁灭一切|r]],
         Requires = [[]],
@@ -238,11 +238,11 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNPillage.blp]],
         Tip = [[|cff00ff00矮人冠军的能力|r :  |cff6699ff传说之锤]],
         Ubertip = [[
-尊贵之血可以加速装备触发
+储备的金钱可以加速装备触发
 
-|cff22bb22加速：|r 2%/1点
+|cff22bb22加速：|r 1%/150点
     
-|cffa4ef0d只有尊贵的血液才能发挥最大的威力|r]],
+|cffa4ef0d拥有足够的金钱才可以打造更强的武器|r]],
         Requires = [[]],
         hero = 0,
     },
@@ -250,12 +250,11 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNTranquility.blp]],
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff远古祭祀]],
         Ubertip = [[
-金币的存量可以提升伤害，但会消耗金币
+尊贵血液越多，伤害越高
 
-|cff22bb22加伤：|r 1%/200金币
-|cffeeee55消耗：|r 1/次
+|cff22bb22加伤：|r 1%/3点
     
-|cffa4ef0d对于高贵的精灵而言，这些金属不过是祭天的道具而已|r]],
+|cffa4ef0d以血为餐，狩猎不止|r]],
         Requires = [[]],
         hero = 0,
     },
@@ -363,4 +362,14 @@ sbook.Ubertip = [[|cff00ff00猎杀那些强大的领域boss来剥夺他们的血
 |n【|cff32ec32月光森林|r的守护神，|cffffcc00月光游侠|r】
 ]]
 sbook.Art = [[ReplaceableTextures\CommandButtons\BTNPotionOfVampirism.blp]]
+
+local refresh = slk.ability['AAns']:new('bkre')
+refresh.Name = 'book-刷新选择'
+refresh.DataA1 = 200
+refresh.Buttonpos_1 = 0
+refresh.Buttonpos_2 = 1
+refresh.Tip = [[刷新选择]]
+refresh.Ubertip = [[重置一次当前选择，每次选择都只能使用一次]]
+refresh.Art = [[ReplaceableTextures\CommandButtons\BTNPatrol.blp]]
+
 ?>
