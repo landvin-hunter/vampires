@@ -5,6 +5,7 @@ globals
     item itemTemp = null
     integer intMapSeed = 0
     location randomSeed
+    hashtable globalHT = InitHashtable()
 
     //首个装备ID，对应升级马甲
     constant integer ITEM_FRISTID = 'I01A'
@@ -23,6 +24,8 @@ globals
 
     //首个血液能力ID
     constant integer BLOOD_FRISTID = 'AR00'
+
+    constant string emptyString = LoadStr(globalHT, 'null', 'null')
 endglobals
 
 library baseSystem initializer init
@@ -324,7 +327,7 @@ library baseSystem initializer init
             set rate = rate * 1.3
         endif
         
-        call Debug("calculateLuck| ran="+R2S(random)+"| rate="+R2S(rate*10))
+        //call Debug("calculateLuck| ran="+R2S(random)+"| rate="+R2S(rate*10))
         return random <= rate*10
     endfunction
 
@@ -339,7 +342,7 @@ library baseSystem initializer init
             set rate = rate * 1.3
         endif
         
-        call Debug("calculateLuck| rate="+R2S(rate))
+        //call Debug("calculateLuck| rate="+R2S(rate))
         return rate
     endfunction
 
@@ -379,12 +382,14 @@ library Tips initializer init
         call insert("在左上角英雄的第二个图标来进行一些游戏内设置！")
         call insert("左上角图鉴(F9)可以查看游戏内所有装备和能力的简略介绍")
         call insert("如果出现卡顿，可以输入-showoff来关闭一部分特效和跳字")
+        call insert("喜欢本地图，可以来QQ群837754655对作者指手画脚")
     endfunction
 endlibrary
 
-function damageCount takes unit hero, unit target, real dmg returns real
+function damageCount takes unit hero, unit target, real dmg, integer itemid returns real
     local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
     local integer critLv = GetUnitAbilityLevel(hero, 'AB0I')
+    local string dmgtype = getItemDamageType(itemid)
     local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
     local real add = 0
     local real rate = 0
@@ -394,9 +399,11 @@ function damageCount takes unit hero, unit target, real dmg returns real
         set rate = rateLv * 0.05
     endif
 
-    set rateLv = GetUnitAbilityLevel(hero, 'AB0N')
-    if rateLv > 0 and calculateLuck(hero, 10 + 5 * rateLv) then
-        set add = add + GetUnitState(target, UNIT_STATE_LIFE) * 0.0666
+    if dmgtype == "精神" then
+        set rateLv = GetUnitAbilityLevel(hero, 'AB0N')
+        if rateLv > 0 and calculateLuck(hero, 10 + 5 * rateLv) then
+            set add = add + GetUnitState(target, UNIT_STATE_LIFE) * 0.0666
+        endif
     endif
 
     if bloodAbilities[id+12] and GetUnitState(hero, UNIT_STATE_LIFE)/GetUnitState(hero, UNIT_STATE_MAX_LIFE) <= 0.3 then

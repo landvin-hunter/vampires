@@ -77,8 +77,8 @@ local itemList = {
         abi = {
             oid = 'ACcl',
             DataA = {75, 825},
-            DataB = {5, 5, 8},
-            DataC = {1, 1},
+            DataB = {3, 3, 6},
+            DataC = {0.25, 0.25, 0},
             Rng = {650},
             Area = {500},
         },

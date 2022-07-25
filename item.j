@@ -126,7 +126,7 @@ library initData
 
     function bindingDummyItem takes unit dm, item it returns nothing
         call YDUserDataSet(unit, dm, "triItem", item, it)
-        call YDUserDataSet(item, it, "dummyUnit", unit, dm)
+        call YDUserDataSet(unit, dm, "triItemId", integer, GetItemTypeId(it))
     endfunction
 
     function createItemDummy takes integer uid,location point returns unit
