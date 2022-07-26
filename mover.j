@@ -179,7 +179,7 @@ library Shock initializer init requires baseSystem
     endfunction
 endlibrary
 
-library Line initializer init requires baseSystem
+library Line initializer init requires baseSystem, damage
     //--直线运动
     globals
         private timer mtimer = CreateTimer()

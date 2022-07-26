@@ -269,6 +269,24 @@ local baseSkill = {
         useUnit = true,
         useItem = true,
     },
+    ['AB0P'] = {
+        id = 'ACac',
+        Name = [[浸满剧毒]],
+        Art = [[ReplaceableTextures\PassiveButtons\PASBTNCorrosiveBreath.blp]],
+        levels = 10,
+        Cast = {6},
+        Cool = {1, 10},
+        Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
+        Ubertip = [[|cffd725ee[毒素]|r伤害每次都会叠加1层持续伤害，独立计算互相叠加|n|n每层伤害：|cff89D5FF<*id,Cool*lv>|n持续时间：<*id,Cast*lv>秒|r]],
+        targs = {"nonhero,self"},
+        Buttonpos_1 = 0,
+        Buttonpos_2 = 2,
+        targetArt = [[]],
+        hero = 0,
+        race = 'creeps',
+        useUnit = true,
+        useItem = true,
+    },
     ['Ad00'] = {
         id = 'Aegr',
         Name = [[ass-伤害变化,+100%]],
@@ -343,6 +361,7 @@ local noUse = {
     ['ArtU'] = true,
 }
 
+local function create()
 for id, tb in pairs(baseSkill) do
     local ability = slk.ability[tb.id]:new(id)
     local lvs = tb.levels or 1
@@ -353,8 +372,19 @@ for id, tb in pairs(baseSkill) do
                     ability[key .. lv] = data[1]
                 end
             elseif type(data[1]) == 'number' then
-                for lv = 1, lvs do
-                    ability[key .. lv] = data[1] + (lv - 1) * (data[2] - data[1]) / (lvs - 1)
+                if #data == 3 then
+                    for lv = 1, 10 do
+                        ability[key .. lv] = data[1] + (lv - 1) * (data[2] - data[1]) / 9
+                    end
+                    ability[key .. '11'] = data[3]
+                elseif #data == 2 then
+                    for lv = 1, 11 do
+                        ability[key .. lv] = data[1] + (lv - 1) * (data[2] - data[1]) / 10
+                    end
+                elseif #data == 1 then
+                    for lv = 1, 11 do
+                        ability[key .. lv] = data[1]
+                    end
                 end
             end
         elseif key == 'Tip' or key == 'Ubertip' then
@@ -411,4 +441,7 @@ for id, tb in pairs(baseSkill) do
         item.file = [[Units\Human\Phoenix\PhoenixEgg.mdl]]
     end
 end
+end
+
+pcall(create)
 ?>

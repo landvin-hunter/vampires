@@ -109,24 +109,6 @@ library baseSystem initializer init
         local real dy = GetLocationY(a) - GetLocationY(b)
         return SquareRoot(dx * dx + dy * dy)
     endfunction
-    //--自定义单体伤害 call UDT(souce,target,damage,type,IsNomAttack)
-    function UDT takes unit u,unit t,real da,integer ty,boolean b returns nothing
-        if ty=='fsmf' then //法术魔法
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_NORMAL,DAMAGE_TYPE_MAGIC,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='yxpt' then//英雄普通
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_NORMAL,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='yxmf' then//英雄魔法
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_MAGIC,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='hlqh' then//混乱强化
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_ENHANCED,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='hlty' then //混乱通用
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_UNIVERSAL,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='yxqh' then //英雄强化
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_ENHANCED,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='jnpt' then //英雄普通
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_NORMAL,WEAPON_TYPE_WHOKNOWS)
-        endif
-    endfunction
 
     function rightXY takes real x, real y returns boolean
         local real max_x = GetRectMaxX(bj_mapInitialPlayableArea)
@@ -372,7 +354,7 @@ library Tips initializer init
     private function init takes nothing returns nothing
         call TimerStart(mtimer, 20, true, function roll)
         call insert("出生地墓穴可以选择你当前想要被指引猎杀的领域Boss")
-        call insert("每4分钟会出现精英敌人，猎杀他们掉落一个宝箱")
+        call insert("每隔几分钟会出现精英敌人，猎杀他们掉落一个宝箱")
         call insert("装备通过等级提升最多升到10级，只有宝箱才能帮助你将装备升到Max")
         call insert("一部分带有持续时间的装备在生效期间会暂停CD")
         call insert("计分板上的日出倒计时结束后，吸血鬼们将会死于太阳的炙烤，尽快在吸血鬼猎人到来后将其猎杀")
@@ -385,50 +367,6 @@ library Tips initializer init
         call insert("喜欢本地图，可以来QQ群837754655对作者指手画脚")
     endfunction
 endlibrary
-
-function damageCount takes unit hero, unit target, real dmg, integer itemid returns real
-    local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
-    local integer critLv = GetUnitAbilityLevel(hero, 'AB0I')
-    local string dmgtype = getItemDamageType(itemid)
-    local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
-    local real add = 0
-    local real rate = 0
-    local integer blood
-
-    if rateLv > 0 then
-        set rate = rateLv * 0.05
-    endif
-
-    if dmgtype == "精神" then
-        set rateLv = GetUnitAbilityLevel(hero, 'AB0N')
-        if rateLv > 0 and calculateLuck(hero, 10 + 5 * rateLv) then
-            set add = add + GetUnitState(target, UNIT_STATE_LIFE) * 0.0666
-        endif
-    endif
-
-    if bloodAbilities[id+12] and GetUnitState(hero, UNIT_STATE_LIFE)/GetUnitState(hero, UNIT_STATE_MAX_LIFE) <= 0.3 then
-        set rate = rate + 0.25
-    endif
-
-    if bloodAbilities[id+13] then
-        set rate = rate + 0.2
-    endif
-
-    if bloodAbilities[id+61] then
-        set blood = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER)
-        if blood > 0 then
-            set rate = rate + 0.01 * blood/2
-        endif
-    endif
-
-    if critLv > 0 then
-        if calculateLuck(hero, 25) then
-            set rate = rate + (0 + 0.2 * critLv)
-            set udg_flagCrit = true
-        endif
-    endif
-    return dmg * rate + add
-endfunction
 
 function lifeCount takes unit hero, real time returns real
     local real add = 1

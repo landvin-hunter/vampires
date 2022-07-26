@@ -66,7 +66,7 @@ local armyList = {
         spd = 220,
     },
     ['ua05'] = {
-        Name = '游侠',
+        Name = '侍卫',
         EditorSuffix = '<6>',
         file = [[units\human\BloodElfSpellThief\BloodElfSpellThief.mdl]],
         HP = 10000,

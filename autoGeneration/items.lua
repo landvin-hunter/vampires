@@ -100,6 +100,7 @@ local itemList = {
         abi = {
             oid = 'AHfs',
             EffectArt = [[]],
+            SpecialArt = [[]],
             DataA = {100, 325, 650},
             DataB = {0.5},
             DataC = {0},
@@ -591,6 +592,36 @@ local itemList = {
             DataA = {50, 300},
         },
     },
+    {
+        Name = '瘟疫号角',
+        Tips = [[蔓延吧，瘟疫]],
+        TipsMax = [[蔓延吧，剧毒的瘟疫]],
+        EditorSuffix = [[场地类]],
+        DamageType = [[毒素]],
+        Description = [[
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/<*id,DataB*lv>秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNHornOfFog.blp]],
+        CD = [[return 15]],
+        CDMax = 15,
+        abi = {
+            oid = 'AHfs',
+            EffectArt = [[]],
+            SpecialArt = [[Abilities\Spells\Undead\PlagueCloud\PlagueCloudCaster.mdl]],
+            DataA = {40, 130, 260},
+            DataB = {0.2},
+            DataC = {0},
+            DataE = {0},
+            DataF = {99999},
+            Cast = {0},
+            Dur = {8},
+            Rng = {999},
+            Area = {300},
+            BuffID = {"Bapl"},
+            EfctID = {"Xful"},
+        },
+    },
 }
 _G.ITEMNUM = #itemList
 _G.ITEMLIST = {}
@@ -602,6 +633,7 @@ _G.HANDBOOKBLOOD = {}
 _G.HANDBOOKNAME = {}
 _G.HANDBOOKICON = {}
 
+local function create()
 for num, tb in ipairs(itemList) do
     local des1, des2 = nil, nil
     local plus = ''
@@ -760,4 +792,7 @@ for num, tb in ipairs(itemList) do
         end
     end
 end
+end
+
+pcall(create)
 ?>

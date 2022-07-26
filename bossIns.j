@@ -15,6 +15,9 @@ library bossIns initializer init requires baseSystem
         call KillUnit(mover[id])
         set mover[id]   = mover[max]
         set floor[id]   = floor[max]
+        call RemoveLocation(target1[id])
+        call RemoveLocation(target2[id])
+        call RemoveLocation(target3[id])
         set target1[id] = target1[max]
         set target2[id] = target2[max]
         set target3[id] = target3[max]
