@@ -155,7 +155,7 @@ local baseSkill = {
         levels = 10,
         DataA = {20, 200},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[造成伤害有25%的概率造成额外伤害，概率会享受幸运值加成|n|n额外伤害：|cff89D5FF<*id,DataA*lv>%|r]],
+        Ubertip = [[伤害有25%的概率暴击！概率会享受幸运值加成|n|n额外伤害：|cff89D5FF<*id,DataA*lv>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
