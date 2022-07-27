@@ -35,7 +35,7 @@ library damage requires baseSystem
 
         if dmgtype == "精神" then
             set rateLv = GetUnitAbilityLevel(hero, 'AB0N')
-            if rateLv > 0 and calculateLuck(hero, 10 + 5 * rateLv) then
+            if rateLv > 0 and calculateLuck(hero, 8 + 2 * rateLv) then
                 set add = add + GetUnitState(target, UNIT_STATE_LIFE) * 0.0666
             endif
         endif

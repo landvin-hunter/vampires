@@ -103,6 +103,8 @@ function sortScoreBoard takes nothing returns nothing
     endloop
 endfunction
 
+bj_forLoopAIndex
+GetManipulatingUnit
 WaygateActivateBJ
 GetAbilityName()
 |cffd725ee

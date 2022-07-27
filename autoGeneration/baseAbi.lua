@@ -239,7 +239,7 @@ local baseSkill = {
         Name = [[恶魔低语]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNdemonwhisper.blp]],
         levels = 10,
-        Cast = {15, 60},
+        Cast = {10, 28},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
         Ubertip = [[|cffd725ee[精神]|r伤害有几率附加目标6.66%当前生命的额外伤害|n|n几率：|cff89D5FF<*id,Cast*lv>%|r]],
         targs = {"nonhero,self"},

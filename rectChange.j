@@ -5,7 +5,7 @@ library rectChange initializer init
         private function actions_<?=i?> takes nothing returns nothing
             local integer id = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))+1
             local unit u = GetTriggerUnit()
-            if IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) then
+            if udg_Heros[id] == GetTriggerUnit() then
                 set udg_rectNowRefresh[id] = gg_rct_BarMap_<?=i?>
                 set udg_rectResetRefresh[id] = gg_rct_Bar_<?=i?>
                 call Debug("EnterArea-<?=i?>|Hero="+U2S(GetTriggerUnit()))

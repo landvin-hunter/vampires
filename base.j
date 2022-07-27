@@ -124,17 +124,19 @@ library baseSystem initializer init
     function addHeal takes unit target, real value returns nothing
         local integer id = GetPlayerId(GetOwningPlayer(target))
         local real tvalue = RMinBJ(GetUnitState(target, UNIT_STATE_MAX_LIFE) - GetUnitState(target, UNIT_STATE_LIFE), value)
-        if tvalue > 0 and udg_flagShow[id+1] == true then
+        if tvalue > 0 then
             call SetUnitState(target, UNIT_STATE_LIFE, GetUnitState(target, UNIT_STATE_LIFE)+tvalue)
             set udg_Heros_healCount[id] = udg_Heros_healCount[id] + tvalue
-            set udg_str = "|cff00ff00HP+" + I2S(R2I(tvalue)) + "|r"
-            set bj_lastCreatedTextTag = CreateTextTag()
-            call SetTextTagTextBJ(bj_lastCreatedTextTag, udg_str, 11)
-            call SetTextTagPosUnitBJ(bj_lastCreatedTextTag, target, 0)
-            call SetTextTagPermanent(bj_lastCreatedTextTag, false)
-            call SetTextTagFadepoint(bj_lastCreatedTextTag, 3.00)
-            call SetTextTagLifespan(bj_lastCreatedTextTag, 5.00)
-            call SetTextTagVelocity(bj_lastCreatedTextTag, 0.00, GetRandomReal(-0.04, -0.01))
+            if udg_flagShow[id+1] == true then
+                set udg_str = "|cff00ff00HP+" + I2S(R2I(tvalue)) + "|r"
+                set bj_lastCreatedTextTag = CreateTextTag()
+                call SetTextTagTextBJ(bj_lastCreatedTextTag, udg_str, 11)
+                call SetTextTagPosUnitBJ(bj_lastCreatedTextTag, target, 0)
+                call SetTextTagPermanent(bj_lastCreatedTextTag, false)
+                call SetTextTagFadepoint(bj_lastCreatedTextTag, 3.00)
+                call SetTextTagLifespan(bj_lastCreatedTextTag, 5.00)
+                call SetTextTagVelocity(bj_lastCreatedTextTag, 0.00, GetRandomReal(-0.04, -0.01))
+            endif
         endif
     endfunction
     

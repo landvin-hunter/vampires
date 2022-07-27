@@ -13,3 +13,4 @@
 #include "E:\\Users\\Code\\vampire\\mover.j"
 #include "E:\\Users\\Code\\vampire\\board.j"
 #include "E:\\Users\\Code\\vampire\\bossIns.j"
+#include "E:\\Users\\Code\\vampire\\treeShow.j"
