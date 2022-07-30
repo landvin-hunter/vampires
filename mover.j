@@ -269,7 +269,7 @@ library Line initializer init requires baseSystem, damage
                     set flag = true
                 endif
                 if flag and hitNum[id] > 0 then
-                    call UDT(mover[id],u,hitDmg[id],'fsmf',false)
+                    call addDamage(mover[id],u,hitDmg[id])
                     if hitEff[id] != null then
                         call DestroyEffect(AddSpecialEffectTarget(hitEff[id], u, "origin"))
                     endif

@@ -1,24 +1,5 @@
 
-library damage requires baseSystem
-
-    //--自定义单体伤害 call UDT(souce,target,damage,type,IsNomAttack)
-    function UDT takes unit u,unit t,real da,integer ty,boolean b returns nothing
-        if ty=='fsmf' then //法术魔法
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_NORMAL,DAMAGE_TYPE_MAGIC,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='yxpt' then//英雄普通
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_NORMAL,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='yxmf' then//英雄魔法
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_MAGIC,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='hlqh' then//混乱强化
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_ENHANCED,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='hlty' then //混乱通用
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_CHAOS,DAMAGE_TYPE_UNIVERSAL,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='yxqh' then //英雄强化
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_ENHANCED,WEAPON_TYPE_WHOKNOWS)
-        elseif ty=='jnpt' then //英雄普通
-            call UnitDamageTarget(u,t,da,b,false,ATTACK_TYPE_HERO,DAMAGE_TYPE_NORMAL,WEAPON_TYPE_WHOKNOWS)
-        endif
-    endfunction
+library damage requires baseSystem, dotBuff
 
     function damageCount takes unit hero, unit target, real dmg, integer itemid returns real
         local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
@@ -28,6 +9,7 @@ library damage requires baseSystem
         local real add = 0
         local real rate = 0
         local integer blood
+        local integer int
 
         if rateLv > 0 then
             set rate = rateLv * 0.05
@@ -40,12 +22,20 @@ library damage requires baseSystem
             endif
         endif
 
+        if dmgtype == "毒素" then
+            set rateLv = GetUnitAbilityLevel(hero, 'AB0P')
+            if rateLv > 0 then
+                set int = addDotBuff(hero, target, 6, rateLv * 1.0)
+                call setDotBuffDmgTips(int, "浸满剧毒", "ReplaceableTextures\\PassiveButtons\\PASBTNCorrosiveBreath.blp")
+            endif
+        endif
+
         if bloodAbilities[id+12] and GetUnitState(hero, UNIT_STATE_LIFE)/GetUnitState(hero, UNIT_STATE_MAX_LIFE) <= 0.3 then
-            set rate = rate + 0.25
+            set rate = rate + 0.5
         endif
 
         if bloodAbilities[id+13] then
-            set rate = rate + 0.2
+            set rate = rate + 0.25
         endif
 
         if bloodAbilities[id+61] then

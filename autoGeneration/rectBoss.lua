@@ -63,7 +63,7 @@ local bloodList = {
         Ubertip = [[
 击杀会引发爆炸，造成范围伤害
 
-|cff22bb22概率：|r 25%|cffffcc00(享受幸运加成)|r
+|cff22bb22概率：|r 20%|cffffcc00(享受幸运加成)|r
 |cffeeee55伤害：|r 150+血质阶层×8
         
 |cffc12ae0据说那可怕的血液污染将毁灭一切|r]],
@@ -77,7 +77,7 @@ local bloodList = {
 生命降低一定比例后，获得伤害加成
 
 |cff22bb22比例：|r 30%
-|cffeeee55伤害：|r 25%
+|cffeeee55伤害：|r 50%
                 
 |cffc12ae0在叛逃后，所有追杀者都低估了恶食反败为胜的绝招|r]],
         Requires = [[]],
@@ -90,7 +90,7 @@ local bloodList = {
 自身受到的伤害以及造成的伤害都得到提升
 
 |cff22bb22承受伤害：|r 100%
-|cffeeee55造成伤害：|r 20%
+|cffeeee55造成伤害：|r 25%
             
 |cffc12ae0陷入疯狂的恶食已经开始污染自身|r]],
         Requires = [[]],
@@ -102,7 +102,7 @@ local bloodList = {
         Ubertip = [[
 击杀可能额外掉落1个经验球
 
-|cff22bb22概率：|r 10%|cffffcc00(享受幸运加成)|r
+|cff22bb22概率：|r 15%|cffffcc00(享受幸运加成)|r
                 
 |cff18dbe1他的强大便来自于勤学的智慧|r]],
         Requires = [[]],
@@ -115,7 +115,7 @@ local bloodList = {
 每过一段时间便吸取大范围内所有经验球和治疗球
 
 |cff22bb22范围：|r 8000
-|cffeeee55间隔：|r 30秒
+|cffeeee55间隔：|r 40秒
         
 |cff18dbe1杰佛里努力吸纳百家的知识，融会贯通，将其归己所用|r]],
         Requires = [[]],
@@ -139,7 +139,7 @@ local bloodList = {
         Ubertip = [[
 受到伤害后无敌
 
-|cffeeee55持续：|r 1.5秒
+|cffeeee55持续：|r 2.5秒
         
 |cffeee686即使是伪装的神圣，也可以抵御伤害|r]],
         Requires = [[]],
@@ -149,10 +149,9 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNHolyBolt.blp]],
         Tip = [[|cff00ff00烈阳祭司的能力|r :  |cff6699ff窃取防护]],
         Ubertip = [[
-获得一个护盾抵挡伤害，破碎后60秒回复
+所有治疗效果提高
 
-|cff22bb22减伤：|r 50
-|cffeeee55抵挡次数：|r 4
+|cff22bb22比例：|r 100%
         
 |cffeee686本是致命的神圣，也可将其窃取，甘之如饴|r]],
         Requires = [[]],
@@ -164,7 +163,7 @@ local bloodList = {
         Ubertip = [[
 减少来自精英，猎人的伤害
 
-|cffeeee55比例：|r 40%
+|cffeeee55比例：|r 80%
     
 |cffeee686重要的情报|r]],
         Requires = [[]],
@@ -187,10 +186,11 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNHowlOfTerror.blp]],
         Tip = [[|cff00ff00远古猛兽的能力|r :  |cff6699ff嘶吼]],
         Ubertip = [[
-击杀引发漩涡，将周围所有敌人吸引到一起
+击杀引发漩涡，将周围所有敌人减速
 
 |cff22bb22冷却：|r 3秒
 |cffeeee55范围：|r 800
+|cffeeee55比例：|r 33%
     
 |cff59d8f4猛兽靠着寒气形成的凌冽漩涡，藏匿自身|r]],
         Requires = [[]],
@@ -228,7 +228,7 @@ local bloodList = {
         Ubertip = [[
 减少所有装备的触发间隔
 
-|cff22bb22减少：|r 15%
+|cff22bb22减少：|r 20%
     
 |cffa4ef0d精益求精的不只是技艺还有工具|r]],
         Requires = [[]],
@@ -277,7 +277,7 @@ local bloodList = {
         Ubertip = [[
 受到伤害时，在伤害来源附近释放数个灵魂鸟
 
-|cff22bb22伤害：|r 80+血质阶层*20(每次只会被击中1次)
+|cff22bb22伤害：|r 150+血质阶层*20
     
 |cffa4ef0d月光下的生灵啊，庇佑我们的孩子吧|r]],
         Requires = [[]],

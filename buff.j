@@ -1,5 +1,5 @@
 
-library dotBuff initializer init requires baseSystem, damage
+library dotBuff initializer init requires baseSystem
     globals
         private timer mtimer = CreateTimer()
         private integer max = 0
@@ -10,6 +10,8 @@ library dotBuff initializer init requires baseSystem, damage
         private real array pulse
         private real array pulsePass
         private real array damage
+        private string array damageCast
+        private string array damageIcon
         private effect array show
     endglobals
 
@@ -21,6 +23,8 @@ library dotBuff initializer init requires baseSystem, damage
         set pulse[id] = pulse[max]
         set pulsePass[id] = pulsePass[max]
         set damage[id] = damage[max]
+        set damageCast[id] = damageCast[max]
+        set damageIcon[id] = damageIcon[max]
         call DestroyEffect(show[id])
         set show[id] = show[max]
         set max = max - 1
@@ -31,7 +35,9 @@ library dotBuff initializer init requires baseSystem, damage
         set pass[id] = pass[id] + 0.02
 
         if pulsePass[id] >= pulse[id] then
-            call UDT(source[id], target[id], damage[id], 'fsmf', false)
+            call YDUserDataSet(unit, source[id], "cast", string, damageCast[id])
+            call YDUserDataSet(unit, source[id], "icon", string, damageIcon[id])
+            call addDamage(source[id], target[id], damage[id])
             set pulsePass[id] = pulsePass[id] - pulse[id]
         endif
         if pass[id] >= time[id] then
@@ -63,6 +69,11 @@ library dotBuff initializer init requires baseSystem, damage
         set show[id] = eff
     endfunction
 
+    function setDotBuffDmgTips takes integer id, string cast, string icon returns nothing
+        set damageCast[id] = cast
+        set damageIcon[id] = icon
+    endfunction
+
     function addDotBuff takes unit Csource, unit Ctarget, real Ctime, real Cdamage returns integer
         set max = max + 1
         set source[max] = Csource
@@ -73,6 +84,8 @@ library dotBuff initializer init requires baseSystem, damage
         set pulsePass[max] = 0
         set show[max] = null
         set damage[max] = Cdamage
+        set damageCast[max] = null
+        set damageIcon[max] = null
         return max
     endfunction
 

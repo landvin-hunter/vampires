@@ -2,8 +2,8 @@
 #include "E:\\Users\\Code\\vampire\\autoGeneration\\init.lua"
 
 #include "E:\\Users\\Code\\vampire\\base.j"
-#include "E:\\Users\\Code\\vampire\\damage.j"
 #include "E:\\Users\\Code\\vampire\\buff.j"
+#include "E:\\Users\\Code\\vampire\\damage.j"
 #include "E:\\Users\\Code\\vampire\\reward.j"
 #include "E:\\Users\\Code\\vampire\\item.j"
 #include "E:\\Users\\Code\\vampire\\rectChange.j"
@@ -14,3 +14,4 @@
 #include "E:\\Users\\Code\\vampire\\board.j"
 #include "E:\\Users\\Code\\vampire\\bossIns.j"
 #include "E:\\Users\\Code\\vampire\\treeShow.j"
+//#include "E:\\Users\\Code\\vampire\\SaveLoad.j"

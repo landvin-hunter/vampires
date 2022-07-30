@@ -211,7 +211,7 @@ library select initializer init
             call YDUserDataSet(unit, hero, "bk22-time", real, 30.01)
         endif
         if addabi == 'bk32' then //烈阳祭司-窃取防护
-            call UnitAddAbility(hero, 'Ad02')
+            //call UnitAddAbility(hero, 'Ad02')
         endif
         if addabi == 'bk33' then //烈阳祭司-虚幻偶像
             call UnitAddAbility(hero, 'Ad01')

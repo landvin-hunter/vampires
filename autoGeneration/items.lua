@@ -580,7 +580,6 @@ local itemList = {
         EditorSuffix = [[场地类]],
         DamageType = [[切割]],
         Description = [[
-|cff22bb22范围：|r <*id,Area*lv>
 |cffeeee55伤害：|r <*id,DataA*lv>/秒
 |cffffcc00维持：|r 6秒
 |cff3399ff间隔：|r *cd秒]],

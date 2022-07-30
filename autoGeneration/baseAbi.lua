@@ -61,7 +61,7 @@ local baseSkill = {
         Name = [[吸血魔牙]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNVampiricAura.blp]],
         levels = 10,
-        DataA = {4, 40},
+        DataA = {5, 50},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
         Ubertip = [[吸取到更多的血液！|n|n提高经验：|cff89D5FF<*id,DataA*lv>%|r]],
         targs = {"nonhero,self"},
@@ -187,7 +187,7 @@ local baseSkill = {
         Name = [[高等眷属]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNSpiritOfVengeance.blp]],
         levels = 10,
-        DataA = {15, 60},
+        DataA = {18, 90},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
         Ubertip = [[提高|cff13d0dd[召唤类]|r装备的持续时长,但相应地也会提高部分装备再次CD的时间|n|n比例：|cff89D5FF<*id,DataA*lv>%|r]],
         targs = {"nonhero,self"},
@@ -256,8 +256,8 @@ local baseSkill = {
         Name = [[低等蚕食]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNCannibalize.blp]],
         levels = 10,
-        Cast = {12, 12},
-        Cool = {40, 340},
+        Cast = {15, 15},
+        Cool = {40, 400},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
         Ubertip = [[拾取治疗，大金币，减速，宝箱等等物品时可以额外获得经验|n|n经验值：|cff89D5FF<*id,Cool*lv>+血质阶层*<*id,Cast*lv>|r]],
         targs = {"nonhero,self"},
@@ -277,7 +277,7 @@ local baseSkill = {
         Cast = {6},
         Cool = {1, 10},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[|cffd725ee[毒素]|r伤害每次都会叠加1层持续伤害，独立计算互相叠加|n|n每层伤害：|cff89D5FF<*id,Cool*lv>|n持续时间：<*id,Cast*lv>秒|r]],
+        Ubertip = [[|cffd725ee[毒素]|r伤害每次都会叠加1层持续伤害，独立计算互相叠加|n|n每层伤害：|cff89D5FF<*id,Cool*lv>|r|n持续时间：<*id,Cast*lv>秒|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -299,9 +299,9 @@ local baseSkill = {
     },
     ['Ad01'] = {
         id = 'Aegr',
-        Name = [[ass-伤害变化,boss-40%]],
+        Name = [[ass-伤害变化,boss-80]],
         DataA = 1,
-        DataE = 0.6,
+        DataE = 0.2,
         Buttonpos_1 = 0,
         Buttonpos_2 = -11,
         hero = 0,
@@ -353,6 +353,35 @@ local baseSkill = {
         BuffID = {'Bfro'},
         Area = {1, 1},
     },
+    ['Ad06'] = {
+        id = 'AEfk',
+        Name = [[ass-灵魂契约]],
+        levels = 1,
+        Missileart = [[Abilities\Weapons\PriestMissile\PriestMissile.mdl]],
+        Missilespeed = 500,
+        Missilearc = 0.2,
+        MissileHoming = 1,
+        EffectArt = [[]],
+        DataA1 = 1,
+        DataB1 = 999,
+        DataC1 = 0,
+        Area1 = 950,
+    },
+    ['Ad07'] = {
+        id = 'Aasl',
+        Name = [[ass-速度变化,-33ms]],
+        levels = 1,
+        DataA1 = -0.33,
+        DataB1 = 0,
+        hero = 0,
+        race = 'undead',
+        TargetArt = [[Abilities\Spells\Other\FrostDamage\FrostDamage.mdl]],
+        Targetattachcount = 1,
+        Targetattach = 'chest',
+        targs1 = [[air,ground,enemy,vuln,invu]],
+        BuffID1 = {'BHbd'},
+        Area1 = 900,
+    },
 }
 local noUse = {
     ['useUnit'] = true,
@@ -373,16 +402,16 @@ for id, tb in pairs(baseSkill) do
                 end
             elseif type(data[1]) == 'number' then
                 if #data == 3 then
-                    for lv = 1, 10 do
-                        ability[key .. lv] = data[1] + (lv - 1) * (data[2] - data[1]) / 9
+                    for lv = 1, 9 do
+                        ability[key .. lv] = data[1] + (lv - 1) * (data[2] - data[1]) / 8
                     end
                     ability[key .. '11'] = data[3]
                 elseif #data == 2 then
-                    for lv = 1, 11 do
-                        ability[key .. lv] = data[1] + (lv - 1) * (data[2] - data[1]) / 10
+                    for lv = 1, 10 do
+                        ability[key .. lv] = data[1] + (lv - 1) * (data[2] - data[1]) / 9
                     end
                 elseif #data == 1 then
-                    for lv = 1, 11 do
+                    for lv = 1, 10 do
                         ability[key .. lv] = data[1]
                     end
                 end

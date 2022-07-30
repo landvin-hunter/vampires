@@ -121,10 +121,17 @@ library baseSystem initializer init
         return true
     endfunction
 
+    function addDamage takes unit u,unit t,real da returns nothing
+        call UnitDamageTarget(u,t,da,false,false,ATTACK_TYPE_NORMAL,DAMAGE_TYPE_MAGIC,WEAPON_TYPE_WHOKNOWS)
+    endfunction
+
     function addHeal takes unit target, real value returns nothing
         local integer id = GetPlayerId(GetOwningPlayer(target))
         local real tvalue = RMinBJ(GetUnitState(target, UNIT_STATE_MAX_LIFE) - GetUnitState(target, UNIT_STATE_LIFE), value)
         if tvalue > 0 then
+            if bloodAbilities[(id+1)*100+32] then
+                set tvalue = tvalue * 2
+            endif
             call SetUnitState(target, UNIT_STATE_LIFE, GetUnitState(target, UNIT_STATE_LIFE)+tvalue)
             set udg_Heros_healCount[id] = udg_Heros_healCount[id] + tvalue
             if udg_flagShow[id+1] == true then
@@ -141,7 +148,7 @@ library baseSystem initializer init
     endfunction
     
     function addExp takes unit target, real value returns nothing
-        local real expUp = value * (1 + GetUnitAbilityLevel(target, 'AB0D') * 0.04)
+        local real expUp = value * (1 + GetUnitAbilityLevel(target, 'AB0D') * 0.05)
         call AddHeroXP(target, R2I(expUp), true)
     endfunction
 
@@ -375,7 +382,7 @@ function lifeCount takes unit hero, real time returns real
     local integer abiLv = GetUnitAbilityLevel(hero, 'AB0K')
 
     if abiLv > 0 then
-        set add = add + (0.2 + abiLv * 0.05)
+        set add = add + (0.09 + abiLv * 0.09)
     endif
 
     return time * add
@@ -416,4 +423,12 @@ function smartUnit takes unit hero, unit target returns nothing
         call SetUnitAnimationByIndex(target, 2)
         call IssuePointOrder(hero, "earthquake", GetUnitX(target), GetUnitY(target))
     endif
+endfunction
+
+function testSaveLoad takes nothing returns nothing
+    /*local integer last = loadInt(Player(0), "test")
+    local integer next = GetRandomInt(1, 500)
+
+    call saveInt(Player(0), "test", next)
+    call DisplayTimedTextFromPlayer(Player(0), 0, 0, 100, "last = "+I2S(last)+"| next = "+I2S(next))*/
 endfunction

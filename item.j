@@ -182,7 +182,7 @@ library item initializer init requires baseSystem
         local integer id = (GetPlayerId(GetOwningPlayer(hero)) + 1) * 100
         
         if bloodAbilities[id + 52] then
-            set cd = cd + 0.15
+            set cd = cd + 0.2
         endif
 
         return cd
