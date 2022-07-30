@@ -425,10 +425,3 @@ function smartUnit takes unit hero, unit target returns nothing
     endif
 endfunction
 
-function testSaveLoad takes nothing returns nothing
-    /*local integer last = loadInt(Player(0), "test")
-    local integer next = GetRandomInt(1, 500)
-
-    call saveInt(Player(0), "test", next)
-    call DisplayTimedTextFromPlayer(Player(0), 0, 0, 100, "last = "+I2S(last)+"| next = "+I2S(next))*/
-endfunction
