@@ -15,9 +15,6 @@ library bossIns initializer init requires baseSystem
         call KillUnit(mover[id])
         set mover[id]   = mover[max]
         set floor[id]   = floor[max]
-        call RemoveLocation(target1[id])
-        call RemoveLocation(target2[id])
-        call RemoveLocation(target3[id])
         set target1[id] = target1[max]
         set target2[id] = target2[max]
         set target3[id] = target3[max]
@@ -37,6 +34,7 @@ library bossIns initializer init requires baseSystem
             endif
         <?end?>
         if order[id] then
+            call Debug("order"+I2S(id)+"| point="+P2S(now))
             set order[id] = false
             call IssuePointOrder(mover[id], "move", GetLocationX(now) + GetRandomReal(-100, 100), GetLocationY(now) + GetRandomReal(-100, 100))
         endif
@@ -47,6 +45,7 @@ library bossIns initializer init requires baseSystem
                 return
             endif
             set order[id] = true
+            call Debug("turn"+I2S(id)+"| floor="+I2S(floor[id]))
         endif
         set now = null
     endfunction

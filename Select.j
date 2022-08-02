@@ -89,7 +89,7 @@ library select initializer init
                 set n = 0
                 loop
                     set n = n + 1
-                    exitwhen baseItemList[n] == 0 or n >= baseItemNum
+                    exitwhen n > baseItemNum
                     if has > 0 then
                         set m = 0
                         set check = false

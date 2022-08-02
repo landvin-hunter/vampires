@@ -260,6 +260,7 @@ library Line initializer init requires baseSystem, damage
             set flag = false
             set u = FirstOfGroup(g)
             exitwhen n > 99 or u == null
+            call GroupRemoveUnit(g, u)
             if not IsUnitInGroup(u, mark[id]) and GetUnitState(u, UNIT_STATE_LIFE) > 0 then
                 if hitType[id] == "敌方" and IsUnitEnemy(mover[id], GetOwningPlayer(u)) then
                     set flag = true
@@ -269,6 +270,7 @@ library Line initializer init requires baseSystem, damage
                     set flag = true
                 endif
                 if flag and hitNum[id] > 0 then
+                    call GroupAddUnit(mark[id], u)
                     call addDamage(mover[id],u,hitDmg[id])
                     if hitEff[id] != null then
                         call DestroyEffect(AddSpecialEffectTarget(hitEff[id], u, "origin"))
@@ -285,8 +287,6 @@ library Line initializer init requires baseSystem, damage
                     endif
                 endif
             endif
-            call GroupAddUnit(mark[id], u)
-            call GroupRemoveUnit(g, u)
             set u = null
         endloop
 

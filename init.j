@@ -1,5 +1,5 @@
 
-#include "E:\\Users\\Code\\vampire\\autoGeneration\\init.lua"
+#include "E:\\Users\\Code\\vampire\\autoGeneration\\init.j"
 
 #include "E:\\Users\\Code\\vampire\\Dz.j"
 #include "E:\\Users\\Code\\vampire\\SaveLoad.j"

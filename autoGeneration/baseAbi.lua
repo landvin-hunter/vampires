@@ -275,7 +275,7 @@ local baseSkill = {
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNCorrosiveBreath.blp]],
         levels = 10,
         Cast = {6},
-        Cool = {1, 10},
+        Cool = {6, 24},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
         Ubertip = [[|cffd725ee[毒素]|r伤害每次都会叠加1层持续伤害，独立计算互相叠加|n|n每层伤害：|cff89D5FF<*id,Cool*lv>|r|n持续时间：<*id,Cast*lv>秒|r]],
         targs = {"nonhero,self"},

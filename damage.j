@@ -25,7 +25,7 @@ library damage requires baseSystem, dotBuff
         if dmgtype == "毒素" then
             set rateLv = GetUnitAbilityLevel(hero, 'AB0P')
             if rateLv > 0 then
-                set int = addDotBuff(hero, target, 6, rateLv * 1.0)
+                set int = addDotBuff(hero, target, 6, 4 + rateLv * 2)
                 call setDotBuffDmgTips(int, "浸满剧毒", "ReplaceableTextures\\PassiveButtons\\PASBTNCorrosiveBreath.blp")
             endif
         endif

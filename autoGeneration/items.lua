@@ -599,11 +599,11 @@ local itemList = {
         DamageType = [[毒素]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
-|cffeeee55伤害：|r <*id,DataA*lv>/<*id,DataB*lv>秒
+|cffeeee55伤害：|r <*id,DataA*lv>/0.2秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNHornOfFog.blp]],
-        CD = [[return 15]],
-        CDMax = 15,
+        CD = [[return 10]],
+        CDMax = 10,
         abi = {
             oid = 'AHfs',
             EffectArt = [[]],
