@@ -39,28 +39,18 @@ library initData
                 local name = HANDBOOKNAME[id]
                 local itabi = ITEMABI[slot] or '0000'
             ?>
-                //set udg_item = CreateItem('<?=id?>', 8888, 8888)
-                //if udg_item != null then
-                    set id = S2I("<?=i?>")
-                    set udg_itemList[id*100+<?=k?>] = '<?=id?>'
-                    set udg_itemListNum = udg_itemListNum + 1
-                    //call Debug("iniItemId[" + I2S(id*100+<?=k?>) + "] = " + YDWEId2S(udg_itemList[id*100+<?=k?>]))
-                    <?
-                        if k == 1 then
-                    ?>
-                        set baseItemList[S2I("<?=i?>")] = 'I<?=i?>A'
-                        set itemAbiList[<?=slot?>] = '<?=itabi?>'
-                    <?
-                        end
-                    ?>
-                    call SaveInteger(ht, keyId, '<?=id?>', <?=slot?>)
-                    call SaveStr(ht, keyClass, '<?=id?>', "<?=class?>")
-                    call SaveStr(ht, keyDamageType, '<?=id?>', "<?=damagetype?>")
-                    call SaveStr(ht, keyIcon, '<?=id?>', "<?=icon?>")
-                    call SaveStr(ht, keyName, '<?=id?>', "<?=name?>")
-                    //call RemoveItem(udg_item)
-                    //call Debug(YDWEId2S(udg_itemList[<?=i?>*100+<?=k?>]))
-                //endif
+                set id = S2I("<?=i?>")
+                set udg_itemList[id*100+<?=k?>] = '<?=id?>'
+                set udg_itemListNum = udg_itemListNum + 1
+                <? if k == 1 then ?>
+                    set baseItemList[id] = 'I<?=i?>A'
+                    set itemAbiList[<?=slot?>] = '<?=itabi?>'
+                <? end ?>
+                call SaveInteger(ht, keyId, '<?=id?>', <?=slot?>)
+                call SaveStr(ht, keyClass, '<?=id?>', "<?=class?>")
+                call SaveStr(ht, keyDamageType, '<?=id?>', "<?=damagetype?>")
+                call SaveStr(ht, keyIcon, '<?=id?>', "<?=icon?>")
+                call SaveStr(ht, keyName, '<?=id?>', "<?=name?>")
             <? end ?>
         <? end ?>
         set itemAbiList[0] = 0
@@ -92,7 +82,7 @@ library initData
 
     function getItemName takes integer id returns string
         local string s = LoadStr(ht, keyName, id)
-        if s == LoadStr(ht, 'null', 'null') then
+        if s == emptyString then
             return ""
         endif
         return s
