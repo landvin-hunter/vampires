@@ -421,6 +421,7 @@ function smartUnit takes unit hero, unit target returns nothing
     endif
     if GetUnitTypeId(target) == 'nbse' and FirstOfGroup(udg_groupDeath) != null then
         call SetUnitAnimationByIndex(target, 2)
+        call YDUserDataSet(unit, hero, "recall", unit, target)
         call IssuePointOrder(hero, "earthquake", GetUnitX(target), GetUnitY(target))
     endif
 endfunction

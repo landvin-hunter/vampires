@@ -588,7 +588,7 @@ local itemList = {
         CDMax = 5,
         abi = {
             oid = 'AItg',
-            DataA = {50, 300},
+            DataA = {100, 600},
         },
     },
     {
@@ -608,7 +608,7 @@ local itemList = {
             oid = 'AHfs',
             EffectArt = [[]],
             SpecialArt = [[Abilities\Spells\Undead\PlagueCloud\PlagueCloudCaster.mdl]],
-            DataA = {40, 130, 260},
+            DataA = {40, 175, 350},
             DataB = {0.2},
             DataC = {0},
             DataE = {0},
