@@ -108,3 +108,6 @@ GetManipulatingUnit
 WaygateActivateBJ
 GetAbilityName()
 |cffd725ee
+state
+(C88)ad(aadaa)addad
+MoveRegionTo()

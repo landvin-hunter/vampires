@@ -1,5 +1,5 @@
 
-library damage requires baseSystem, dotBuff
+library damage requires baseSystem, dotBuff, userState
 
     function damageCount takes unit hero, unit target, real dmg, integer itemid returns real
         local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
@@ -7,7 +7,7 @@ library damage requires baseSystem, dotBuff
         local string dmgtype = getItemDamageType(itemid)
         local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
         local real add = 0
-        local real rate = 0
+        local real rate = getState(hero, "伤害增加")
         local integer blood
         local integer int
 

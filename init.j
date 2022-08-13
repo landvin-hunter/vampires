@@ -6,6 +6,7 @@
 
 #include "E:\\Users\\Code\\vampire\\base.j"
 #include "E:\\Users\\Code\\vampire\\buff.j"
+#include "E:\\Users\\Code\\vampire\\userState.j"
 #include "E:\\Users\\Code\\vampire\\damage.j"
 #include "E:\\Users\\Code\\vampire\\reward.j"
 #include "E:\\Users\\Code\\vampire\\item.j"
