@@ -1,6 +1,6 @@
 globals
     boolean boolTemp = false
-    boolean debugMode = false
+    boolean debugMode = true
     integer triType = 0
     item itemTemp = null
     integer intMapSeed = 0
@@ -145,11 +145,6 @@ library baseSystem initializer init
                 call SetTextTagVelocity(bj_lastCreatedTextTag, 0.00, GetRandomReal(-0.04, -0.01))
             endif
         endif
-    endfunction
-    
-    function addExp takes unit target, real value returns nothing
-        local real expUp = value * (1 + GetUnitAbilityLevel(target, 'AB0D') * 0.05)
-        call AddHeroXP(target, R2I(expUp), true)
     endfunction
 
     function createEffect takes string modelName, real x, real y returns effect
@@ -387,6 +382,16 @@ function lifeCount takes unit hero, real time returns real
 
     return time * add
 endfunction
+    
+function addExp takes unit target, real value returns nothing
+    local real rate = getState(target, "经验倍率")/100
+    local real expUp = GetUnitAbilityLevel(target, 'AB0D') * 0.05
+    
+    set value = value * (1 + rate + expUp)
+
+    call AddHeroXP(target, R2I(value), true)
+endfunction
+
 
 function smartChange takes unit hero, item target returns nothing
     if GetItemType(target) == ITEM_TYPE_PERMANENT and checkFullPackage(hero) then

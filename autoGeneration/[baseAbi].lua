@@ -1,4 +1,4 @@
-<?
+
 local slk = require 'slk'
 local baseSkill = {
     ['AB0A'] = {
@@ -155,7 +155,7 @@ local baseSkill = {
         levels = 10,
         DataA = {20, 200},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[伤害有25%的概率暴击！概率会享受幸运值加成|n|n额外伤害：|cff89D5FF<*id,DataA*lv>%|r]],
+        Ubertip = [[获得5%的暴击几率，提高暴击伤害|n|n暴击伤害：|cff89D5FF<*id,DataA*lv>%|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -256,10 +256,10 @@ local baseSkill = {
         Name = [[低等蚕食]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNCannibalize.blp]],
         levels = 10,
-        Cast = {15, 15},
-        Cool = {40, 400},
+        Cast = {30, 30},
+        Cool = {50, 500},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
-        Ubertip = [[拾取治疗，大金币，减速，宝箱等等物品时可以额外获得经验|n|n经验值：|cff89D5FF<*id,Cool*lv>+血质阶层*<*id,Cast*lv>|r]],
+        Ubertip = [[拾取治疗，大金币，减速，宝箱等等物品时可以额外获得经验并治疗50HP|n|n经验值：|cff89D5FF<*id,Cool*lv>+血质阶层*<*id,Cast*lv>|r]],
         targs = {"nonhero,self"},
         Buttonpos_1 = 0,
         Buttonpos_2 = 2,
@@ -287,9 +287,26 @@ local baseSkill = {
         useUnit = true,
         useItem = true,
     },
+    ['AB0Q'] = {
+        id = 'ACac',
+        Name = [[力量灌注]],
+        Art = [[ReplaceableTextures\PassiveButtons\PASBTNBash.blp]],
+        levels = 10,
+        Cool = {10, 55},
+        Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
+        Ubertip = [[增加暴击率|n|n暴击率：|cff89D5FF<*id,Cool*lv>%|r]],
+        targs = {"nonhero,self"},
+        Buttonpos_1 = 0,
+        Buttonpos_2 = 2,
+        targetArt = [[]],
+        hero = 0,
+        race = 'creeps',
+        useUnit = true,
+        useItem = true,
+    },
     ['Ad00'] = {
         id = 'Aegr',
-        Name = [[ass-伤害变化,+100%]],
+        Name = [[ass-伤害变化,+100]],
         DataA = 1,
         DataE = 2,
         Buttonpos_1 = 0,
@@ -382,6 +399,17 @@ local baseSkill = {
         BuffID1 = {'BHbd'},
         Area1 = 900,
     },
+    ['Ad08'] = {
+        id = 'Aegr',
+        Name = [[ass-诅咒伤害变化,+40~100]],
+        levels = 5,
+        DataA = 1,
+        DataE = {1.4, 2},
+        Buttonpos_1 = 0,
+        Buttonpos_2 = -11,
+        hero = 0,
+        race = 'undead',
+    },
 }
 local noUse = {
     ['useUnit'] = true,
@@ -473,4 +501,3 @@ end
 end
 
 pcall(create)
-?>

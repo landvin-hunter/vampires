@@ -1,3 +1,5 @@
+
+library DZnative
 globals
     constant boolean LIBRARY_BzAPI=true
     constant boolean LIBRARY_DzAPI=true    
@@ -525,3 +527,4 @@ native DzAPI_Map_GetPlatformVIP takes player whichPlayer returns integer
         endfunction
     
     //library DzAPI ends
+endlibrary

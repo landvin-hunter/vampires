@@ -1,5 +1,5 @@
 
-#include "E:\\Users\\Code\\vampire\\autoGeneration\\init.j"
+#include "E:\\Users\\Code\\vampire\\autoGeneration\\init"
 
 #include "E:\\Users\\Code\\vampire\\Dz.j"
 #include "E:\\Users\\Code\\vampire\\SaveLoad.j"
@@ -7,6 +7,7 @@
 #include "E:\\Users\\Code\\vampire\\base.j"
 #include "E:\\Users\\Code\\vampire\\buff.j"
 #include "E:\\Users\\Code\\vampire\\userState.j"
+#include "E:\\Users\\Code\\vampire\\talent.j"
 #include "E:\\Users\\Code\\vampire\\damage.j"
 #include "E:\\Users\\Code\\vampire\\reward.j"
 #include "E:\\Users\\Code\\vampire\\item.j"

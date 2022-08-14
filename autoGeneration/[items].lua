@@ -1,4 +1,4 @@
-<?
+
 local slk = require 'slk'
 local itemFile = {
     [[Objects\InventoryItems\tomeBlue\tomeBlue.mdl]],
@@ -602,8 +602,8 @@ local itemList = {
 |cffeeee55伤害：|r <*id,DataA*lv>/0.2秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNHornOfFog.blp]],
-        CD = [[return 10]],
-        CDMax = 10,
+        CD = [[return 8]],
+        CDMax = 8,
         abi = {
             oid = 'AHfs',
             EffectArt = [[]],
@@ -623,14 +623,6 @@ local itemList = {
     },
 }
 _G.ITEMNUM = #itemList
-_G.ITEMLIST = {}
-_G.ITEMID = {}
-_G.ITEMABI = {}
-_G.HANDBOOKITEM = {}
-_G.HANDBOOKABI = {}
-_G.HANDBOOKBLOOD = {}
-_G.HANDBOOKNAME = {}
-_G.HANDBOOKICON = {}
 
 local function create()
 for num, tb in ipairs(itemList) do
@@ -794,4 +786,3 @@ end
 end
 
 pcall(create)
-?>

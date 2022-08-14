@@ -134,7 +134,7 @@ library initData
 endlibrary
 
 
-library item initializer init requires baseSystem
+library item initializer init requires baseSystem, userState
     globals
         private location point
         private unit dummy
@@ -155,6 +155,9 @@ library item initializer init requires baseSystem
     private function psCount takes unit hero returns real
         local real ps = 0
         local integer id = (GetPlayerId(GetOwningPlayer(hero)) + 1) * 100
+        local real rate = getState(hero, "CD速度")/100
+
+        set ps = ps + rate
         
         if GetUnitAbilityLevel(hero, 'AB0E') > 0 then
             set ps = ps + 0.18 + 0.08 * GetUnitAbilityLevel(hero, 'AB0E')
@@ -170,6 +173,9 @@ library item initializer init requires baseSystem
     private function cdCount takes unit hero returns real
         local real cd = 0
         local integer id = (GetPlayerId(GetOwningPlayer(hero)) + 1) * 100
+        local real rate = getState(hero, "CD减少")/100
+
+        set cd = cd + rate
         
         if bloodAbilities[id + 52] then
             set cd = cd + 0.2

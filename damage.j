@@ -3,11 +3,14 @@ library damage requires baseSystem, dotBuff, userState
 
     function damageCount takes unit hero, unit target, real dmg, integer itemid returns real
         local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
-        local integer critLv = GetUnitAbilityLevel(hero, 'AB0I')
+        local integer critLv = GetUnitAbilityLevel(hero, 'AB0Q')
+        local integer critDLv = GetUnitAbilityLevel(hero, 'AB0I')
         local string dmgtype = getItemDamageType(itemid)
         local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
         local real add = 0
-        local real rate = getState(hero, "伤害增加")
+        local real rate = getState(hero, "伤害增加")/100
+        local real critRate = getState(hero, "暴击几率") + critDLv * 5
+        local real critDmg = getState(hero, "暴击伤害") + critDLv * 20
         local integer blood
         local integer int
 
@@ -46,11 +49,19 @@ library damage requires baseSystem, dotBuff, userState
         endif
 
         if critLv > 0 then
-            if calculateLuck(hero, 25) then
-                set rate = rate + (0 + 0.2 * critLv)
+            set critRate = critRate + critLv * 5 + 5
+        endif
+        if critRate > 0 then
+            if calculateLuck(hero, critRate) then
+                set rate = rate + critDmg / 100
                 set udg_flagCrit = true
             endif
         endif
+
+        if rate < 0 then
+            set rate = 0
+        endif
+
         return dmg * rate + add
     endfunction
 

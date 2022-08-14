@@ -1,4 +1,4 @@
-<?
+
 local slk = require 'slk'
 
 local commonSet = {
@@ -415,4 +415,3 @@ for id, data in pairs(armyList) do
         unit[k] = v
     end
 end
-?>

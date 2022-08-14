@@ -1,4 +1,4 @@
-<?
+
 local slk = require 'slk'
 local bossBlood = {
     ['BR01'] = {
@@ -371,5 +371,3 @@ refresh.Buttonpos_2 = 1
 refresh.Tip = [[刷新选择]]
 refresh.Ubertip = [[重置一次当前选择，每次选择都只能使用一次]]
 refresh.Art = [[ReplaceableTextures\CommandButtons\BTNPatrol.blp]]
-
-?>
