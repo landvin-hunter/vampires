@@ -1,6 +1,6 @@
 globals
     boolean boolTemp = false
-    boolean debugMode = true
+    boolean debugMode = false
     integer triType = 0
     item itemTemp = null
     integer intMapSeed = 0
@@ -369,6 +369,7 @@ library Tips initializer init
         call insert("左上角图鉴(F9)可以查看游戏内所有装备和能力的简略介绍")
         call insert("如果出现卡顿，可以输入-showoff来关闭一部分特效和跳字")
         call insert("喜欢本地图，可以来QQ群837754655对作者指手画脚")
+        call insert("注意只有胜利或者失败以后，才会保存数据，提前退出游戏将丢失进度")
     endfunction
 endlibrary
 
@@ -390,6 +391,14 @@ function addExp takes unit target, real value returns nothing
     set value = value * (1 + rate + expUp)
 
     call AddHeroXP(target, R2I(value), true)
+endfunction
+    
+function addBloodNumber takes unit target, real value returns nothing
+    local real rate = getState(target, "诅咒反哺") * 0.5
+    
+    set value = value * (1 + rate)
+
+    call SetPlayerState(GetOwningPlayer(target), PLAYER_STATE_RESOURCE_LUMBER, GetPlayerState(GetOwningPlayer(target), PLAYER_STATE_RESOURCE_LUMBER) + R2I(value))
 endfunction
 
 

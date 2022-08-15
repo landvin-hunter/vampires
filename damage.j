@@ -58,8 +58,8 @@ library damage requires baseSystem, dotBuff, userState
             endif
         endif
 
-        if rate < 0 then
-            set rate = 0
+        if (dmg * rate + add) < 0 then
+            return 0
         endif
 
         return dmg * rate + add

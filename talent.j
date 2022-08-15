@@ -6,15 +6,15 @@ library talent initializer init requires userState, save
     endglobals
 
     private function add takes integer pid, unit shop returns nothing
-        local integer ti = 0
+        local integer lv = 0
 
         <?for id, key in pairs(TALENTLIST) do?>
             call RemoveUnitFromStock(shop, '<?=id?>')
         <?end?>
         <?for id, key in pairs(TALENTLIST) do?>
             if LoadBoolean(ht, pid, '<?=id?>') == false then
-                set ti = LoadInteger(ht, pid, '<?=id?>')
-                call AddUnitToStock(shop, '<?=id?>', ti+1, ti+1)
+                set lv = LoadInteger(ht, pid, '<?=id?>')
+                call AddUnitToStock(shop, '<?=id?>', lv+1, lv+1)
             endif
         <?end?>
 
@@ -30,15 +30,15 @@ library talent initializer init requires userState, save
         local string userState = LoadStr(ht, pid, pickId)
         local real value = LoadReal(ht, pid, pickId)
 
-        if pickId < 'ta00' or pickId > 'ta99' then
-            return
-        endif
+        call Debug("pickTalent| pickId="+YDWEId2S(pickId))
 
         call RemoveUnit(sell)
         call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl", GetUnitX(udg_Heros[pid]), GetUnitY(udg_Heros[pid])))
+        call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIlm\\AIlmTarget.mdl", GetUnitX(shop), GetUnitY(shop)))
         if level >= max then
             //如果已经满级，则记录一下
             call DZSaveInt(Player(pid-1), YDWEId2S(pickId)+"Max", 1)
+            call SaveBoolean(ht, pid, pickId, true)
         endif
         call addState(udg_Heros[pid], userState, value)
 
@@ -47,63 +47,53 @@ library talent initializer init requires userState, save
         call DZSaveInt(Player(pid-1), "尊贵之血", GetPlayerState(Player(pid-1), PLAYER_STATE_RESOURCE_LUMBER))
 
         call add(pid, shop)
-        call Debug("pickTalent| pickId="+YDWEId2S(pickId))
         set sell = null
         set shop = null
     endfunction
 
-    private function create takes nothing returns nothing
-        local integer ti = 0
-        
-        <?for i = 1, 4 do?>
-            call add(<?=i?>, udg_HerosAltar[<?=i?>])
-            <?for id, key in pairs(TALENTLIST) do?>
-                if LoadBoolean(ht, <?=i?>, '<?=id?>') == false then
-                    set ti = LoadInteger(ht, <?=i?>, '<?=id?>')
-                    call Debug("createTalent-<?=id?>-"+U2S(udg_HerosAltar[<?=i?>]))
-                    if ti > 0 then
-                        call addState(udg_Heros[<?=i?>], LoadStr(ht, <?=i?>, '<?=id?>'), LoadReal(ht, <?=i?>, '<?=id?>')*ti)
-                    endif
-                endif
-            <?end?>
-            call TriggerRegisterUnitEvent(pickTrg, udg_HerosAltar[<?=i?>], EVENT_UNIT_SELL)
-        <?end?>
-    endfunction
-
-    private function initTimed takes nothing returns nothing
-        local integer ti = 0
+    private function init takes nothing returns nothing
+        local integer lv = 0
         local integer blood
-
-        call DestroyTimer(GetExpiredTimer())
 
         <?for id, key in pairs(TALENTLIST) do?>
             <?for i = 1, 4 do
                 local pid = i - 1
             ?>
-            set ti = DZLoadInt(Player(<?=pid?>), "<?=id?>")
-            call SaveInteger(ht, <?=i?>, '<?=id?>', ti)
-            call SaveStr(ht, <?=i?>, '<?=id?>', "<?=key?>")
-            call SaveReal(ht, <?=i?>, '<?=id?>', <?=TALENTVALUE[key]?>)
-            //如果已经满级
-            if DZLoadInt(Player(<?=pid?>), "<?=id?>Max") > 0 then 
-                call SaveBoolean(ht, <?=i?>, '<?=id?>', true)
+            if GetPlayerSlotState(Player(<?=pid?>)) == PLAYER_SLOT_STATE_PLAYING then
+                set lv = DZLoadInt(Player(<?=pid?>), "<?=id?>")
+                call SaveInteger(ht, <?=i?>, '<?=id?>', lv)
+                call SaveStr(ht, <?=i?>, '<?=id?>', "<?=key?>")
+                call SaveReal(ht, <?=i?>, '<?=id?>', <?=TALENTVALUE[key]?>)
+                //如果已经满级
+                if DZLoadInt(Player(<?=pid?>), "<?=id?>Max") > 0 then 
+                    call SaveBoolean(ht, <?=i?>, '<?=id?>', true)
+                endif
+                set blood = DZLoadInt(Player(<?=pid?>), "尊贵之血")
+                call SetPlayerState(Player(<?=pid?>), PLAYER_STATE_RESOURCE_LUMBER, GetPlayerState(Player(<?=i?>), PLAYER_STATE_RESOURCE_LUMBER) + blood)
             endif
-            set blood = DZLoadInt(Player(<?=pid?>), "尊贵之血")
-            call SetPlayerState(Player(<?=pid?>), PLAYER_STATE_RESOURCE_LUMBER, GetPlayerState(Player(<?=i?>), PLAYER_STATE_RESOURCE_LUMBER) + blood)
             <?end?>
         <?end?>
-        call create()
         call Debug("initTalent===================")
     endfunction
 
-    private function init takes nothing returns nothing
-        local timer t = CreateTimer()
-
+    function talentCreate takes nothing returns nothing
+        local integer lv = 0
+        
         call TriggerAddAction(pickTrg, function pick)
-
-        call TimerStart(t, 5, false, function initTimed)
-
-        set t = null
+        <?for i = 1, 4 do?>
+            if GetPlayerSlotState(Player(<?=i?>-1)) == PLAYER_SLOT_STATE_PLAYING then
+                call add(<?=i?>, udg_HerosAltar[<?=i?>])
+                <?for id, key in pairs(TALENTLIST) do?>
+                    set lv = LoadInteger(ht, <?=i?>, '<?=id?>')
+                    call Debug("createTalent| name = <?=id?>| level = "+I2S(lv)+"| hero = "+U2S(udg_Heros[<?=i?>]))
+                    if lv > 0 then
+                        call Debug("getTalent| name = "+LoadStr(ht, <?=i?>, '<?=id?>')+"| level = "+R2S(LoadReal(ht, <?=i?>, '<?=id?>')*lv))
+                        call addState(udg_Heros[<?=i?>], LoadStr(ht, <?=i?>, '<?=id?>'), LoadReal(ht, <?=i?>, '<?=id?>')*lv)
+                    endif
+                <?end?>
+                call TriggerRegisterUnitEvent(pickTrg, udg_HerosAltar[<?=i?>], EVENT_UNIT_SELL)
+            endif
+        <?end?>
     endfunction
 
 endlibrary

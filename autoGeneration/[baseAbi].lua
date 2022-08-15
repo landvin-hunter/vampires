@@ -401,10 +401,10 @@ local baseSkill = {
     },
     ['Ad08'] = {
         id = 'Aegr',
-        Name = [[ass-诅咒伤害变化,+40~100]],
-        levels = 5,
+        Name = [[ass-诅咒伤害变化,+40~120]],
+        levels = 6,
         DataA = 1,
-        DataE = {1.4, 2},
+        DataE = {1.4, 2.2},
         Buttonpos_1 = 0,
         Buttonpos_2 = -11,
         hero = 0,
