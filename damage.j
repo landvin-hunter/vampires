@@ -5,6 +5,7 @@ library damage requires baseSystem, dotBuff, userState
         local integer rateLv = GetUnitAbilityLevel(hero, 'AB0G')
         local integer critLv = GetUnitAbilityLevel(hero, 'AB0Q')
         local integer critDLv = GetUnitAbilityLevel(hero, 'AB0I')
+        local integer tearLv = GetUnitAbilityLevel(hero, 'AB0R')
         local string dmgtype = getItemDamageType(itemid)
         local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
         local real add = 0
@@ -31,6 +32,15 @@ library damage requires baseSystem, dotBuff, userState
                 set int = addDotBuff(hero, target, 6, 4 + rateLv * 2)
                 call setDotBuffDmgTips(int, "浸满剧毒", "ReplaceableTextures\\PassiveButtons\\PASBTNCorrosiveBreath.blp")
             endif
+        endif
+
+        if dmgtype == "火焰" then
+            call YDUserDataSet(unit, target, "火焰灼烧", boolean, true)
+        endif
+
+        if tearLv > 0 and dmgtype == "冰冻" and YDUserDataGet(unit, target, "火焰灼烧", boolean) then
+            call YDUserDataSet(unit, target, "火焰灼烧", boolean, false)
+            set add = add + 50 * tearLv
         endif
 
         if bloodAbilities[id+12] and GetUnitState(hero, UNIT_STATE_LIFE)/GetUnitState(hero, UNIT_STATE_MAX_LIFE) <= 0.3 then

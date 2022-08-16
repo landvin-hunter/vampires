@@ -37,7 +37,7 @@ library talent initializer init requires userState, save
         call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIlm\\AIlmTarget.mdl", GetUnitX(shop), GetUnitY(shop)))
         if level >= max then
             //如果已经满级，则记录一下
-            call DZSaveInt(Player(pid-1), YDWEId2S(pickId)+"Max", 1)
+            call DZSaveInt(Player(pid-1), YDWEId2S(pickId)+"Max", max)
             call SaveBoolean(ht, pid, pickId, true)
         endif
         call addState(udg_Heros[pid], userState, value)
@@ -65,7 +65,7 @@ library talent initializer init requires userState, save
                 call SaveStr(ht, <?=i?>, '<?=id?>', "<?=key?>")
                 call SaveReal(ht, <?=i?>, '<?=id?>', <?=TALENTVALUE[key]?>)
                 //如果已经满级
-                if DZLoadInt(Player(<?=pid?>), "<?=id?>Max") > 0 then 
+                if lv > 0 and lv >= DZLoadInt(Player(<?=pid?>), "<?=id?>Max") then 
                     call SaveBoolean(ht, <?=i?>, '<?=id?>', true)
                 endif
                 set blood = DZLoadInt(Player(<?=pid?>), "尊贵之血")

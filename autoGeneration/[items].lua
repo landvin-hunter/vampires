@@ -29,8 +29,8 @@ local itemList = {
             Missilearc = 0.2,
             MissileHoming = 1,
             EffectArt = [[]],
-            DataA = {150, 750},
-            DataB = {150, 750},
+            DataA = {150, 900},
+            DataB = {150, 900},
             DataC = {1},
             Area = {950},
         },
@@ -39,7 +39,7 @@ local itemList = {
         Name = '三相血刃',
         Tips = [[发射一圈刀刃]],
         TipsMax = [[快速发射一圈刀刃]],
-        EditorSuffix = [[发射类]],
+        EditorSuffix = [[场地类]],
         DamageType = [[切割]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
@@ -54,7 +54,7 @@ local itemList = {
             Missilearc = 0.5,
             MissileHoming = 1,
             EffectArt = [[]],
-            DataA = {150, 450},
+            DataA = {150, 600},
             DataB = {99999},
             DataC = {0},
             Area = {400},
@@ -124,7 +124,7 @@ local itemList = {
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNBoneChimes.blp]],
         CD = [[return (4.2 - glv * 0.2)]],
-        CDMax = 1,
+        CDMax = 1.5,
         abi = {
             oid = 'Afod',
             DataA = {0.25},
@@ -231,7 +231,7 @@ local itemList = {
         Name = '风暴战锤',
         Tips = [[使得附近多个目标被雷柱打击]],
         TipsMax = [[极快地使得附近多个目标被雷柱打击]],
-        EditorSuffix = [[发射类]],
+        EditorSuffix = [[场地类]],
         DamageType = [[闪电]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
@@ -298,7 +298,7 @@ local itemList = {
             SpecialArt = [[]],
             DataA = {10, 10, 24},
             DataB = {48},
-            DataC = {60, 360},
+            DataC = {80, 480},
             DataD = {80},
             DataE = {0.1},
             Dur = {99},
@@ -357,7 +357,7 @@ local itemList = {
         Tips = [[召唤数个骷髅环绕自身]],
         TipsMax = [[召唤数个伤害更高的骷髅环绕自身]],
         EditorSuffix = [[召唤类]],
-        DamageType = [[精神]],
+        DamageType = [[魔法]],
         Description = [[
 |cff22bb22范围：|r 300
 |cffeeee55伤害：|r <*id,DataA*lv>
