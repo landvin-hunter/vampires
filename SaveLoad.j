@@ -42,10 +42,19 @@ library save requires DZnative
     endfunction
 
     function clearSave takes player p returns nothing
+        local integer total = 0
+        local integer cost = 0
+        local integer lv = 0
+        local integer now = GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER)
         <?for id, key in pairs(TALENTLIST) do?>
+            set cost = YDWEGetUnitWoodCost('<?=id?>')
+            set lv = DZLoadInt(p, "<?=id?>")
+            set total = total + cost * lv
             call DZSaveInt(p, "<?=id?>", 0)
             call DZSaveInt(p, "<?=id?>Max", 0)
         <?end?>
+        call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, now + total)
+        call DZSaveInt(p, "尊贵之血", GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER))
     endfunction
 
     function showSave takes player p returns nothing

@@ -60,7 +60,7 @@ library keyBoardMove initializer init
                     set pick = null
                 elseif movePulse[n] >= 10 then
                     set movePulse[n] = 0
-                    set sp = GetUnitMoveSpeed(udg_Heros[n])
+                    set sp = GetUnitMoveSpeed(udg_Heros[n])*1.05
                     <? for k,v in ipairs{'LEFT', 'RIGHT', 'DOWN', 'UP'} do ?>
                         if <?=v?>Angle[n] >= 0 then
                             set x = x + sp*CosBJ(<?=v?>Angle[n])

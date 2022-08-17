@@ -20,6 +20,22 @@ library talent initializer init requires userState, save
 
     endfunction
 
+    private function clear takes nothing returns nothing
+        local player p = GetOwningPlayer(GetTriggerUnit())
+        local integer pid = GetPlayerId(p)+1
+        if GetSpellAbilityId() == 'ACr1' then
+            call clearSave(p)
+            <?for id, key in pairs(TALENTLIST) do?>
+                call SaveInteger(ht, pid, '<?=id?>', 0)
+                call SaveStr(ht, pid, '<?=id?>', null)
+                call SaveReal(ht, pid, '<?=id?>', 0)
+                call SaveBoolean(ht, pid, '<?=id?>', false)
+            <?end?>
+            call add(pid, GetTriggerUnit())
+        endif
+        set p = null
+    endfunction
+
     private function pick takes nothing returns nothing
         local unit sell = GetSoldUnit()
         local unit shop = GetSellingUnit()
@@ -78,6 +94,9 @@ library talent initializer init requires userState, save
 
     function talentCreate takes nothing returns nothing
         local integer lv = 0
+        local trigger trg = CreateTrigger()
+
+        call TriggerAddAction(trg, function clear)
         
         call TriggerAddAction(pickTrg, function pick)
         <?for i = 1, 4 do?>
@@ -92,6 +111,7 @@ library talent initializer init requires userState, save
                     endif
                 <?end?>
                 call TriggerRegisterUnitEvent(pickTrg, udg_HerosAltar[<?=i?>], EVENT_UNIT_SELL)
+                call TriggerRegisterUnitEvent(trg, udg_HerosAltar[<?=i?>], EVENT_UNIT_SPELL_EFFECT)
             endif
         <?end?>
     endfunction

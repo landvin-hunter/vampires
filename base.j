@@ -394,7 +394,7 @@ function addExp takes unit target, real value returns nothing
 endfunction
     
 function addBloodNumber takes unit target, real value returns nothing
-    local real rate = getState(target, "诅咒反哺") * 0.5
+    local real rate = getState(target, "诅咒反哺") * 0.25
     
     set value = value * (1 + rate)
 
