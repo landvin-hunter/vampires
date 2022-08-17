@@ -532,8 +532,8 @@ local itemList = {
 |cffffcc00维持：|r 45秒
 |cff3399ff间隔：|r *cd秒]],
         Art = [[ReplaceableTextures\CommandButtons\BTNRodOfNecromancy.blp]],
-        CD = [[return 10]],
-        CDMax = 10,
+        CD = [[return 8]],
+        CDMax = 8,
         abi = {
             oid = 'Atdg',
             DataA = {80, 680},
