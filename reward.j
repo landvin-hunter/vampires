@@ -46,6 +46,7 @@ library reward requires baseSystem
 
     private function limit takes item it returns nothing
         call SaveBoolean(ht, 'mark', GetHandleId(it), true)
+        call Debug("pickLimit = " + T2S(it))
     endfunction
 
     private function isLimit takes item it returns boolean
@@ -70,15 +71,17 @@ library reward requires baseSystem
         if rarity == "3" then
             loop
                 set pickItem[pick+1] = UnitItemInSlot(hero, n)
-                if pickItem[pick+1] != null and isLimit(pickItem[pick+1]) == false then //Max物品位于人造分类
-                    if GetItemType(pickItem[pick+1]) != ITEM_TYPE_ARTIFACT then
-                        set pick = pick + 1
-                        if GetItemLevel(pickItem[pick]) == 10 then
-                            set canUP = pick
+                if pickItem[pick+1] != null then
+                    if isLimit(pickItem[pick+1]) == false then //Max物品位于人造分类
+                        if GetItemType(pickItem[pick+1]) != ITEM_TYPE_ARTIFACT then
+                            set pick = pick + 1
+                            if GetItemLevel(pickItem[pick]) == 10 then
+                                set canUP = pick
+                            endif
                         endif
                     endif
+                    call Debug("pickItem|item="+T2S(pickItem[pick])+"|lv="+I2S(GetItemLevel(pickItem[pick]))+"|limit="+B2S(isLimit(pickItem[pick])))
                 endif
-                call Debug("pickItem|item="+T2S(pickItem[pick])+"|lv="+I2S(GetItemLevel(pickItem[pick])))
                 exitwhen n >= 5
                 set n = n + 1
             endloop

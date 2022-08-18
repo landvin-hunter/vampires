@@ -59,6 +59,7 @@ library select initializer init
         local integer m = 0
         local boolean check = false
         local integer array hasList
+        //local hashtable banlist = initHashtable()
         local integer array result
         local integer array resultLevel
         local integer itemDetal = ITEMUNIT_FRISTID - ITEM_FRISTID
@@ -73,10 +74,11 @@ library select initializer init
                 set itemTemp = UnitItemInSlot(hero, <?=k?>)
                 if itemTemp != null then
                     set has = has + 1
+                    set hasList[has] = getItemId(GetItemTypeId(itemTemp))
                     if GetItemLevel(itemTemp) < 10 then
-                        set hasList[has] = GetItemTypeId(itemTemp)
-                        call insert(GetItemTypeId(itemTemp) + itemDetal)
+                        call insert(baseItemList[hasList[has]] + itemDetal)
                     endif
+                    //call SaveBoolean(banlist, 'bant', GetItemTypeId(itemTemp), true)
                 endif
                 set itemTemp = null
             <? end ?>
@@ -95,7 +97,7 @@ library select initializer init
                         set check = false
                         loop
                             set m = m + 1
-                            if hasList[m] > 0 and (hasList[m] - baseItemList[n]) <= 10 and (hasList[m] - baseItemList[n]) > 0 then // 已经在hasList里面的不要添加
+                            if hasList[m] == n then // 已经在hasList里面的不要添加
                                 set check = true
                             endif
                             exitwhen m >= has or check
@@ -168,7 +170,9 @@ library select initializer init
         call SetPlayerAbilityAvailable(Player(pid), 'bk00', false)
         call UnitAddAbility(hero, 'bkre')
 
+        //call FlushParentHashtable(banlist)
         set itemTemp = null
+        //set banlist = null
     endfunction
 
     function oneBloodSelect takes unit hero returns nothing
