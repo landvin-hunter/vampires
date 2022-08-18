@@ -46,7 +46,7 @@ library damage requires baseSystem, dotBuff, userState
                     call YDUserDataSet(unit, target, "魔力掌控", integer, int+1)
                 endif
             else
-                set rate = rate + 0.4 * magicLv * int
+                set rate = rate + 0.6 * magicLv * int
             endif
         endif
 

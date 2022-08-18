@@ -365,9 +365,10 @@ sbook.Art = [[ReplaceableTextures\CommandButtons\BTNPotionOfVampirism.blp]]
 
 local refresh = slk.ability['AAns']:new('bkre')
 refresh.Name = 'book-刷新选择'
-refresh.DataA1 = 200
+refresh.level = 1
+refresh.DataA1 = 300
 refresh.Buttonpos_1 = 0
 refresh.Buttonpos_2 = 1
 refresh.Tip = [[刷新选择]]
-refresh.Ubertip = [[重置一次当前选择，每次选择都只能使用一次]]
+refresh.Ubertip = [[重置一次当前选择]]
 refresh.Art = [[ReplaceableTextures\CommandButtons\BTNPatrol.blp]]

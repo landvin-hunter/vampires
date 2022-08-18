@@ -326,7 +326,7 @@ local baseSkill = {
         Name = [[魔力掌控]],
         Art = [[ReplaceableTextures\PassiveButtons\PASBTNMagicalSentry.blp]],
         levels = 10,
-        Cool = {0.4, 4},
+        Cool = {0.6, 6},
         Tip = [=[ - [|cffffcc00等级 *lv|r]]=],
         Ubertip = [[|cff3399ff魔法|r伤害可以使得接下来的|cffffcc00非魔法|r伤害更高，最多叠加10层|n|n额外伤害：|cff89D5FF<*id,Cool*lv>%|r/层]],
         targs = {"nonhero,self"},
