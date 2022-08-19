@@ -621,6 +621,36 @@ local itemList = {
             EfctID = {"Xful"},
         },
     },
+    {
+        Name = '阴寒根须',
+        Tips = [[召唤骷髅]],
+        TipsMax = [[蔓延吧，剧毒的瘟疫]],
+        EditorSuffix = [[场地类]],
+        DamageType = [[冰冻]],
+        Description = [[
+|cff22bb22范围：|r <*id,Area*lv>
+|cffeeee55伤害：|r <*id,DataA*lv>/0.2秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNHornOfFog.blp]],
+        CD = [[return 8]],
+        CDMax = 8,
+        abi = {
+            oid = 'AHfs',
+            EffectArt = [[]],
+            SpecialArt = [[Abilities\Spells\Undead\PlagueCloud\PlagueCloudCaster.mdl]],
+            DataA = {40, 175, 350},
+            DataB = {0.2},
+            DataC = {0},
+            DataE = {0},
+            DataF = {99999},
+            Cast = {0},
+            Dur = {8},
+            Rng = {999},
+            Area = {300},
+            BuffID = {"Bapl"},
+            EfctID = {"Xful"},
+        },
+    },
 }
 _G.ITEMNUM = #itemList
 

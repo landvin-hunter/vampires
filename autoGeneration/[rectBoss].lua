@@ -55,6 +55,24 @@ local bossBlood = {
         Buttonpos_2 = 1,
         hero = 0,
     },
+    ['BR07'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNSylvanusWindrunner.blp]],
+        Tip = [[腐朽树灵]],
+        Ubertip = [[猎杀指定的领域Boss来剥夺其血液能力！]],
+        Requires = [[nzom]],
+        Buttonpos_1 = 2,
+        Buttonpos_2 = 1,
+        hero = 0,
+    },
+    ['BR08'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNSylvanusWindrunner.blp]],
+        Tip = [[森之始祖]],
+        Ubertip = [[猎杀指定的领域Boss来剥夺其血液能力！]],
+        Requires = [[nzom]],
+        Buttonpos_1 = 2,
+        Buttonpos_2 = 1,
+        hero = 0,
+    },
 }
 local bloodList = {
     ['AR11'] = {
@@ -280,6 +298,80 @@ local bloodList = {
 |cff22bb22伤害：|r 150+血质阶层*20
     
 |cffa4ef0d月光下的生灵啊，庇佑我们的孩子吧|r]],
+        Requires = [[]],
+        hero = 0,
+    },
+    ['AR71'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff暗朽]],
+        Ubertip = [[
+伤害会叠加腐败，一旦超过20层便大幅削弱目标的伤害和防御能力
+
+|cff22bb22降低伤害：|r 50%
+|cffeeee55增加伤害：|r 50%
+    
+|cffa4ef0d日渐腐朽的不仅仅是身躯|r]],
+        Requires = [[]],
+        hero = 0,
+    },
+    ['AR72'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff败火]],
+        Ubertip = [[
+每次伤害都会附加固定的伤害
+
+|cff22bb22附加伤害：|r 140
+    
+|cffa4ef0d树灵腐烂于被衰败的火焰|r]],
+        Requires = [[]],
+        hero = 0,
+    },
+    ['AR73'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff混乱]],
+        Ubertip = [[
+造成伤害的类型，每次都与上一次不同，便能够叠加额外伤害。
+如果造成同类型的伤害便会重置层数
+
+|cff22bb22叠加伤害：|r 20/层
+    
+|cffa4ef0d为世界带来混乱的代价|r]],
+        Requires = [[]],
+        hero = 0,
+    },
+    ['AR81'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff源水]],
+        Ubertip = [[
+获得生命恢复能力
+
+|cff22bb22每秒恢复：|r 20
+    
+|cffa4ef0d滋润大地|r]],
+        Requires = [[]],
+        hero = 0,
+    },
+    ['AR82'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff万物]],
+        Ubertip = [[
+从经验值中获取尊贵之血
+
+|cff22bb22阈值：|r 5000
+    
+|cffa4ef0d天生万物以养人|r]],
+        Requires = [[]],
+        hero = 0,
+    },
+    ['AR83'] = {
+        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff幻视]],
+        Ubertip = [[
+不再获得经验值，但被你猎杀的小怪也有几率会掉落宝箱
+
+|cff22bb22概率：|r 2%
+    
+|cffa4ef0d舍弃力量|r]],
         Requires = [[]],
         hero = 0,
     },
