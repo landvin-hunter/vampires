@@ -5,6 +5,16 @@ library talent initializer init requires userState, save
         private trigger pickTrg = CreateTrigger()
     endglobals
 
+    function talentSet takes player p, integer abi, integer lv returns nothing
+        local integer pid = GetPlayerId(p) + 1
+        call SaveInteger(ht, pid, abi, lv)
+    endfunction
+
+    function talentGet takes player p, integer abi returns integer
+        local integer pid = GetPlayerId(p) + 1
+        return GetInteger(ht, pid, abi)
+    endfunction
+
     private function add takes integer pid, unit shop returns nothing
         local integer lv = 0
 
