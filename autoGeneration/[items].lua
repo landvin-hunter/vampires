@@ -657,7 +657,7 @@ _G.ITEMNUM = #itemList
 local function create()
 for num, tb in ipairs(itemList) do
     local des1, des2 = nil, nil
-    local plus = ''
+    local plus
     if num < 10 then
         plus = '0' .. num
     else

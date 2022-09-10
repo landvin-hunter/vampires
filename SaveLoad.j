@@ -48,10 +48,11 @@ library save requires DZnative
         local integer now = GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER)
         <?for id, key in pairs(TALENTLIST) do?>
             set cost = YDWEGetUnitWoodCost('<?=id?>')
-            set lv = DZLoadInt(p, "<?=id?>")
+            set lv = talentGet(p, '<?=id?>')
             set total = total + cost * lv
             call DZSaveInt(p, "<?=id?>", 0)
             call DZSaveInt(p, "<?=id?>Max", 0)
+            call talentSet(p, '<?=id?>', 0)
         <?end?>
         call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, now + total)
         call DZSaveInt(p, "尊贵之血", GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER))
