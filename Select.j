@@ -197,7 +197,7 @@ library select initializer init
         call UnitRemoveAbility(hero, remabi)
         call SetUnitUserData(hero, 0)
 
-        <?for a = 1, 6 do?>
+        <?for a = 1, 8 do?>
             <?for b = 1, 3 do
                 local id = a .. b
                 local abi = 'bk' .. id

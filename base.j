@@ -286,7 +286,7 @@ library baseSystem initializer init
     function getAPassPoint takes rect r returns location
         local real x = GetRandomReal(GetRectMinX(r), GetRectMaxX(r))
         local real y = GetRandomReal(GetRectMinY(r), GetRectMaxY(r))
-        if IsTerrainPathable(x, y, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x+100, y, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x-100, y, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x, y+100, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x, y-100, PATHING_TYPE_WALKABILITY) then
+        if IsTerrainPathable(x, y, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x+256, y, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x-256, y, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x, y+256, PATHING_TYPE_WALKABILITY) or IsTerrainPathable(x, y-256, PATHING_TYPE_WALKABILITY) then
             return getAPassPoint(r)
         endif
         return Location(x, y)
