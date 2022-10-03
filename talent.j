@@ -12,7 +12,7 @@ library talent initializer init requires userState, save
 
     function talentGet takes player p, integer abi returns integer
         local integer pid = GetPlayerId(p) + 1
-        return GetInteger(ht, pid, abi)
+        return LoadInteger(ht, pid, abi)
     endfunction
 
     private function add takes integer pid, unit shop returns nothing
@@ -30,11 +30,32 @@ library talent initializer init requires userState, save
 
     endfunction
 
+    function clearSave takes player p, integer pid returns nothing
+        local integer total = 0
+        local integer cost = 0
+        local integer lv = 0
+        local integer now = GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER)
+        <?for id, key in pairs(TALENTLIST) do?>
+            set cost = YDWEGetUnitWoodCost('<?=id?>')
+            set lv = talentGet(p, '<?=id?>')
+            set total = total + cost * lv
+            call addState(udg_Heros[pid], LoadStr(ht, pid, '<?=id?>'), -LoadReal(ht, pid, '<?=id?>')*lv)
+            call DZSaveInt(p, "<?=id?>", 0)
+            call DZSaveInt(p, "<?=id?>Max", 0)
+            call talentSet(p, '<?=id?>', 0)
+        <?end?>
+        call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, now + total)
+        call DZSaveInt(p, "尊贵之血", GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER))
+    endfunction
+
     private function clear takes nothing returns nothing
         local player p = GetOwningPlayer(GetTriggerUnit())
         local integer pid = GetPlayerId(p)+1
+        local integer total = 0
+        local integer cost = 0
+        local integer lv = 0
         if GetSpellAbilityId() == 'ACr1' then
-            call clearSave(p)
+            call clearSave(p, pid)
             <?for id, key in pairs(TALENTLIST) do?>
                 call SaveInteger(ht, pid, '<?=id?>', 0)
                 call SaveStr(ht, pid, '<?=id?>', null)
