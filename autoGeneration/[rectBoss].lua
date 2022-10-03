@@ -56,7 +56,7 @@ local bossBlood = {
         hero = 0,
     },
     ['BR07'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNSylvanusWindrunner.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNCorruptedAncientOfWar.blp]],
         Tip = [[腐朽树灵]],
         Ubertip = [[猎杀指定的领域Boss来剥夺其血液能力！]],
         Requires = [[nzom]],
@@ -65,7 +65,7 @@ local bossBlood = {
         hero = 0,
     },
     ['BR08'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNSylvanusWindrunner.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNKeeperGhostBlue.blp]],
         Tip = [[森之始祖]],
         Ubertip = [[猎杀指定的领域Boss来剥夺其血液能力！]],
         Requires = [[nzom]],
@@ -302,7 +302,7 @@ local bloodList = {
         hero = 0,
     },
     ['AR71'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNAntiMagicShell.blp]],
         Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff暗朽]],
         Ubertip = [[
 伤害会叠加腐败，一旦超过20层便大幅削弱目标的伤害和防御能力
@@ -315,7 +315,7 @@ local bloodList = {
         hero = 0,
     },
     ['AR72'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNUnholyFrenzy.blp]],
         Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff败火]],
         Ubertip = [[
 每次伤害都会附加固定的伤害
@@ -327,7 +327,7 @@ local bloodList = {
         hero = 0,
     },
     ['AR73'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNDestroyer.blp]],
         Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff混乱]],
         Ubertip = [[
 造成伤害的类型，每次都与上一次不同，便能够叠加额外伤害。
@@ -340,7 +340,7 @@ local bloodList = {
         hero = 0,
     },
     ['AR81'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNRejuvenation.blp]],
         Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff源水]],
         Ubertip = [[
 获得生命恢复能力
@@ -352,7 +352,7 @@ local bloodList = {
         hero = 0,
     },
     ['AR82'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNNightElfBuild.blp]],
         Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff万物]],
         Ubertip = [[
 从经验值中获取尊贵之血
@@ -364,7 +364,7 @@ local bloodList = {
         hero = 0,
     },
     ['AR83'] = {
-        Art = [[ReplaceableTextures\CommandButtons\BTNEnchantedCrows.blp]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNRavenForm.blp]],
         Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff幻视]],
         Ubertip = [[
 不再获得经验值，但被你猎杀的小怪也有几率会掉落宝箱
