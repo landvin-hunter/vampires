@@ -112,7 +112,7 @@ local itemList = {
             Area = {240},
         },
     },
-    {
+    {--5
         Name = '天灾骨钟',
         Tips = [[发射一道死亡虹电，还能治疗自己2点生命]],
         TipsMax = [[发射两道死亡虹电，还能治疗自己2点生命]],
@@ -227,7 +227,7 @@ local itemList = {
             Area = {150},
         },
     },
-    {
+    {--10
         Name = '风暴战锤',
         Tips = [[使得附近多个目标被雷柱打击]],
         TipsMax = [[极快地使得附近多个目标被雷柱打击]],
@@ -352,12 +352,12 @@ local itemList = {
             Area = {150},
         },
     },
-    {
+    {--15
         Name = '恶灵之书',
         Tips = [[召唤数个骷髅环绕自身]],
         TipsMax = [[召唤数个伤害更高的骷髅环绕自身]],
         EditorSuffix = [[召唤类]],
-        DamageType = [[魔法]],
+        DamageType = [[诅咒]],
         Description = [[
 |cff22bb22范围：|r 300
 |cffeeee55伤害：|r <*id,DataA*lv>
@@ -466,7 +466,7 @@ local itemList = {
         CD = [[return 2.5]],
         CDMax = 2.5,
     },
-    {
+    {--20
         Name = '血焰核心',
         Tips = [[呼唤一道火焰龙卷风，伤害沿途所有敌人]],
         TipsMax = [[呼唤两道火焰龙卷风，伤害沿途所有敌人]],
@@ -501,7 +501,7 @@ local itemList = {
         Tips = [[凝聚灵魂力量，在自身周围产生大爆炸]],
         TipsMax = [[凝聚灵魂力量，在自身周围产生更大范围，更大伤害的爆炸]],
         EditorSuffix = [[场地类]],
-        DamageType = [[精神]],
+        DamageType = [[诅咒]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
 |cffeeee55伤害：|r <*id,DataA*lv>/秒
@@ -553,7 +553,7 @@ local itemList = {
         Tips = [[孕育一个旧神之卵，不断抽取敌人的血液]],
         TipsMax = [[旧神现世！]],
         EditorSuffix = [[召唤类]],
-        DamageType = [[魔法]],
+        DamageType = [[诅咒]],
         Description = [[
 |cff22bb22范围：|r <*id,Area*lv>
 |cffeeee55伤害：|r <*id,DataA*lv>/<*id,DataB*lv>秒
@@ -570,12 +570,14 @@ local itemList = {
             Buttonpos_2 = -11,
             Animnames = "attack,looping",
             Dur = {99},
+            BuffID = {"B002"},
+            EfctID = {"X001"},
             Area = {750},
         },
     },
     {
         Name = '月之弯刀',
-        Tips = [[在一段时间内不断产生回旋弯刀，切割最多3个敌人]],
+        Tips = [[在一段时间内不断产生回旋弯刀，切割最多6个敌人]],
         TipsMax = [[在一段时间内不断产生回旋弯刀，切割路径上所有敌人]],
         EditorSuffix = [[场地类]],
         DamageType = [[切割]],
@@ -591,7 +593,7 @@ local itemList = {
             DataA = {100, 600},
         },
     },
-    {
+    {--25
         Name = '瘟疫号角',
         Tips = [[蔓延吧，瘟疫]],
         TipsMax = [[蔓延吧，剧毒的瘟疫]],
@@ -671,8 +673,100 @@ local itemList = {
             EfctID = {"XHbz"},
         },
     },
+    {
+        Name = '神圣明灯',
+        Tips = [[召唤腐化的神圣之光杀戮敌人]],
+        TipsMax = [[腐化神灵将跟随吸血鬼，使用腐化神圣之光杀戮敌人]],
+        EditorSuffix = [[召唤类]],
+        DamageType = [[诅咒]],
+        Description = [[
+|cff22bb22范围：|r 800
+|cffffcc00维持：|r 3秒
+|cffeeee55伤害：|r <*id,DataA*lv>/0.4秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNPotionOfRestoration.blp]],
+        CD = [[return 5]],
+        CDMax = 5,
+        abi = {
+            oid = 'AEsf',
+            DataA = {50, 320, 600},
+            DataB = {0.4, 0.4},
+            Dur = {99},
+            BuffID = {"B001"},
+            Area = {800},
+        },
+    },
+    {
+        Name = '翡翠晶石',
+        Tips = [[召唤翡翠之源，引发魔力脉动]],
+        TipsMax = [[召唤翡翠之源，引发剧烈的魔力脉动]],
+        EditorSuffix = [[召唤类]],
+        DamageType = [[魔法]],
+        Description = [[
+|cff22bb22范围：|r 800
+|cffffcc00维持：|r <*id,DataB*lv>秒
+|cffeeee55伤害：|r <*id,DataA*lv>/秒
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNGem.blp]],
+        CD = [[return 8]],
+        CDMax = 8,
+        abi = {
+            oid = 'Afod',
+            LightningEffect = [[DRAB,DRAL,DRAM]],
+            DataA = {50, 500},
+            DataB = {8},
+            DataC = {0},
+            Rng = {800},
+            TargetArt = [[Abilities\Spells\Undead\ReplenishMana\ReplenishManaCaster.mdl]],
+        },
+    },
+    {--30
+        Name = '裁决之杖',
+        Tips = [[对一个弱小的敌人降下裁决，瞬杀目标]],
+        TipsMax = [[极快对一个弱小的敌人降下裁决，瞬杀目标]],
+        EditorSuffix = [[发射类]],
+        DamageType = [[魔法]],
+        Description = [[
+|cff22bb22范围：|r 800
+|cff3399ff间隔：|r *cd秒]],
+        Art = [[ReplaceableTextures\CommandButtons\BTNStaffOfSilence.blp]],
+        CD = [[return (4 - glv * 0.2)]],
+        CDMax = 1,
+        abi = {
+            oid = 'Afod',
+            LightningEffect = [[]],
+            DataA = {0.5},
+            DataB = {0},
+            DataC = {99999},
+            Rng = {800},
+            TargetArt = [[Abilities\Spells\Human\MarkOfChaos\MarkOfChaosTarget.mdl]],
+        },
+    }
 }
 _G.ITEMNUM = #itemList
+
+local function damageColor(dmgtype)
+    if dmgtype == "魔法" then
+        return "|cff1eb1cf"
+    elseif dmgtype == "切割" then
+        return "|cffc05353"
+    elseif dmgtype == "打击" then
+        return "|cff8c9d0c"
+    elseif dmgtype == "精神" then
+        return "|cff2cb03f"
+    elseif dmgtype == "火焰" then
+        return "|cffd4742a"
+    elseif dmgtype == "冰冻" then
+        return "|cff2043c3"
+    elseif dmgtype == "闪电" then
+        return "|cff859cf1"
+    elseif dmgtype == "毒素" then
+        return "|cea4be20f"
+    elseif dmgtype == "诅咒" then
+        return "|ceac520db"
+    end
+    return "|cffffffff"
+end
 
 local function create()
 for num, tb in ipairs(itemList) do
@@ -704,11 +798,11 @@ for num, tb in ipairs(itemList) do
             item.Description = tb.Tips
         end
         if tb.EditorSuffix then
-            originGescription = '[|cff13d0dd' .. tb.EditorSuffix  .. '|r]' .. originGescription
+            originGescription = '|cff13d0dd[' .. tb.EditorSuffix  .. ']|r' .. originGescription
             ITEMLIST[id] = tb.EditorSuffix
         end
         if tb.DamageType then
-            originGescription = originGescription .. '|n|cf165d61f伤害类型：|cffd725ee' .. tb.DamageType
+            originGescription = originGescription .. '|n|cf165d61f伤害类型：' .. damageColor(tb.DamageType) .. tb.DamageType .. '|r'
             ITEMLIST[id] = ITEMLIST[id] .. tb.DamageType
         end
         local cdfunc = tb.CD

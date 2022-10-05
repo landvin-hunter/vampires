@@ -106,6 +106,8 @@ library initData
             return "|cff859cf1"
         elseif dmgtype == "毒素" then
             return "|cea4be20f"
+        elseif dmgtype == "诅咒" then
+            return "|ceac520db"
         endif
         return "|cffffffff"
     endfunction
@@ -121,14 +123,18 @@ library initData
 
     function createItemDummy takes integer uid,location point returns unit
         local integer abi = getItemAbi(udg_item)
+        local integer id = GetPlayerId(GetLocalPlayer())+1
         set udg_player = GetOwningPlayer(udg_hero)
-        set dummy = CreateUnit(udg_player, uid, GetLocationX(point), GetLocationY(point), 0)
+        set dummy = CreateUnit(udg_player, uid, GetLocationX(point), GetLocationY(point), 270)
         if abi > 0 then
             call UnitAddAbility(dummy, abi)
             call SetUnitAbilityLevel(dummy, abi, udg_itemSpellLevel)
         endif
+        if udg_flagShow[id] == false then
+            call ShowUnit(dummy, false)
+        endif
         call bindingDummyItem(dummy, udg_item)
-        call Debug("cid| unit="+U2S(dummy)+"| abi="+YDWEId2S(abi)+"| lv="+I2S(GetUnitAbilityLevel(dummy, abi)))
+        //call Debug("cid| unit="+U2S(dummy)+"| abi="+YDWEId2S(abi)+"| lv="+I2S(GetUnitAbilityLevel(dummy, abi)))
         return dummy
     endfunction
 endlibrary

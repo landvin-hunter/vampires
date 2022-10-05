@@ -1,5 +1,5 @@
 
-library select initializer init
+library select initializer init requires userState
     
     globals
         private hashtable ht = InitHashtable()
@@ -225,6 +225,12 @@ library select initializer init
             call YDUserDataSet(unit, hero, "bk62-pass", real, 0)
             call YDUserDataSet(unit, hero, "bk62-last", location, GetUnitLoc(hero))
             call YDUserDataSet(unit, hero, "bk62-next", location, GetUnitLoc(hero))
+        endif
+        if addabi == 'bk81' then //森之始祖-源水
+            call UnitAddAbility(hero, 'Ad09')
+        endif
+        if addabi == 'bk83' then //森之始祖-幻视
+            call addState(hero, "经验倍率", -9999)
         endif
         call Debug("addBlood || hero="+U2S(udg_hero)+" || add="+YDWEId2S(addabi)+" || rem="+YDWEId2S(remabi)+"|| mark="+I2S(mark))
     endfunction

@@ -34,10 +34,22 @@ library dotBuff initializer init requires baseSystem
         set pulsePass[id] = pulsePass[id] + 0.02
         set pass[id] = pass[id] + 0.02
 
+        if GetUnitState(source[id], UNIT_STATE_LIFE) <= 0.5 then
+            call remove(id)
+            return
+        endif
+
+        if GetUnitState(target[id], UNIT_STATE_LIFE) <= 0.5 then
+            call remove(id)
+            return
+        endif
+
         if pulsePass[id] >= pulse[id] then
-            call YDUserDataSet(unit, source[id], "cast", string, damageCast[id])
-            call YDUserDataSet(unit, source[id], "icon", string, damageIcon[id])
-            call addDamage(source[id], target[id], damage[id])
+            if damageCast[id] != null then
+                call YDUserDataSet(unit, source[id], "cast", string, damageCast[id])
+                call YDUserDataSet(unit, source[id], "icon", string, damageIcon[id])
+            endif
+            call addDamage(source[id], target[id], damage[id] * pulse[id])
             set pulsePass[id] = pulsePass[id] - pulse[id]
         endif
         if pass[id] >= time[id] then
@@ -65,8 +77,8 @@ library dotBuff initializer init requires baseSystem
         set pulse[id] = Cpulse
     endfunction
 
-    function setDotBuffEffect takes integer id, effect eff returns nothing
-        set show[id] = eff
+    function setDotBuffEffect takes integer id, string effname, string socket returns nothing
+        set show[id] = AddSpecialEffectTarget(effname, target[id], socket)
     endfunction
 
     function setDotBuffDmgTips takes integer id, string cast, string icon returns nothing

@@ -391,17 +391,8 @@ function lifeCount takes unit hero, real time returns real
     if abiLv > 0 then
         set add = add + (0.09 + abiLv * 0.09)
     endif
-
+    //call Debug("lifeCount - |oL = "+R2S(time) + "| aL = "+R2S(time * add))
     return time * add
-endfunction
-    
-function addExp takes unit target, real value returns nothing
-    local real rate = getState(target, "经验倍率")/100
-    local real expUp = GetUnitAbilityLevel(target, 'AB0D') * 0.05
-    
-    set value = value * (1 + rate + expUp)
-
-    call AddHeroXP(target, R2I(value), true)
 endfunction
     
 function addBloodNumber takes unit target, real value returns nothing
@@ -411,7 +402,30 @@ function addBloodNumber takes unit target, real value returns nothing
 
     call SetPlayerState(GetOwningPlayer(target), PLAYER_STATE_RESOURCE_LUMBER, GetPlayerState(GetOwningPlayer(target), PLAYER_STATE_RESOURCE_LUMBER) + R2I(value))
 endfunction
+    
+function addExp takes unit target, real value returns nothing
+    local real rate = getState(target, "经验倍率")/100
+    local real expUp = GetUnitAbilityLevel(target, 'AB0D') * 0.05
+    local integer blood_id = (GetPlayerId(GetOwningPlayer(target))+1)*100
+    
+    set value = value * (1 + rate + expUp)
 
+    if bloodAbilities[blood_id+82] then
+        if YDUserDataGet(unit, target, "万物积累", integer) > 20 then
+            call addBloodNumber(target, 1)
+            call YDUserDataSet(unit, target, "万物积累", integer, 0)
+            call Debug("trg-万物积累==============================")
+        else
+            call YDUserDataSet(unit, target, "万物积累", integer, YDUserDataGet(unit, target, "万物积累", integer)+1)
+        endif
+    endif
+
+    if value < 0 then
+        return
+    endif
+
+    call AddHeroXP(target, R2I(value), true)
+endfunction
 
 function smartChange takes unit hero, item target returns nothing
     if GetItemType(target) == ITEM_TYPE_PERMANENT and checkFullPackage(hero) then

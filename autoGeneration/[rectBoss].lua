@@ -82,7 +82,7 @@ local bloodList = {
 击杀会引发爆炸，造成范围伤害
 
 |cff22bb22概率：|r 20%|cffffcc00(享受幸运加成)|r
-|cffeeee55伤害：|r 150+血质阶层×8
+|cffeeee55伤害：|r 180+血质阶层×5
         
 |cffc12ae0据说那可怕的血液污染将毁灭一切|r]],
         Requires = [[]],
@@ -179,9 +179,9 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNBearBlink.blp]],
         Tip = [[|cff00ff00烈阳祭司的能力|r :  |cff6699ff虚幻偶像]],
         Ubertip = [[
-减少来自精英，猎人的伤害
+减少来自敌人的伤害
 
-|cffeeee55比例：|r 80%
+|cffeeee55比例：|r 50%
     
 |cffeee686重要的情报|r]],
         Requires = [[]],
@@ -294,7 +294,7 @@ local bloodList = {
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff灵魂契约]],
         Ubertip = [[
 受到伤害时，在伤害来源附近释放数个灵魂鸟
-
+ 
 |cff22bb22伤害：|r 150+血质阶层*20
     
 |cffa4ef0d月光下的生灵啊，庇佑我们的孩子吧|r]],
@@ -305,11 +305,10 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNAntiMagicShell.blp]],
         Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff暗朽]],
         Ubertip = [[
-伤害会叠加腐败，一旦超过20层便大幅削弱目标的伤害和防御能力
-
-|cff22bb22降低伤害：|r 50%
+伤害会叠加腐败，一旦超过20层便大幅削弱目标的防御能力
+       
 |cffeeee55增加伤害：|r 50%
-    
+
 |cffa4ef0d日渐腐朽的不仅仅是身躯|r]],
         Requires = [[]],
         hero = 0,
@@ -319,9 +318,9 @@ local bloodList = {
         Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff败火]],
         Ubertip = [[
 每次伤害都会附加固定的伤害
-
-|cff22bb22附加伤害：|r 140
-    
+       
+|cff22bb22附加伤害：|r 120
+        
 |cffa4ef0d树灵腐烂于被衰败的火焰|r]],
         Requires = [[]],
         hero = 0,
@@ -330,10 +329,10 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNDestroyer.blp]],
         Tip = [[|cff00ff00腐烂树灵的能力|r :  |cff6699ff混乱]],
         Ubertip = [[
-造成伤害的类型，每次都与上一次不同，便能够叠加额外伤害。
-如果造成同类型的伤害便会重置层数
-
-|cff22bb22叠加伤害：|r 20/层
+造成伤害的类型，与上一次不同，便能够叠加1层额外伤害。
+如果造成同类型的伤害则会减少2层
+    
+|cff22bb22叠加伤害：|r 60/层
     
 |cffa4ef0d为世界带来混乱的代价|r]],
         Requires = [[]],
@@ -355,9 +354,9 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNNightElfBuild.blp]],
         Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff万物]],
         Ubertip = [[
-从经验值中获取尊贵之血
-
-|cff22bb22阈值：|r 5000
+获得一定次数经验值后将获取尊贵之血
+        
+|cff22bb22次数：|r 1/20次
     
 |cffa4ef0d天生万物以养人|r]],
         Requires = [[]],
@@ -367,8 +366,8 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNRavenForm.blp]],
         Tip = [[|cff00ff00森之始祖的能力|r :  |cff6699ff幻视]],
         Ubertip = [[
-不再获得经验值，但被你猎杀的小怪也有几率会掉落宝箱
-
+不再能够累积经验值，但被你猎杀的小怪也有几率会掉落宝箱
+        
 |cff22bb22概率：|r 2%
     
 |cffa4ef0d舍弃力量|r]],
@@ -457,7 +456,6 @@ sbook.Art = [[ReplaceableTextures\CommandButtons\BTNPotionOfVampirism.blp]]
 
 local refresh = slk.ability['AAns']:new('bkre')
 refresh.Name = 'book-刷新选择'
-refresh.level = 1
 refresh.DataA1 = 300
 refresh.Buttonpos_1 = 0
 refresh.Buttonpos_2 = 1

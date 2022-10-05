@@ -8,6 +8,7 @@ library damage requires baseSystem, dotBuff, userState
         local integer tearLv = GetUnitAbilityLevel(hero, 'AB0R')
         local integer magicLv = GetUnitAbilityLevel(hero, 'AB0S')
         local string dmgtype = getItemDamageType(itemid)
+        local string lastdmgtype = YDUserDataGet(unit, target, "最后伤害类型", string)
         local integer id = (GetPlayerId(GetOwningPlayer(hero))+1)*100
         local real add = 0
         local real rate = getState(hero, "伤害增加")
@@ -15,10 +16,13 @@ library damage requires baseSystem, dotBuff, userState
         local real critDmg = getState(hero, "暴击伤害") + critDLv * 20
         local integer blood
         local integer int
+        local real result = 0
 
         if rateLv > 0 then
             set rate = rateLv * 5
         endif
+
+        call YDUserDataSet(unit, target, "最后伤害类型", string, dmgtype)
 
         if dmgtype == "精神" then
             set rateLv = GetUnitAbilityLevel(hero, 'AB0N')
@@ -35,10 +39,6 @@ library damage requires baseSystem, dotBuff, userState
             endif
         endif
 
-        if dmgtype == "火焰" then
-            call YDUserDataSet(unit, target, "火焰灼烧", boolean, true)
-        endif
-
         if magicLv > 0 then
             set int = YDUserDataGet(unit, target, "魔力掌控", integer)
             if dmgtype == "魔法" then
@@ -50,8 +50,7 @@ library damage requires baseSystem, dotBuff, userState
             endif
         endif
 
-        if tearLv > 0 and dmgtype == "冰冻" and YDUserDataGet(unit, target, "火焰灼烧", boolean) then
-            call YDUserDataSet(unit, target, "火焰灼烧", boolean, false)
+        if tearLv > 0 and dmgtype == "冰冻" and lastdmgtype == "火焰" then
             set add = add + 50 * tearLv
         endif
 
@@ -67,6 +66,30 @@ library damage requires baseSystem, dotBuff, userState
             set blood = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER)
             if blood > 0 then
                 set rate = rate + 1 * blood/2
+            endif
+        endif
+
+        if bloodAbilities[id+71] then
+            if YDUserDataGet(unit, target, "腐败层数", integer) > 20 then
+                set rate = rate + 50
+            elseif YDUserDataGet(unit, target, "腐败层数", integer) == 20 then
+                call AddSpecialEffectTarget("Abilities\\Spells\\Undead\\Curse\\CurseTarget.mdl", target, "overhead")
+                call YDUserDataSet(unit, target, "腐败层数", integer, YDUserDataGet(unit, target, "腐败层数", integer)+1)
+            else
+                call YDUserDataSet(unit, target, "腐败层数", integer, YDUserDataGet(unit, target, "腐败层数", integer)+1)
+            endif
+        endif
+
+        if bloodAbilities[id+72] then
+            set add = add + 120
+        endif
+
+        if bloodAbilities[id+73] then
+            if dmgtype != lastdmgtype then
+                set add = add + IMaxBJ(YDUserDataGet(unit, target, "混乱层数", integer) * 60, 0)
+                call YDUserDataSet(unit, target, "混乱层数", integer, YDUserDataGet(unit, target, "混乱层数", integer)+1)
+            else
+                call YDUserDataSet(unit, target, "混乱层数", integer, YDUserDataGet(unit, target, "混乱层数", integer)-2)
             endif
         endif
 
@@ -86,7 +109,9 @@ library damage requires baseSystem, dotBuff, userState
             return add
         endif
 
-        return dmg * rate + add
+        set result = dmg * rate + add
+        call YDUserDataSet(unit, target, "最后伤害数值", real, result)
+        return result
     endfunction
 
 endlibrary
