@@ -397,10 +397,12 @@ endfunction
     
 function addBloodNumber takes unit target, real value returns nothing
     local real rate = getState(target, "诅咒反哺") * 0.25
+    local integer pid = GetPlayerId(GetOwningPlayer(target))
     
     set value = value * (1 + rate)
+    set globalPlayerBlood[pid+1] = globalPlayerBlood[pid+1] + value
 
-    call SetPlayerState(GetOwningPlayer(target), PLAYER_STATE_RESOURCE_LUMBER, GetPlayerState(GetOwningPlayer(target), PLAYER_STATE_RESOURCE_LUMBER) + R2I(value))
+    call SetPlayerState(GetOwningPlayer(target), PLAYER_STATE_RESOURCE_LUMBER, globalPlayerBlood[pid+1])
 endfunction
     
 function addExp takes unit target, real value returns nothing

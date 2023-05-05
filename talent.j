@@ -3,6 +3,7 @@ library talent initializer init requires userState, save
     globals
         private hashtable ht = InitHashtable()
         private trigger pickTrg = CreateTrigger()
+        integer array globalPlayerBlood
     endglobals
 
     function talentSet takes player p, integer abi, integer lv returns nothing
@@ -34,7 +35,7 @@ library talent initializer init requires userState, save
         local integer total = 0
         local integer cost = 0
         local integer lv = 0
-        local integer now = GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER)
+        local integer now = globalPlayerBlood[pid]
         <?for id, key in pairs(TALENTLIST) do?>
             set cost = YDWEGetUnitWoodCost('<?=id?>')
             set lv = talentGet(p, '<?=id?>')
@@ -45,7 +46,7 @@ library talent initializer init requires userState, save
             call talentSet(p, '<?=id?>', 0)
         <?end?>
         call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, now + total)
-        call DZSaveInt(p, "尊贵之血", GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER))
+        call DZSaveInt(p, "尊贵之血", now + total)
     endfunction
 
     private function clear takes nothing returns nothing
@@ -79,9 +80,6 @@ library talent initializer init requires userState, save
 
         call Debug("pickTalent| pickId="+YDWEId2S(pickId))
 
-        call RemoveUnit(sell)
-        call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl", GetUnitX(udg_Heros[pid]), GetUnitY(udg_Heros[pid])))
-        call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIlm\\AIlmTarget.mdl", GetUnitX(shop), GetUnitY(shop)))
         if level >= max then
             //如果已经满级，则记录一下
             call DZSaveInt(Player(pid-1), YDWEId2S(pickId)+"Max", max)
@@ -91,9 +89,13 @@ library talent initializer init requires userState, save
 
         call SaveInteger(ht, pid, pickId, level)
         call DZSaveInt(Player(pid-1), YDWEId2S(pickId), level)
-        call DZSaveInt(Player(pid-1), "尊贵之血", GetPlayerState(Player(pid-1), PLAYER_STATE_RESOURCE_LUMBER))
+        call DZSaveInt(Player(pid-1), "尊贵之血", globalPlayerBlood[pid] - GetUnitWoodCost(sell))
 
         call add(pid, shop)
+        
+        call RemoveUnit(sell)
+        call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl", GetUnitX(udg_Heros[pid]), GetUnitY(udg_Heros[pid])))
+        call DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\AIlm\\AIlmTarget.mdl", GetUnitX(shop), GetUnitY(shop)))
         set sell = null
         set shop = null
     endfunction
@@ -116,7 +118,12 @@ library talent initializer init requires userState, save
                     call SaveBoolean(ht, <?=i?>, '<?=id?>', true)
                 endif
                 set blood = DZLoadInt(Player(<?=pid?>), "尊贵之血")
-                call SetPlayerState(Player(<?=pid?>), PLAYER_STATE_RESOURCE_LUMBER, GetPlayerState(Player(<?=i?>), PLAYER_STATE_RESOURCE_LUMBER) + blood)
+                if blood > 1000 then
+                    call DisplayTimedTextToPlayer(Player(<?=pid?>), 0, 0, 30, "|cffffcc00[警告]|r - 检测到触发过尊贵之血数量异常BUG，将尊贵之血置空")
+                    set blood = 0
+                endif
+                set playerBlood[<?=pid?>] = blood
+                call SetPlayerState(Player(<?=pid?>), PLAYER_STATE_RESOURCE_LUMBER, blood)
             endif
             <?end?>
         <?end?>

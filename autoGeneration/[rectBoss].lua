@@ -268,7 +268,7 @@ local bloodList = {
         Art = [[ReplaceableTextures\CommandButtons\BTNTranquility.blp]],
         Tip = [[|cff00ff00月光游侠的能力|r :  |cff6699ff远古祭祀]],
         Ubertip = [[
-尊贵血液越多，伤害越高
+尊贵血液越多，伤害越高(达到30%增伤以后会衰减)
 
 |cff22bb22加伤：|r 1%/2点
     

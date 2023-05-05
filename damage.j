@@ -18,6 +18,10 @@ library damage requires baseSystem, dotBuff, userState
         local integer int
         local real result = 0
 
+        if dmg > 99999 then
+            return 0
+        endif
+
         if rateLv > 0 then
             set rate = rateLv * 5
         endif
@@ -65,7 +69,11 @@ library damage requires baseSystem, dotBuff, userState
         if bloodAbilities[id+61] then
             set blood = GetPlayerState(GetOwningPlayer(hero), PLAYER_STATE_RESOURCE_LUMBER)
             if blood > 0 then
-                set rate = rate + 1 * blood/2
+                if blood > 60 then
+                    set rate = rate + 30 + 70*(blood - 60)/((blood - 60) + 300)
+                else
+                    set rate = rate + 1 * blood/2
+                endif
             endif
         endif
 
@@ -110,7 +118,7 @@ library damage requires baseSystem, dotBuff, userState
         endif
 
         set result = dmg * rate + add
-        call YDUserDataSet(unit, target, "最后伤害数值", real, result)
+        call YDUserDataSet(unit, target, "最后伤害数值", real, dmg+result)
         return result
     endfunction
 

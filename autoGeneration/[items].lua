@@ -737,9 +737,8 @@ local itemList = {
             LightningEffect = [[]],
             DataA = {0.5},
             DataB = {0},
-            DataC = {99999},
+            DataC = {999999},
             Rng = {800},
-            TargetArt = [[Abilities\Spells\Human\MarkOfChaos\MarkOfChaosTarget.mdl]],
         },
     }
 }
